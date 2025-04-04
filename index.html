@@ -110,13 +110,10 @@
       background: rgba(255, 255, 255, 0.12) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="white"><polygon points="0,0 8,0 4,8"/></svg>') no-repeat 95% center;
       appearance: none;
     }
-    .dropdown-btn {
+    .dropdown-btn, .submit-btn {
       width: 100%;
       padding: 12px;
       margin: 8px 0;
-      background: linear-gradient(to right, #26c6da, #0288d1);
-      color: #fff;
-      border: 1px solid #26c6da;
       border-radius: 6px;
       font-size: 0.9em;
       cursor: pointer;
@@ -124,10 +121,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 3px 12px rgba(38, 198, 218, 0.3);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
+    .dropdown-btn {
+      background: linear-gradient(to right, #0288d1, #01579b);
+      border: 1px solid #0288d1;
+      color: #fff;
+    }
     .dropdown-btn:hover {
+      background: linear-gradient(to right, #01579b, #003566);
+      border-color: #01579b;
+    }
+    .submit-btn {
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      border: 1px solid #26c6da;
+      color: #fff;
+    }
+    .submit-btn:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
       border-color: #0288d1;
     }
@@ -632,7 +643,7 @@
           </div>
         </div>
         
-        <button type="submit" data-lang="submit">Get Matched with a Top Agent Today!</button>
+        <button type="submit" class="submit-btn" data-lang="submit">Get Matched with a Top Agent Today!</button>
       </form>
     </div>
     <footer>
