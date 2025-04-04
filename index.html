@@ -110,10 +110,65 @@
       background: rgba(255, 255, 255, 0.12) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="white"><polygon points="0,0 8,0 4,8"/></svg>') no-repeat 95% center;
       appearance: none;
     }
-    .dropdown-btn, .submit-btn {
+    .dropdown-btn {
       width: 100%;
       padding: 12px;
       margin: 8px 0;
+      background: linear-gradient(to right, #ff8c00, #e65100);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .dropdown-btn:hover {
+      background: linear-gradient(to right, #e65100, #d64100);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(230, 81, 0, 0.5);
+    }
+    .dropdown-icon {
+      font-size: 0.9em;
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .dropdown-btn:hover .dropdown-icon {
+      transform: rotate(180deg);
+    }
+    .dropdown-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+    .dropdown-btn:hover::before {
+      left: 100%;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      color: #fff;
+      border: 1px solid #26c6da;
       border-radius: 6px;
       font-size: 0.9em;
       cursor: pointer;
@@ -121,31 +176,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 3px 12px rgba(38, 198, 218, 0.3);
       text-align: center;
-    }
-    .dropdown-btn {
-      background: linear-gradient(to right, #0288d1, #01579b);
-      border: 1px solid #0288d1;
-      color: #fff;
-    }
-    .dropdown-btn:hover {
-      background: linear-gradient(to right, #01579b, #003566);
-      border-color: #01579b;
-    }
-    .submit-btn {
-      background: linear-gradient(to right, #26c6da, #0288d1);
-      border: 1px solid #26c6da;
-      color: #fff;
     }
     .submit-btn:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
       border-color: #0288d1;
-    }
-    .dropdown-icon {
-      font-size: 0.7em;
-      margin-left: 10px;
-      opacity: 0.9;
     }
     .dropdown-content {
       display: none;
@@ -377,7 +413,7 @@
         
         <input type="hidden" name="entry.46770330" id="selectedLanguage" value="en">
         
-        <button type="button" class="dropdown-btn" onclick="toggleDropdown()" data-lang="dropdown_btn">+ Add More Details for a Tailored Agent Match! <span class="dropdown-icon">▼</span></button>
+        <button type="button" class="dropdown-btn" onclick="toggleDropdown()" data-lang="dropdown_btn">Enhance Your Match – Add More Details for a Smarter Fit + <span class="dropdown-icon">▼</span></button>
         
         <div id="moreInfo" class="dropdown-content">
           <h3 data-lang="intake_title">Client Intake Information</h3>
@@ -643,7 +679,7 @@
           </div>
         </div>
         
-        <button type="submit" class="submit-btn" data-lang="submit">Get Matched with a Top Agent Today!</button>
+        <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
     </div>
     <footer>
@@ -674,7 +710,7 @@
         type_landlord: "Landlord",
         type_investor: "Investor",
         details: "Please share some details about your needs (location, timeline, budget, etc.)",
-        dropdown_btn: "+ Add More Details for a Tailored Agent Match!",
+        dropdown_btn: "Enhance Your Match – Add More Details for a Smarter Fit +",
         intake_title: "Client Intake Information",
         client_type: "Client Type",
         first_time: "First-time",
@@ -784,7 +820,7 @@
         no_agent: "No Agent Experience",
         agent_desc: "Describe Previous Agent Experience",
         requests: "Special Requests or Concerns",
-        submit: "Get Matched with a Top Agent Today!",
+        submit: "Find My Expert Agent Now!",
         footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
         thank_you: "Thank you for submitting! An agent will contact you soon.",
         ok: "OK",
@@ -798,6 +834,7 @@
         lang_french: "French",
         lang_italian: "Italian",
         lang_german: "German",
+        submitting: "Submitting...",
       },
       es: {
         title: "Desbloquea tu propiedad en Florida",
@@ -811,7 +848,7 @@
         type_landlord: "Arrendador",
         type_investor: "Inversionista",
         details: "Por favor, comparte algunos detalles sobre tus necesidades (ubicación, cronograma, presupuesto, etc.)",
-        dropdown_btn: "+ ¡Añade más detalles para una coincidencia de agente personalizada!",
+        dropdown_btn: "Mejora tu coincidencia – Agrega más detalles para un mejor ajuste +",
         intake_title: "Información de ingreso del cliente",
         client_type: "Tipo de cliente",
         first_time: "Primera vez",
@@ -869,7 +906,7 @@
         no_pref_bath: "Sin preferencia",
         square_footage: "Metros cuadrados preferidos",
         locations: "Ubicaciones/barrios preferidos",
-        must_haves: "Características imprescindibles:",
+        must_haves: "Características indispensables:",
         garage: "Garaje",
         basement: "Sótano",
         pool: "Piscina",
@@ -921,7 +958,7 @@
         no_agent: "Sin experiencia con agente",
         agent_desc: "Describe la experiencia previa con agente",
         requests: "Solicitudes o preocupaciones especiales",
-        submit: "¡Encuentra un agente top hoy!",
+        submit: "Encuentra mi agente experto ahora",
         footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
         thank_you: "¡Gracias por enviar! Un agente te contactará pronto.",
         ok: "OK",
@@ -935,6 +972,7 @@
         lang_french: "Francés",
         lang_italian: "Italiano",
         lang_german: "Alemán",
+        submitting: "Enviando...",
       },
       zh: {
         title: "解锁您的佛罗里达房产",
@@ -948,7 +986,7 @@
         type_landlord: "房东",
         type_investor: "投资者",
         details: "请分享您需求的详细信息（位置、时间表、预算等）",
-        dropdown_btn: "+ 添加更多详情以获得定制代理匹配！",
+        dropdown_btn: "提升匹配度 – 添加更多细节以获得更智能的匹配 +",
         intake_title: "客户信息采集",
         client_type: "客户类型",
         first_time: "首次购房者",
@@ -1058,7 +1096,7 @@
         no_agent: "无代理经验",
         agent_desc: "描述之前与代理的经验",
         requests: "特殊请求或关注点",
-        submit: "立即匹配顶级代理！",
+        submit: "立即找到我的专家代理",
         footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
         thank_you: "感谢您的提交！代理将很快联系您。",
         ok: "确定",
@@ -1072,6 +1110,7 @@
         lang_french: "法语",
         lang_italian: "意大利语",
         lang_german: "德语",
+        submitting: "正在提交...",
       },
       ar: {
         title: "افتح عقارك في فلوريدا",
@@ -1085,16 +1124,16 @@
         type_landlord: "مالك",
         type_investor: "مستثمر",
         details: "يرجى مشاركة بعض التفاصيل حول احتياجاتك (الموقع، الجدول الزمني، الميزانية، إلخ)",
-        dropdown_btn: "+ أضف المزيد من التفاصيل لمطابقة وكيل مخصص!",
+        dropdown_btn: "تحسين مطابقتك – أضف المزيد من التفاصيل لتناسب أفضل +",
         intake_title: "معلومات استقبال العميل",
         client_type: "نوع العميل",
         first_time: "المرة الأولى",
         relocating: "الانتقال",
         contact_prefs: "تفضيلات الاتصال",
-        pref_contact_method: "طريقة الاتصال المفضلة:",
+        pref_contact_method: "طريقة الاتصال المفضلة：",
         phone: "هاتف",
         text: "رسالة نصية",
-        best_time: "أفضل وقت للاتصال:",
+        best_time: "أفضل وقت للاتصال：",
         morning: "صباحًا",
         afternoon: "بعد الظهر",
         evening: "مساءً",
@@ -1110,31 +1149,31 @@
         no: "لا",
         in_process: "قيد المعالجة",
         pre_approval_amount: "مبلغ الموافقة المسبقة (إن وجد)",
-        pref_lender: "المقرض المفضل:",
+        pref_lender: "المقرض المفضل：",
         have_lender: "لدي واحد",
         need_lender: "أحتاج توصية",
-        timeline: "الجدول الزمني:",
+        timeline: "الجدول الزمني：",
         immediate: "فوري",
         "1_3_months": "1-3 أشهر",
         "3_6_months": "3-6 أشهر",
         "6_plus_months": "6+ أشهر",
         financial_notes: "المخاوف أو الملاحظات المالية",
         buyers_renters: "للمشترين/المستأجرين",
-        property_type: "نوع العقار:",
+        property_type: "نوع العقار：",
         single_family: "عائلة واحدة",
         condo: "شقة",
         townhouse: "منزل متصل",
         multi_family: "عائلات متعددة",
         commercial: "تجاري",
         land: "أرض",
-        bedrooms: "غرف النوم:",
+        bedrooms: "غرف النوم：",
         "1_bed": "سرير واحد",
         "2_beds": "سريران",
         "3_beds": "3 أسرّة",
         "4_beds": "4 أسرّة",
         "5_plus_beds": "5+ أسرّة",
         no_pref_bed: "لا تفضيل",
-        bathrooms: "الحمامات:",
+        bathrooms: "الحمامات：",
         "1_bath": "حمام واحد",
         "1_5_baths": "1.5 حمام",
         "2_baths": "حمامان",
@@ -1143,7 +1182,7 @@
         no_pref_bath: "لا تفضيل",
         square_footage: "المساحة المفضلة",
         locations: "المواقع/الأحياء المفضلة",
-        must_haves: "الميزات الضرورية:",
+        must_haves: "الميزات الضرورية：",
         garage: "جراج",
         basement: "قبو",
         pool: "مسبح",
@@ -1167,15 +1206,15 @@
         bathrooms_input: "الحمامات",
         mortgage_balance: "رصيد الرهن العقاري",
         estimated_value: "القيمة المقدرة",
-        sell_reason: "سبب البيع/التأجير:",
+        sell_reason: "سبب البيع/التأجير：",
         upgrading: "الترقية",
         downsizing: "التصغير",
         investment: "الاستثمار",
         financial: "مالي",
         other_reason: "سبب آخر",
-        sell_timeline: "الجدول الزمني للبيع/التأجير:",
+        sell_timeline: "الجدول الزمني للبيع/التأجير：",
         asap: "في أقرب وقت ممكن",
-        property_condition: "حالة العقار:",
+        property_condition: "حالة العقار：",
         excellent: "ممتاز",
         good: "جيد",
         fair: "مقبول",
@@ -1190,14 +1229,14 @@
         sign: "لافتة",
         online_review: "مراجعة عبر الإنترنت",
         other_source: "مصدر آخر",
-        agent_exp: "تجربة سابقة مع وكيل:",
+        agent_exp: "تجربة سابقة مع وكيل：",
         worked_agent: "عملت مع وكيل",
         no_agent: "لا توجد تجربة مع وكيل",
         agent_desc: "صف تجربتك السابقة مع وكيل",
         requests: "طلبات أو مخاوف خاصة",
-        submit: "احصل على مطابقة مع وكيل متميز اليوم!",
-        footer: "مدعوم من Web3RealtorFL - ربط العقارات والبلوك تشين",
-        thank_you: "شكرًا لتقديمك! سيتواصل معك وكيل قريبًا.",
+        submit: "ابحث عن وكيل خبير الآن",
+        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        thank_you: "شكرًا لتقديمك！ سيتواصل معك وكيل قريبًا.",
         ok: "موافق",
         select_language: "اختر لغتك المفضلة",
         lang_english: "الإنجليزية",
@@ -1209,6 +1248,7 @@
         lang_french: "الفرنسية",
         lang_italian: "الإيطالية",
         lang_german: "الألمانية",
+        submitting: "جاري الإرسال...",
       },
       ru: {
         title: "Откройте свою недвижимость во Флориде",
@@ -1222,7 +1262,7 @@
         type_landlord: "Арендодатель",
         type_investor: "Инвестор",
         details: "Пожалуйста, поделитесь некоторыми деталями о ваших потребностях (местоположение, сроки, бюджет и т.д.)",
-        dropdown_btn: "+ Добавить больше деталей для индивидуального подбора агента!",
+        dropdown_btn: "Улучшите совпадение – Добавьте больше деталей для более умной совместимости +",
         intake_title: "Информация о клиенте",
         client_type: "Тип клиента",
         first_time: "Впервые",
@@ -1280,7 +1320,7 @@
         no_pref_bath: "Без предпочтений",
         square_footage: "Предпочитаемая площадь",
         locations: "Предпочитаемые места/районы",
-        must_haves: "Обязательные характеристики:",
+        must_haves: "Must-Have-Мерkmale:",
         garage: "Гараж",
         basement: "Подвал",
         pool: "Бассейн",
@@ -1346,6 +1386,7 @@
         lang_french: "Французский",
         lang_italian: "Итальянский",
         lang_german: "Немецкий",
+        submitting: "Отправка...",
       },
       pt: {
         title: "Desbloqueie sua propriedade na Flórida",
@@ -1359,7 +1400,7 @@
         type_landlord: "Proprietário",
         type_investor: "Investidor",
         details: "Por favor, compartilhe alguns detalhes sobre suas necessidades (localização, cronograma, orçamento, etc.)",
-        dropdown_btn: "+ Adicione mais detalhes para uma combinação de agente personalizada!",
+        dropdown_btn: "Melhore seu match – Adicione mais detalhes para um ajuste mais inteligente +",
         intake_title: "Informações de entrada do cliente",
         client_type: "Tipo de cliente",
         first_time: "Primeira vez",
@@ -1376,7 +1417,7 @@
         phone_number: "Número de telefone",
         address: "Endereço atual",
         financial_info: "Informações financeiras",
-        income: "Renda anual familiar",
+        income: "Renda anual do lar",
         budget_min: "Orçamento mínimo ($)",
         budget_max: "Orçamento máximo ($)",
         pre_approved: "Pré-aprovado para hipoteca?",
@@ -1483,6 +1524,7 @@
         lang_french: "Francês",
         lang_italian: "Italiano",
         lang_german: "Alemão",
+        submitting: "Enviando...",
       },
       fr: {
         title: "Déverrouillez votre propriété en Floride",
@@ -1496,7 +1538,7 @@
         type_landlord: "Propriétaire",
         type_investor: "Investisseur",
         details: "Veuillez partager quelques détails sur vos besoins (emplacement, calendrier, budget, etc.)",
-        dropdown_btn: "+ Ajoutez plus de détails pour un matching d'agent sur mesure !",
+        dropdown_btn: "Améliorez votre correspondance – Ajoutez plus de détails pour un meilleur ajustement +",
         intake_title: "Informations d'admission du client",
         client_type: "Type de client",
         first_time: "Première fois",
@@ -1620,6 +1662,7 @@
         lang_french: "Français",
         lang_italian: "Italien",
         lang_german: "Allemand",
+        submitting: "Envoi...",
       },
       it: {
         title: "Sblocca la tua proprietà in Florida",
@@ -1633,7 +1676,7 @@
         type_landlord: "Proprietario",
         type_investor: "Investitore",
         details: "Per favore, condividi alcuni dettagli sulle tue esigenze (posizione, tempistiche, budget, ecc.)",
-        dropdown_btn: "+ Aggiungi più dettagli per un abbinamento agente personalizzato!",
+        dropdown_btn: "Migliora il tuo abbinamento – Aggiungi più dettagli per un abbinamento più intelligente +",
         intake_title: "Informazioni di accoglienza del cliente",
         client_type: "Tipo di cliente",
         first_time: "Prima volta",
@@ -1757,6 +1800,7 @@
         lang_french: "Francese",
         lang_italian: "Italiano",
         lang_german: "Tedesco",
+        submitting: "Invio...",
       },
       de: {
         title: "Entsperren Sie Ihre Florida-Immobilie",
@@ -1770,7 +1814,7 @@
         type_landlord: "Vermieter",
         type_investor: "Investor",
         details: "Bitte teilen Sie einige Details zu Ihren Bedürfnissen mit (Standort, Zeitplan, Budget usw.)",
-        dropdown_btn: "+ Fügen Sie mehr Details für eine maßgeschneiderte Agenten-Zuordnung hinzu!",
+        dropdown_btn: "Verbessere deine Zuordnung – Füge mehr Details hinzu für eine bessere Anpassung +",
         intake_title: "Kundenaufnahmeinformationen",
         client_type: "Kundentyp",
         first_time: "Erstmalig",
@@ -1795,7 +1839,7 @@
         no: "Nein",
         in_process: "In Bearbeitung",
         pre_approval_amount: "Vorabgenehmigungsbetrag (falls zutreffend)",
-        pref_lender: "Bevorzugter Kreditgeber:",
+        pref_lender: "Prestador preferido:",
         have_lender: "Habe einen",
         need_lender: "Brauche eine Empfehlung",
         timeline: "Zeitplan:",
@@ -1844,7 +1888,7 @@
         move_in_ready: "Bezugsfertig",
         fixer_upper: "Renovierungsbedürftig OK",
         other_features: "Andere Merkmale",
-        deal_breakers: "Ausschlusskriterien",
+        deal_breakers: "Kritische Faktoren",
         sellers_landlords: "Für Verkäufer/Vermieter",
         property_address: "Immobilienadresse",
         year_built: "Baujahr",
@@ -1872,7 +1916,7 @@
         referral: "Empfehlung",
         website: "Website",
         social_media: "Soziale Medien",
-        sign: "Schild",
+        sign: "Vorschlag",
         online_review: "Online-Bewertung",
         other_source: "Andere Quelle",
         agent_exp: "Frühere Erfahrungen mit einem Agenten:",
@@ -1894,6 +1938,7 @@
         lang_french: "Französisch",
         lang_italian: "Italienisch",
         lang_german: "Deutsch",
+        submitting: "Senden...",
       },
       ja: {
         title: "あなたのフロリダの不動産を解放",
@@ -1907,7 +1952,7 @@
         type_landlord: "大家",
         type_investor: "投資家",
         details: "あなたのニーズに関する詳細（場所、時間枠、予算など）を共有してください",
-        dropdown_btn: "+ カスタマイズされたエージェントマッチングのために詳細を追加！",
+        dropdown_btn: "マッチングを強化 - よりスマートなフィットのために詳細を追加 +",
         intake_title: "クライアント情報収集",
         client_type: "クライアントタイプ",
         first_time: "初めて",
@@ -2017,10 +2062,21 @@
         no_agent: "エージェント経験なし",
         agent_desc: "以前のエージェント経験を記述",
         requests: "特別な要望または懸念",
-        submit: "今日、トップエージェントとマッチング！",
+        submit: "今すぐ私の専門エージェントを見つけよう",
         footer: "Web3RealtorFL提供 - 不動産とブロックチェーンをつなぐ",
         thank_you: "ご提出ありがとうございます！エージェントがまもなくご連絡いたします。",
-        ok: "OK"
+        ok: "OK",
+        select_language: "選択する言語",
+        lang_english: "英語",
+        lang_spanish: "スペイン語",
+        lang_chinese: "中国語",
+        lang_arabic: "アラビア語",
+        lang_russian: "ロシア語",
+        lang_portuguese: "ポルトガル語",
+        lang_french: "フランス語",
+        lang_italian: "イタリア語",
+        lang_german: "ドイツ語",
+        submitting: "送信中...",
       }
     };
 
@@ -2039,76 +2095,50 @@
     };
 
     function changeLanguage(lang) {
-      const spans = document.querySelectorAll('.language-selector span:not(.more-languages) > span, .language-selector > span');
-      spans.forEach(span => {
-        span.style.color = 'rgba(255, 255, 255, 0.5)';
+      localStorage.setItem('selectedLanguage', lang);
+      const elements = document.querySelectorAll('[data-lang]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-lang');
+        element.textContent = translations[lang][key];
       });
-      const selectedSpan = document.querySelector(`[onclick="changeLanguage('${lang}')"]`);
-      if (selectedSpan) selectedSpan.style.color = '#fff';
-      
-      if (translations[lang]) {
-        document.querySelectorAll("[data-lang]").forEach(element => {
-          const key = element.getAttribute("data-lang");
-          if (translations[lang][key]) {
-            if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-              element.placeholder = translations[lang][key];
-            } else if (element.tagName === "OPTION") {
-              element.textContent = translations[lang][key];
-            } else {
-              element.textContent = translations[lang][key];
-            }
-          }
-        });
-        document.documentElement.lang = lang;
-
-        // Update hidden input with full English name
-        document.getElementById("selectedLanguage").value = languageNames[lang] || lang;
-
-        console.log('Language changed to:', lang);
-      } else {
-        console.error(`Language ${lang} not found in translations.`);
-      }
+      document.getElementById('selectedLanguage').value = lang;
     }
 
     // Load preferred language from localStorage if available
     window.onload = function() {
-      const preferredLang = localStorage.getItem('preferredLanguage') || 'en';
-      changeLanguage(preferredLang);
+      const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+      changeLanguage(savedLang);
     };
 
     function submitForm(event) {
       event.preventDefault();
-      const form = event.target;
-      const iframe = document.getElementById('hiddenIframe');
+      const form = document.getElementById('referralForm');
+      const popup = document.getElementById('thankYouPopup');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const selectedLang = document.getElementById('selectedLanguage').value;
       
       // Show loading state
-      const submitButton = form.querySelector('button[type="submit"]');
-      const originalText = submitButton.textContent;
-      submitButton.disabled = true;
-      submitButton.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      submitBtn.textContent = translations[selectedLang]['submitting'] || 'Submitting...';
       
       // Submit form
       form.submit();
       
-      // Create hidden iframe if it doesn't exist
-      if (!iframe) {
-        const iframe = document.createElement('iframe');
-        iframe.id = 'hiddenIframe';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-      }
-      
-      // Handle successful submission
-      iframe.onload = function() {
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
+      // Show popup after form submission
+      setTimeout(() => {
+        popup.style.display = 'block';
         
-        // Show thank you popup
-        const popup = document.getElementById("thankYouPopup");
-        if (popup) {
-          popup.style.display = "block";
-        }
-      };
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          popup.style.display = 'none';
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = translations[selectedLang]['submit'] || 'Find My Expert Agent Now';
+          
+          // Reapply language selection
+          changeLanguage(selectedLang);
+        }, 3000);
+      }, 1000);
     }
 
     function toggleDropdown() {
