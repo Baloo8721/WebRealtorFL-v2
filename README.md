@@ -18,7 +18,8 @@ git clone https://github.com/Baloo8721/Web3RealtorFL.git
 To run the application locally, navigate to the project directory and open `index.html` in your web browser.
 
 ## Deployment
-The application is deployed on GitHub Pages. You can access the live version here: [Web3RealtorFL GitHub Pages]https://github.com/Baloo8721/WebRealtorFL-v2
+The application is deployed on GitHub Pages. You can access the live version here: [Web3RealtorFL-v2](https://baloo8721.github.io/WebRealtorFL-v2/)
+
 ## Contributing
 If you would like to contribute to the project, please fork the repository and submit a pull request with your changes.
 
@@ -27,5 +28,3 @@ This project is licensed under the MIT License.
 
 ## Contact
 For any inquiries, please contact [your-email@example.com].
-
-https://github.com/Baloo8721/WebRealtorFL-v2
