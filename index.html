@@ -1,0 +1,2125 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-lang="title">Web3RealtorFL - Your Florida Property Match</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 0.95em;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 60px 15px 30px 15px;
+      text-align: center;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 30, 50, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+    .container {
+      max-width: 550px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .language-selector {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 0 0 0 20px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9em;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .language-selector span {
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .language-selector span:hover {
+      color: #26c6da;
+    }
+    h1, h3, h4, .section-title, .form-group-title {
+      font-family: 'Inter', sans-serif;
+    }
+    h1 {
+      font-size: 2.25em;
+      color: #26c6da;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      text-shadow: 0 2px 6px rgba(38, 198, 218, 0.4);
+    }
+    p.subtitle {
+      font-size: 1.15em;
+      color: #e0e6ed;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+    }
+    .form-box {
+      background: rgba(30, 40, 60, 0.9);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1em;
+      font-weight: 400;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+    form input:focus, form textarea:focus, form select:focus {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #26c6da;
+    }
+    form input::placeholder, form textarea::placeholder {
+      color: #d0d0d0;
+      font-weight: 300;
+    }
+    form textarea {
+      height: 70px;
+      resize: vertical;
+    }
+    form select {
+      background: rgba(255, 255, 255, 0.12) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="white"><polygon points="0,0 8,0 4,8"/></svg>') no-repeat 95% center;
+      appearance: none;
+    }
+    .dropdown-btn {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      color: #fff;
+      border: 1px solid #26c6da;
+      border-radius: 6px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 12px rgba(38, 198, 218, 0.3);
+      text-align: center;
+    }
+    .dropdown-btn:hover {
+      background: linear-gradient(to right, #0288d1, #01579b);
+      border-color: #0288d1;
+    }
+    .dropdown-icon {
+      font-size: 0.7em;
+      margin-left: 10px;
+      opacity: 0.9;
+    }
+    .dropdown-content {
+      display: none;
+      background: rgba(30, 40, 60, 0.95);
+      padding: 15px;
+      margin: 8px 0;
+      border-radius: 8px;
+      text-align: left;
+      max-height: 350px;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
+    .dropdown-content h3 {
+      font-size: 1.2em;
+      color: #26c6da;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    .section {
+      margin-bottom: 25px;
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+    .section:nth-child(1) { background: linear-gradient(to right, rgba(35, 45, 65, 0.9), rgba(45, 55, 75, 0.9)); }
+    .section:nth-child(2) { background: linear-gradient(to right, rgba(40, 50, 70, 0.9), rgba(50, 60, 80, 0.9)); }
+    .section:nth-child(3) { background: linear-gradient(to right, rgba(45, 55, 75, 0.9), rgba(55, 65, 85, 0.9)); }
+    .section:nth-child(4) { background: linear-gradient(to right, rgba(50, 60, 80, 0.9), rgba(60, 70, 90, 0.9)); }
+    .section:nth-child(5) { background: linear-gradient(to right, rgba(55, 65, 85, 0.9), rgba(65, 75, 95, 0.9)); }
+    .section:nth-child(6) { background: linear-gradient(to right, rgba(60, 70, 90, 0.9), rgba(70, 80, 100, 0.9)); }
+    .section-title {
+      font-size: 1.05em;
+      color: #26c6da;
+      margin-bottom: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .section-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.3);
+      margin-left: 15px;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group-title {
+      font-size: 0.88em;
+      color: #e0e6ed;
+      margin-bottom: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.9;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    .checkbox-label:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .checkbox-label input[type="checkbox"]:checked {
+      background: #26c6da;
+      border-color: #26c6da;
+    }
+    .powered-by {
+      color: #b0bec5;
+      margin-top: 20px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .powered-by:hover {
+      color: #e0e6ed;
+    }
+    .popup {
+      background: rgba(30, 40, 60, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: none;
+    }
+    .popup button {
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+    .popup button:hover {
+      background: linear-gradient(to right, #0288d1, #01579b);
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8em; }
+      p.subtitle { font-size: 0.9em; }
+      .form-box { padding: 15px; }
+      .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .checkbox-label {
+        width: auto;
+        margin: 0;
+        font-size: 0.85em;
+        padding: 5px 8px;
+      }
+      .checkbox-label:only-child,
+      .checkbox-label:nth-last-child(1):nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+      .dropdown-content { max-height: 400px; }
+      .input-group { flex-direction: column; gap: 4px; }
+      .language-selector { 
+        padding: 8px 15px;
+        font-size: 0.8em;
+      }
+      body {
+        padding: 50px 15px 30px 15px;
+      }
+    }
+    .section { animation: fadeIn 0.4s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0.6; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .language-selector .more-languages {
+      position: relative;
+      display: inline-block;
+    }
+    .language-selector .language-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 5px;
+      padding: 10px;
+      min-width: 120px;
+    }
+    .language-selector .language-dropdown span {
+      display: block;
+      padding: 5px 0;
+    }
+    .language-selector .more-languages:hover .language-dropdown {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="language-selector">
+    <span onclick="changeLanguage('en')">English</span> | 
+    <span onclick="changeLanguage('es')">Español</span> | 
+    <span onclick="changeLanguage('zh')">中文</span> | 
+    <span onclick="changeLanguage('ar')">عربي</span> | 
+    <span class="more-languages">
+      More ▼
+      <div class="language-dropdown">
+        <span onclick="changeLanguage('ru')">Русский</span>
+        <span onclick="changeLanguage('pt')">Português</span>
+        <span onclick="changeLanguage('fr')">Français</span>
+        <span onclick="changeLanguage('it')">Italiano</span>
+        <span onclick="changeLanguage('de')">Deutsch</span>
+        <span onclick="changeLanguage('ja')">日本語</span>
+      </div>
+    </span>
+  </div>
+
+  <div class="container">
+    <h1 data-lang="title">Unlock Your Florida Property</h1>
+    <p class="subtitle" data-lang="subtitle">Free Agent Matching by a Licensed FL Expert + Web3 Innovator</p>
+    <div class="form-box">
+      <form id="referralForm" action="https://docs.google.com/forms/d/e/1FAIpQLSegIYmEO6DOSP9LLY3Zao_nK7Un5vEuA_LrtZgyJvedzvXs0Q/formResponse" method="post" target="hiddenIframe" onsubmit="submitForm(event)">
+       
+        <input type="text" name="entry.29929900" placeholder="Your Name" data-lang="name">
+        <input type="email" name="entry.194166878" placeholder="Your Email" data-lang="email">
+        <select name="entry.664237403">
+          <option value="" data-lang="type_select">Buyer, Seller, Renter, Landlord, Investor</option>
+          <option value="Buyer" data-lang="type_buyer">Buyer</option>
+          <option value="Seller" data-lang="type_seller">Seller</option>
+          <option value="Renter" data-lang="type_renter">Renter</option>
+          <option value="Landlord" data-lang="type_landlord">Landlord</option>
+          <option value="Investor" data-lang="type_investor">Investor</option>
+        </select>
+        <textarea name="entry.928741499" placeholder="Please share some details about your needs (location, timeline, budget, etc.)" data-lang="details"></textarea>
+        
+        <div class="form-group" style="text-align: left;">
+          <label style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
+            Using Crypto?<input type="checkbox" name="entry.870420118" value="Yes" style="margin-left: -26px; vertical-align: middle; position: relative; top: 0; left: 0;">
+          </label>
+        </div>
+        
+        <input type="hidden" name="entry.46770330" id="selectedLanguage" value="en">
+        
+        <button type="button" class="dropdown-btn" onclick="toggleDropdown()" data-lang="dropdown_btn">+ Add More Details for a Tailored Agent Match! <span class="dropdown-icon">▼</span></button>
+        
+        <div id="moreInfo" class="dropdown-content">
+          <h3 data-lang="intake_title">Client Intake Information</h3>
+          
+          <!-- SECTION 1: CLIENT TYPE -->
+          <div class="section">
+            <h4 class="section-title" data-lang="client_type">Client Type</h4>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="entry.2125021941" value="Buyer"> <span data-lang="type_buyer">Buyer</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1530468854" value="Seller"> <span data-lang="type_seller">Seller</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.543064537" value="Renter"> <span data-lang="type_renter">Renter</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.2121218188" value="Landlord"> <span data-lang="type_landlord">Landlord</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1540533292" value="Investor"> <span data-lang="type_investor">Investor</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.2094145242" value="First-time"> <span data-lang="first_time">First-time</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1682660374" value="Relocating"> <span data-lang="relocating">Relocating</span></label>
+            </div>
+          </div>
+          
+          <!-- SECTION 2: CONTACT PREFERENCES -->
+          <div class="section">
+            <h4 class="section-title" data-lang="contact_prefs">Contact Preferences</h4>
+            <div class="form-group">
+              <p class="form-group-title" data-lang="pref_contact_method">Preferred Contact Method:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1784470935" value="Email"> <span data-lang="email">Email</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1382135505" value="Phone"> <span data-lang="phone">Phone</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.746457842" value="Text"> <span data-lang="text">Text</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="best_time">Best Time to Contact:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.507870323" value="Morning"> <span data-lang="morning">Morning</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.633156447" value="Afternoon"> <span data-lang="afternoon">Afternoon</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1588225936" value="Evening"> <span data-lang="evening">Evening</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.396561234" value="Weekend"> <span data-lang="weekend">Weekend</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <input type="tel" name="entry.933003305" placeholder="Phone Number" data-lang="phone_number">
+              <input type="text" name="entry.2027979226" placeholder="Current Address" data-lang="address">
+            </div>
+          </div>
+          
+          <!-- SECTION 3: FINANCIAL INFORMATION -->
+          <div class="section">
+            <h4 class="section-title" data-lang="financial_info">Financial Information</h4>
+            <div class="form-group">
+              <input type="text" name="entry.31247918" placeholder="Annual Household Income" data-lang="income">
+              <div class="input-group">
+                <input type="text" name="entry.63753486" placeholder="Budget Min ($)" data-lang="budget_min">
+                <input type="text" name="entry.1742932268" placeholder="Budget Max ($)" data-lang="budget_max">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="pre_approved">Pre-approved for Mortgage?</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1486562159" value="Yes"> <span data-lang="yes">Yes</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.11298010" value="No"> <span data-lang="no">No</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1352288329" value="In Process"> <span data-lang="in_process">In Process</span></label>
+              </div>
+              <input type="text" name="entry.1914208" placeholder="Pre-approval Amount (if applicable)" data-lang="pre_approval_amount">
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="pref_lender">Preferred Lender:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.2001525745" value="Have one"> <span data-lang="have_lender">Have One</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1610573986" value="Need Recommendation"> <span data-lang="need_lender">Need Recommendation</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="timeline">Timeline:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1350110018" value="Timeline: Immediate"> <span data-lang="immediate">Immediate</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1154472175" value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.541301262" value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.955570355" value="Timeline: 6+ Months"> <span data-lang="6_plus_months">6+ Months</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <textarea name="entry.943507636" placeholder="Financial Concerns or Notes" data-lang="financial_notes"></textarea>
+            </div>
+          </div>
+          
+          <!-- SECTION 4: PROPERTY DETAILS (BUYERS/RENTERS) -->
+          <div class="section">
+            <h4 class="section-title" data-lang="buyers_renters">For Buyers/Renters</h4>
+            <div class="form-group">
+              <p class="form-group-title" data-lang="property_type">Property Type:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.2032480613" value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1441698003" value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.893527413" value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.936901716" value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.710696599" value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1394304339" value="Property Type: Land"> <span data-lang="land">Land</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="bedrooms">Bedrooms:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.381637243" value="Bedrooms: 1 Bed"> <span data-lang="1_bed">1 Bed</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.490256528" value="Bedrooms: 2 Bed"> <span data-lang="2_beds">2 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1853218821" value="Bedrooms: 3 Bed"> <span data-lang="3_beds">3 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.450869975" value="Bedrooms: 4 Bed"> <span data-lang="4_beds">4 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2124537367" value="Bedrooms: 5+ Bed"> <span data-lang="5_plus_beds">5+ Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.745418077" value="Bedrooms: No Preference"> <span data-lang="no_pref_bed">No Preference</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="bathrooms">Bathrooms:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.473709838" value="Bathrooms: 1 Bath"> <span data-lang="1_bath">1 Bath</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.558316983" value="Bathrooms: 1.5 Bath"> <span data-lang="1_5_baths">1.5 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1272970267" value="Bathrooms: 2 Bath"> <span data-lang="2_baths">2 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.858835020" value="Bathrooms: 2.5 Bath"> <span data-lang="2_5_baths">2.5 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1878111594" value="Bathrooms: 3+ Bath"> <span data-lang="3_plus_baths">3+ Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1808838484" value="Bathrooms: No Preference"> <span data-lang="no_pref_bath">No Preference</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <input type="text" name="entry.1104731367" placeholder="Preferred Square Footage" data-lang="square_footage">
+              <input type="text" name="entry.1104739701" placeholder="Preferred Locations/Neighborhoods" data-lang="locations">
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="must_haves">Must-Have Features:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.186840909" value="Must-Have: Garage"> <span data-lang="garage">Garage</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2019790382" value="Must-Have: Basement"> <span data-lang="basement">Basement</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.41356420" value="Must-Have: Pool"> <span data-lang="pool">Pool</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1340775271" value="Must-Have: Yard"> <span data-lang="yard">Yard</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.537888490" value="Must-Have: Main Floor Bedroom"> <span data-lang="main_floor_bed">Main Floor Bedroom</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.766433860" value="Must-Have: Home Office"> <span data-lang="home_office">Home Office</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1135960778" value="Must-Have: Open Floor Plan"> <span data-lang="open_floor">Open Floor Plan</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1108962639" value="Must-Have: Updated Kitchen"> <span data-lang="updated_kitchen">Updated Kitchen</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.912778126" value="Must-Have: Updated Baths"> <span data-lang="updated_baths">Updated Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1595561522" value="Must-Have: Fireplace"> <span data-lang="fireplace">Fireplace</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1229026181" value="Must-Have: Central A/C"> <span data-lang="central_ac">Central A/C</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1332651778" value="Must-Have: Hardwood Floors"> <span data-lang="hardwood">Hardwood Floors</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.582819493" value="Must-Have: Move-in Ready"> <span data-lang="move_in_ready">Move-in Ready</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.112908864" value="Must-Have: Fixer-Upper OK"> <span data-lang="fixer_upper">Fixer-Upper OK</span></label>
+              </div>
+              <textarea name="entry.1696772007" placeholder="Other Features" data-lang="other_features"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <textarea name="entry.49408788" placeholder="Deal Breakers" data-lang="deal_breakers"></textarea>
+            </div>
+          </div>
+          
+          <!-- SECTION 5: PROPERTY DETAILS (SELLERS/LANDLORDS) -->
+          <div class="section">
+            <h4 class="section-title" data-lang="sellers_landlords">For Sellers/Landlords</h4>
+            <div class="form-group">
+              <input type="text" name="entry.995591954" placeholder="Property Address" data-lang="property_address">
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="property_type">Property Type:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1964844066" value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.320610869" value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1576703618" value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1409071418" value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.386997212" value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.252273983" value="Property Type: Land"> <span data-lang="land">Land</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="entry.718364055" placeholder="Year Built" data-lang="year_built">
+                <input type="text" name="entry.729280676" placeholder="Square Footage" data-lang="square_footage">
+              </div>
+              <div class="input-group">
+                <input type="text" name="entry.1483680698" placeholder="Bedrooms" data-lang="bedrooms_input">
+                <input type="text" name="entry.903600913" placeholder="Bathrooms" data-lang="bathrooms_input">
+              </div>
+              <div class="input-group">
+                <input type="text" name="entry.121111067" placeholder="Mortgage Balance" data-lang="mortgage_balance">
+                <input type="text" name="entry.1264906576" placeholder="Estimated Value" data-lang="estimated_value">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="sell_reason">Reason for Selling/Renting:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1965702414" value="Reason: Upgrading"> <span data-lang="upgrading">Upgrading</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1916753753" value="Reason: Downsizing"> <span data-lang="downsizing">Downsizing</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1063786855" value="Reason: Relocating"> <span data-lang="relocating">Relocating</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.391207480" value="Reason: Investment"> <span data-lang="investment">Investment</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.652358924" value="Reason: Financial"> <span data-lang="financial">Financial</span></label>
+              </div>
+              <textarea name="entry.2025298834" placeholder="Other Reason" data-lang="other_reason"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="sell_timeline">Timeline to Sell/Rent:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1209899382" value="Timeline: ASAP"> <span data-lang="asap">ASAP</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1878946645" value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.983580418" value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.788733893" value="Timeline: 6+ Months"> <span data-lang="6_plus_months">6+ Months</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="property_condition">Property Condition:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1925501794" value="Condition: Excellent"> <span data-lang="excellent">Excellent</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1675887181" value="Condition: Good"> <span data-lang="good">Good</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.82161121" value="Condition: Fair"> <span data-lang="fair">Fair</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.799326532" value="Condition: Needs Work"> <span data-lang="needs_work">Needs Work</span></label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <textarea name="entry.2034397475" placeholder="Recent Upgrades/Renovations" data-lang="upgrades"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <textarea name="entry.642482004" placeholder="Known Issues with Property" data-lang="issues"></textarea>
+            </div>
+          </div>
+          
+          <!-- SECTION 6: ADDITIONAL INFORMATION -->
+          <div class="section">
+            <h4 class="section-title" data-lang="additional_info">Additional Information</h4>
+            <div class="form-group">
+              <p class="form-group-title" data-lang="how_heard">How did you hear about us?</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.739656714" value="Heard: Referral"> <span data-lang="referral">Referral</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.623494412" value="Heard: Website"> <span data-lang="website">Website</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1204546887" value="Heard: Social Media"> <span data-lang="social_media">Social Media</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.489161094" value="Heard: Sign"> <span data-lang="sign">Sign</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1272950740" value="Heard: Online Review"> <span data-lang="online_review">Online Review</span></label>
+              </div>
+              <textarea name="entry.2122877220" placeholder="Other Source" data-lang="other_source"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <p class="form-group-title" data-lang="agent_exp">Previous Agent Experience:</p>
+              <div class="checkbox-group">
+                <label class="checkbox-label"><input type="checkbox" name="entry.1463224356" value="Other SourceAgent Experience: Yes"> <span data-lang="worked_agent">Worked with Agent</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1363468769" value="Agent Experience: No"> <span data-lang="no_agent">No Agent Experience</span></label>
+              </div>
+              <textarea name="entry.1285214427" placeholder="Describe Previous Agent Experience" data-lang="agent_desc"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <textarea name="entry.1296254458" placeholder="Special Requests or Concerns" data-lang="requests"></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" data-lang="submit">Get Matched with a Top Agent Today!</button>
+      </form>
+    </div>
+    <footer>
+      <a href="https://tylerbelisle.kw.com/" target="_blank" class="powered-by">Powered by <span style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px;">Web3RealtorFL</span> - Bridging Real Estate & Blockchain</a>
+    </footer>
+  </div>
+
+  <!-- Popup -->
+  <div id="thankYouPopup" class="popup">
+    <p data-lang="thank_you">Thank you for submitting! An agent will contact you soon.</p>
+    <button onclick="closePopup()" data-lang="ok">OK</button>
+  </div>
+
+  <!-- Hidden iframe for form submission -->
+  <iframe name="hiddenIframe" style="display:none;"></iframe>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Unlock Your Florida Property",
+        subtitle: "Free Agent Matching by a Licensed FL Expert + Web3 Innovator",
+        name: "Your Name",
+        email: "Your Email",
+        type_select: "Buyer, Seller, Renter, Landlord, Investor",
+        type_buyer: "Buyer",
+        type_seller: "Seller",
+        type_renter: "Renter",
+        type_landlord: "Landlord",
+        type_investor: "Investor",
+        details: "Please share some details about your needs (location, timeline, budget, etc.)",
+        dropdown_btn: "+ Add More Details for a Tailored Agent Match!",
+        intake_title: "Client Intake Information",
+        client_type: "Client Type",
+        first_time: "First-time",
+        relocating: "Relocating",
+        contact_prefs: "Contact Preferences",
+        pref_contact_method: "Preferred Contact Method:",
+        phone: "Phone",
+        text: "Text",
+        best_time: "Best Time to Contact:",
+        morning: "Morning",
+        afternoon: "Afternoon",
+        evening: "Evening",
+        weekend: "Weekend",
+        phone_number: "Phone Number",
+        address: "Current Address",
+        financial_info: "Financial Information",
+        income: "Annual Household Income",
+        budget_min: "Budget Min ($)",
+        budget_max: "Budget Max ($)",
+        pre_approved: "Pre-approved for Mortgage?",
+        yes: "Yes",
+        no: "No",
+        in_process: "In Process",
+        pre_approval_amount: "Pre-approval Amount (if applicable)",
+        pref_lender: "Preferred Lender:",
+        have_lender: "Have One",
+        need_lender: "Need Recommendation",
+        timeline: "Timeline:",
+        immediate: "Immediate",
+        "1_3_months": "1-3 Months",
+        "3_6_months": "3-6 Months",
+        "6_plus_months": "6+ Months",
+        financial_notes: "Financial Concerns or Notes",
+        buyers_renters: "For Buyers/Renters",
+        property_type: "Property Type:",
+        single_family: "Single-family",
+        condo: "Condo",
+        townhouse: "Townhouse",
+        multi_family: "Multi-family",
+        commercial: "Commercial",
+        land: "Land",
+        bedrooms: "Bedrooms:",
+        "1_bed": "1 Bed",
+        "2_beds": "2 Beds",
+        "3_beds": "3 Beds",
+        "4_beds": "4 Beds",
+        "5_plus_beds": "5+ Beds",
+        no_pref_bed: "No Preference",
+        bathrooms: "Bathrooms:",
+        "1_bath": "1 Bath",
+        "1_5_baths": "1.5 Baths",
+        "2_baths": "2 Baths",
+        "2_5_baths": "2.5 Baths",
+        "3_plus_baths": "3+ Baths",
+        no_pref_bath: "No Preference",
+        square_footage: "Preferred Square Footage",
+        locations: "Preferred Locations/Neighborhoods",
+        must_haves: "Must-Have Features:",
+        garage: "Garage",
+        basement: "Basement",
+        pool: "Pool",
+        yard: "Yard",
+        main_floor_bed: "Main Floor Bedroom",
+        home_office: "Home Office",
+        open_floor: "Open Floor Plan",
+        updated_kitchen: "Updated Kitchen",
+        updated_baths: "Updated Baths",
+        fireplace: "Fireplace",
+        central_ac: "Central A/C",
+        hardwood: "Hardwood Floors",
+        move_in_ready: "Move-in Ready",
+        fixer_upper: "Fixer-Upper OK",
+        other_features: "Other Features",
+        deal_breakers: "Deal Breakers",
+        sellers_landlords: "For Sellers/Landlords",
+        property_address: "Property Address",
+        year_built: "Year Built",
+        bedrooms_input: "Bedrooms",
+        bathrooms_input: "Bathrooms",
+        mortgage_balance: "Mortgage Balance",
+        estimated_value: "Estimated Value",
+        sell_reason: "Reason for Selling/Renting:",
+        upgrading: "Upgrading",
+        downsizing: "Downsizing",
+        investment: "Investment",
+        financial: "Financial",
+        other_reason: "Other Reason",
+        sell_timeline: "Timeline to Sell/Rent:",
+        asap: "ASAP",
+        property_condition: "Property Condition:",
+        excellent: "Excellent",
+        good: "Good",
+        fair: "Fair",
+        needs_work: "Needs Work",
+        upgrades: "Recent Upgrades/Renovations",
+        issues: "Known Issues with Property",
+        additional_info: "Additional Information",
+        how_heard: "How did you hear about us?",
+        referral: "Referral",
+        website: "Website",
+        social_media: "Social Media",
+        sign: "Sign",
+        online_review: "Online Review",
+        other_source: "Other Source",
+        agent_exp: "Previous Agent Experience:",
+        worked_agent: "Worked with Agent",
+        no_agent: "No Agent Experience",
+        agent_desc: "Describe Previous Agent Experience",
+        requests: "Special Requests or Concerns",
+        submit: "Get Matched with a Top Agent Today!",
+        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        thank_you: "Thank you for submitting! An agent will contact you soon.",
+        ok: "OK",
+        select_language: "Select your preferred language",
+        lang_english: "English",
+        lang_spanish: "Spanish",
+        lang_chinese: "Chinese",
+        lang_arabic: "Arabic",
+        lang_russian: "Russian",
+        lang_portuguese: "Portuguese",
+        lang_french: "French",
+        lang_italian: "Italian",
+        lang_german: "German",
+      },
+      es: {
+        title: "Desbloquea tu propiedad en Florida",
+        subtitle: "Emparejamiento gratuito con agente por un experto licenciado en FL + Innovador Web3",
+        name: "Tu nombre",
+        email: "Tu correo electrónico",
+        type_select: "Comprador, Vendedor, Inquilino, Arrendador, Inversionista",
+        type_buyer: "Comprador",
+        type_seller: "Vendedor",
+        type_renter: "Inquilino",
+        type_landlord: "Arrendador",
+        type_investor: "Inversionista",
+        details: "Por favor, comparte algunos detalles sobre tus necesidades (ubicación, cronograma, presupuesto, etc.)",
+        dropdown_btn: "+ ¡Añade más detalles para una coincidencia de agente personalizada!",
+        intake_title: "Información de ingreso del cliente",
+        client_type: "Tipo de cliente",
+        first_time: "Primera vez",
+        relocating: "Mudándose",
+        contact_prefs: "Preferencias de contacto",
+        pref_contact_method: "Método de contacto preferido:",
+        phone: "Teléfono",
+        text: "Texto",
+        best_time: "Mejor momento para contactar:",
+        morning: "Mañana",
+        afternoon: "Tarde",
+        evening: "Noche",
+        weekend: "Fin de semana",
+        phone_number: "Número de teléfono",
+        address: "Dirección actual",
+        financial_info: "Información financiera",
+        income: "Ingreso anual del hogar",
+        budget_min: "Presupuesto mínimo ($)",
+        budget_max: "Presupuesto máximo ($)",
+        pre_approved: "¿Preaprobado para hipoteca?",
+        yes: "Sí",
+        no: "No",
+        in_process: "En proceso",
+        pre_approval_amount: "Monto de preaprobación (si aplica)",
+        pref_lender: "Prestamista preferido:",
+        have_lender: "Tengo uno",
+        need_lender: "Necesito recomendación",
+        timeline: "Cronograma:",
+        immediate: "Inmediato",
+        "1_3_months": "1-3 meses",
+        "3_6_months": "3-6 meses",
+        "6_plus_months": "6+ meses",
+        financial_notes: "Preocupaciones o notas financieras",
+        buyers_renters: "Para compradores/inquilinos",
+        property_type: "Tipo de propiedad:",
+        single_family: "Unifamiliar",
+        condo: "Condominio",
+        townhouse: "Casa adosada",
+        multi_family: "Multifamiliar",
+        commercial: "Comercial",
+        land: "Terreno",
+        bedrooms: "Dormitorios:",
+        "1_bed": "1 cama",
+        "2_beds": "2 camas",
+        "3_beds": "3 camas",
+        "4_beds": "4 camas",
+        "5_plus_beds": "5+ camas",
+        no_pref_bed: "Sin preferencia",
+        bathrooms: "Baños:",
+        "1_bath": "1 baño",
+        "1_5_baths": "1.5 baños",
+        "2_baths": "2 baños",
+        "2_5_baths": "2.5 baños",
+        "3_plus_baths": "3+ baños",
+        no_pref_bath: "Sin preferencia",
+        square_footage: "Metros cuadrados preferidos",
+        locations: "Ubicaciones/barrios preferidos",
+        must_haves: "Características imprescindibles:",
+        garage: "Garaje",
+        basement: "Sótano",
+        pool: "Piscina",
+        yard: "Patio",
+        main_floor_bed: "Dormitorio en planta baja",
+        home_office: "Oficina en casa",
+        open_floor: "Planta abierta",
+        updated_kitchen: "Cocina actualizada",
+        updated_baths: "Baños actualizados",
+        fireplace: "Chimenea",
+        central_ac: "Aire acondicionado central",
+        hardwood: "Pisos de madera",
+        move_in_ready: "Listo para mudarse",
+        fixer_upper: "Para renovar OK",
+        other_features: "Otras características",
+        deal_breakers: "Factores decisivos",
+        sellers_landlords: "Para vendedores/arrendadores",
+        property_address: "Dirección de la propiedad",
+        year_built: "Año de construcción",
+        bedrooms_input: "Dormitorios",
+        bathrooms_input: "Baños",
+        mortgage_balance: "Saldo de la hipoteca",
+        estimated_value: "Valor estimado",
+        sell_reason: "Razón para vender/alquilar:",
+        upgrading: "Mejorar",
+        downsizing: "Reducir",
+        investment: "Inversión",
+        financial: "Financiero",
+        other_reason: "Otra razón",
+        sell_timeline: "Cronograma para vender/alquilar:",
+        asap: "Lo antes posible",
+        property_condition: "Condición de la propiedad:",
+        excellent: "Excelente",
+        good: "Bueno",
+        fair: "Regular",
+        needs_work: "Necesita trabajo",
+        upgrades: "Mejoras/renovaciones recientes",
+        issues: "Problemas conocidos con la propiedad",
+        additional_info: "Información adicional",
+        how_heard: "¿Cómo nos conociste?",
+        referral: "Referencia",
+        website: "Sitio web",
+        social_media: "Redes sociales",
+        sign: "Cartel",
+        online_review: "Revisión en línea",
+        other_source: "Otra fuente",
+        agent_exp: "Experiencia previa con agente:",
+        worked_agent: "Trabajó con agente",
+        no_agent: "Sin experiencia con agente",
+        agent_desc: "Describe la experiencia previa con agente",
+        requests: "Solicitudes o preocupaciones especiales",
+        submit: "¡Encuentra un agente top hoy!",
+        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        thank_you: "¡Gracias por enviar! Un agente te contactará pronto.",
+        ok: "OK",
+        select_language: "Seleccione su idioma preferido",
+        lang_english: "Inglés",
+        lang_spanish: "Español",
+        lang_chinese: "Chino",
+        lang_arabic: "Árabe",
+        lang_russian: "Ruso",
+        lang_portuguese: "Portugués",
+        lang_french: "Francés",
+        lang_italian: "Italiano",
+        lang_german: "Alemán",
+      },
+      zh: {
+        title: "解锁您的佛罗里达房产",
+        subtitle: "由佛罗里达州持牌专家和Web3创新者提供免费代理匹配",
+        name: "您的姓名",
+        email: "您的电子邮件",
+        type_select: "买家、卖家、租户、房东、投资者",
+        type_buyer: "买家",
+        type_seller: "卖家",
+        type_renter: "租户",
+        type_landlord: "房东",
+        type_investor: "投资者",
+        details: "请分享您需求的详细信息（位置、时间表、预算等）",
+        dropdown_btn: "+ 添加更多详情以获得定制代理匹配！",
+        intake_title: "客户信息采集",
+        client_type: "客户类型",
+        first_time: "首次购房者",
+        relocating: "搬迁",
+        contact_prefs: "联系偏好",
+        pref_contact_method: "首选联系方式：",
+        phone: "电话",
+        text: "短信",
+        best_time: "最佳联系时间：",
+        morning: "上午",
+        afternoon: "下午",
+        evening: "晚上",
+        weekend: "周末",
+        phone_number: "电话号码",
+        address: "当前地址",
+        financial_info: "财务信息",
+        income: "年家庭收入",
+        budget_min: "预算最低 ($)",
+        budget_max: "预算最高 ($)",
+        pre_approved: "是否已获得抵押贷款预批？",
+        yes: "是",
+        no: "否",
+        in_process: "处理中",
+        pre_approval_amount: "预批金额（如适用）",
+        pref_lender: "首选贷款机构：",
+        have_lender: "已有贷款机构",
+        need_lender: "需要推荐",
+        timeline: "时间表：",
+        immediate: "立即",
+        "1_3_months": "1-3个月",
+        "3_6_months": "3-6个月",
+        "6_plus_months": "6个月以上",
+        financial_notes: "财务问题或备注",
+        buyers_renters: "买家/租户信息",
+        property_type: "物业类型：",
+        single_family: "独栋住宅",
+        condo: "公寓",
+        townhouse: "联排别墅",
+        multi_family: "多家庭住宅",
+        commercial: "商业物业",
+        land: "土地",
+        bedrooms: "卧室：",
+        "1_bed": "1卧",
+        "2_beds": "2卧",
+        "3_beds": "3卧",
+        "4_beds": "4卧",
+        "5_plus_beds": "5卧以上",
+        no_pref_bed: "无偏好",
+        bathrooms: "浴室：",
+        "1_bath": "1浴",
+        "1_5_baths": "1.5浴",
+        "2_baths": "2浴",
+        "2_5_baths": "2.5浴",
+        "3_plus_baths": "3浴以上",
+        no_pref_bath: "无偏好",
+        square_footage: "首选面积",
+        locations: "首选地点/社区",
+        must_haves: "必备特点：",
+        garage: "车库",
+        basement: "地下室",
+        pool: "泳池",
+        yard: "庭院",
+        main_floor_bed: "主层卧室",
+        home_office: "家庭办公室",
+        open_floor: "开放式楼层",
+        updated_kitchen: "更新厨房",
+        updated_baths: "更新浴室",
+        fireplace: "壁炉",
+        central_ac: "中央空调",
+        hardwood: "木地板",
+        move_in_ready: "即入住",
+        fixer_upper: "可翻修",
+        other_features: "其他特点",
+        deal_breakers: "交易障碍",
+        sellers_landlords: "卖家/房东信息",
+        property_address: "物业地址",
+        year_built: "建造年份",
+        bedrooms_input: "卧室",
+        bathrooms_input: "浴室",
+        mortgage_balance: "抵押贷款余额",
+        estimated_value: "估算价值",
+        sell_reason: "出售/出租原因：",
+        upgrading: "升级",
+        downsizing: "缩小",
+        investment: "投资",
+        financial: "财务",
+        other_reason: "其他原因",
+        sell_timeline: "出售/出租时间表：",
+        asap: "尽快",
+        property_condition: "物业状况：",
+        excellent: "优秀",
+        good: "良好",
+        fair: "一般",
+        needs_work: "需要维修",
+        upgrades: "近期升级/翻新",
+        issues: "已知物业问题",
+        additional_info: "附加信息",
+        how_heard: "您是如何得知我们的？",
+        referral: "推荐",
+        website: "网站",
+        social_media: "社交媒体",
+        sign: "标志",
+        online_review: "在线评论",
+        other_source: "其他来源",
+        agent_exp: "之前与代理的经验：",
+        worked_agent: "曾与代理合作",
+        no_agent: "无代理经验",
+        agent_desc: "描述之前与代理的经验",
+        requests: "特殊请求或关注点",
+        submit: "立即匹配顶级代理！",
+        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        thank_you: "感谢您的提交！代理将很快联系您。",
+        ok: "确定",
+        select_language: "选择您的首选语言",
+        lang_english: "英语",
+        lang_spanish: "西班牙语",
+        lang_chinese: "中文",
+        lang_arabic: "阿拉伯语",
+        lang_russian: "俄语",
+        lang_portuguese: "葡萄牙语",
+        lang_french: "法语",
+        lang_italian: "意大利语",
+        lang_german: "德语",
+      },
+      ar: {
+        title: "افتح عقارك في فلوريدا",
+        subtitle: "مطابقة مجانية مع وكيل من خبير مرخص في فلوريدا + مبتكر Web3",
+        name: "اسمك",
+        email: "بريدك الإلكتروني",
+        type_select: "مشتري، بائع، مستأجر، مالك، مستثمر",
+        type_buyer: "مشتري",
+        type_seller: "بائع",
+        type_renter: "مستأجر",
+        type_landlord: "مالك",
+        type_investor: "مستثمر",
+        details: "يرجى مشاركة بعض التفاصيل حول احتياجاتك (الموقع، الجدول الزمني، الميزانية، إلخ)",
+        dropdown_btn: "+ أضف المزيد من التفاصيل لمطابقة وكيل مخصص!",
+        intake_title: "معلومات استقبال العميل",
+        client_type: "نوع العميل",
+        first_time: "المرة الأولى",
+        relocating: "الانتقال",
+        contact_prefs: "تفضيلات الاتصال",
+        pref_contact_method: "طريقة الاتصال المفضلة:",
+        phone: "هاتف",
+        text: "رسالة نصية",
+        best_time: "أفضل وقت للاتصال:",
+        morning: "صباحًا",
+        afternoon: "بعد الظهر",
+        evening: "مساءً",
+        weekend: "عطلة نهاية الأسبوع",
+        phone_number: "رقم الهاتف",
+        address: "العنوان الحالي",
+        financial_info: "معلومات مالية",
+        income: "الدخل السنوي للأسرة",
+        budget_min: "الحد الأدنى للميزانية ($)",
+        budget_max: "الحد الأقصى للميزانية ($)",
+        pre_approved: "هل تمت الموافقة المسبقة على الرهن العقاري؟",
+        yes: "نعم",
+        no: "لا",
+        in_process: "قيد المعالجة",
+        pre_approval_amount: "مبلغ الموافقة المسبقة (إن وجد)",
+        pref_lender: "المقرض المفضل:",
+        have_lender: "لدي واحد",
+        need_lender: "أحتاج توصية",
+        timeline: "الجدول الزمني:",
+        immediate: "فوري",
+        "1_3_months": "1-3 أشهر",
+        "3_6_months": "3-6 أشهر",
+        "6_plus_months": "6+ أشهر",
+        financial_notes: "المخاوف أو الملاحظات المالية",
+        buyers_renters: "للمشترين/المستأجرين",
+        property_type: "نوع العقار:",
+        single_family: "عائلة واحدة",
+        condo: "شقة",
+        townhouse: "منزل متصل",
+        multi_family: "عائلات متعددة",
+        commercial: "تجاري",
+        land: "أرض",
+        bedrooms: "غرف النوم:",
+        "1_bed": "سرير واحد",
+        "2_beds": "سريران",
+        "3_beds": "3 أسرّة",
+        "4_beds": "4 أسرّة",
+        "5_plus_beds": "5+ أسرّة",
+        no_pref_bed: "لا تفضيل",
+        bathrooms: "الحمامات:",
+        "1_bath": "حمام واحد",
+        "1_5_baths": "1.5 حمام",
+        "2_baths": "حمامان",
+        "2_5_baths": "2.5 حمام",
+        "3_plus_baths": "3+ حمامات",
+        no_pref_bath: "لا تفضيل",
+        square_footage: "المساحة المفضلة",
+        locations: "المواقع/الأحياء المفضلة",
+        must_haves: "الميزات الضرورية:",
+        garage: "جراج",
+        basement: "قبو",
+        pool: "مسبح",
+        yard: "فناء",
+        main_floor_bed: "غرفة نوم في الطابق الرئيسي",
+        home_office: "مكتب منزلي",
+        open_floor: "مخطط مفتوح",
+        updated_kitchen: "مطبخ محدث",
+        updated_baths: "حمامات محدثة",
+        fireplace: "مدفأة",
+        central_ac: "تكييف مركزي",
+        hardwood: "أرضيات خشبية",
+        move_in_ready: "جاهز للانتقال",
+        fixer_upper: "مقبول للتجديد",
+        other_features: "ميزات أخرى",
+        deal_breakers: "عوامل كسر الصفقة",
+        sellers_landlords: "للبائعين/الملاك",
+        property_address: "عنوان العقار",
+        year_built: "سنة البناء",
+        bedrooms_input: "غرف النوم",
+        bathrooms_input: "الحمامات",
+        mortgage_balance: "رصيد الرهن العقاري",
+        estimated_value: "القيمة المقدرة",
+        sell_reason: "سبب البيع/التأجير:",
+        upgrading: "الترقية",
+        downsizing: "التصغير",
+        investment: "الاستثمار",
+        financial: "مالي",
+        other_reason: "سبب آخر",
+        sell_timeline: "الجدول الزمني للبيع/التأجير:",
+        asap: "في أقرب وقت ممكن",
+        property_condition: "حالة العقار:",
+        excellent: "ممتاز",
+        good: "جيد",
+        fair: "مقبول",
+        needs_work: "يحتاج إلى عمل",
+        upgrades: "التحديثات/التجديدات الأخيرة",
+        issues: "المشكلات المعروفة بالعقار",
+        additional_info: "معلومات إضافية",
+        how_heard: "كيف سمعت عنا؟",
+        referral: "إحالة",
+        website: "موقع ويب",
+        social_media: "وسائل التواصل الاجتماعي",
+        sign: "لافتة",
+        online_review: "مراجعة عبر الإنترنت",
+        other_source: "مصدر آخر",
+        agent_exp: "تجربة سابقة مع وكيل:",
+        worked_agent: "عملت مع وكيل",
+        no_agent: "لا توجد تجربة مع وكيل",
+        agent_desc: "صف تجربتك السابقة مع وكيل",
+        requests: "طلبات أو مخاوف خاصة",
+        submit: "احصل على مطابقة مع وكيل متميز اليوم!",
+        footer: "مدعوم من Web3RealtorFL - ربط العقارات والبلوك تشين",
+        thank_you: "شكرًا لتقديمك! سيتواصل معك وكيل قريبًا.",
+        ok: "موافق",
+        select_language: "اختر لغتك المفضلة",
+        lang_english: "الإنجليزية",
+        lang_spanish: "الإسبانية",
+        lang_chinese: "الصينية",
+        lang_arabic: "العربية",
+        lang_russian: "الروسية",
+        lang_portuguese: "البرتغالية",
+        lang_french: "الفرنسية",
+        lang_italian: "الإيطالية",
+        lang_german: "الألمانية",
+      },
+      ru: {
+        title: "Откройте свою недвижимость во Флориде",
+        subtitle: "Бесплатный подбор агента от лицензированного эксперта Флориды + новатора Web3",
+        name: "Ваше имя",
+        email: "Ваш email",
+        type_select: "Покупатель, Продавец, Арендатор, Арендодатель, Инвестор",
+        type_buyer: "Покупатель",
+        type_seller: "Продавец",
+        type_renter: "Арендатор",
+        type_landlord: "Арендодатель",
+        type_investor: "Инвестор",
+        details: "Пожалуйста, поделитесь некоторыми деталями о ваших потребностях (местоположение, сроки, бюджет и т.д.)",
+        dropdown_btn: "+ Добавить больше деталей для индивидуального подбора агента!",
+        intake_title: "Информация о клиенте",
+        client_type: "Тип клиента",
+        first_time: "Впервые",
+        relocating: "Переезд",
+        contact_prefs: "Предпочтения по контакту",
+        pref_contact_method: "Предпочитаемый способ связи:",
+        phone: "Телефон",
+        text: "Текст",
+        best_time: "Лучшее время для связи:",
+        morning: "Утро",
+        afternoon: "День",
+        evening: "Вечер",
+        weekend: "Выходные",
+        phone_number: "Номер телефона",
+        address: "Текущий адрес",
+        financial_info: "Финансовая информация",
+        income: "Годовой доход семьи",
+        budget_min: "Бюджет минимум ($)",
+        budget_max: "Бюджет максимум ($)",
+        pre_approved: "Предварительно одобрено для ипотеки?",
+        yes: "Да",
+        no: "Нет",
+        in_process: "В процессе",
+        pre_approval_amount: "Сумма предварительного одобрения (если применимо)",
+        pref_lender: "Предпочитаемый кредитор:",
+        have_lender: "Есть свой",
+        need_lender: "Нужна рекомендация",
+        timeline: "Сроки:",
+        immediate: "Немедленно",
+        "1_3_months": "1-3 месяца",
+        "3_6_months": "3-6 месяцев",
+        "6_plus_months": "6+ месяцев",
+        financial_notes: "Финансовые вопросы или заметки",
+        buyers_renters: "Для покупателей/арендаторов",
+        property_type: "Тип недвижимости:",
+        single_family: "Односемейный",
+        condo: "Кондоминиум",
+        townhouse: "Таунхаус",
+        multi_family: "Многоквартирный",
+        commercial: "Коммерческий",
+        land: "Земля",
+        bedrooms: "Спальни:",
+        "1_bed": "1 спальня",
+        "2_beds": "2 спальни",
+        "3_beds": "3 спальни",
+        "4_beds": "4 спальни",
+        "5_plus_beds": "5+ спален",
+        no_pref_bed: "Без предпочтений",
+        bathrooms: "Ванные:",
+        "1_bath": "1 ванная",
+        "1_5_baths": "1.5 ванные",
+        "2_baths": "2 ванные",
+        "2_5_baths": "2.5 ванные",
+        "3_plus_baths": "3+ ванные",
+        no_pref_bath: "Без предпочтений",
+        square_footage: "Предпочитаемая площадь",
+        locations: "Предпочитаемые места/районы",
+        must_haves: "Обязательные характеристики:",
+        garage: "Гараж",
+        basement: "Подвал",
+        pool: "Бассейн",
+        yard: "Двор",
+        main_floor_bed: "Спальня на первом этаже",
+        home_office: "Домашний офис",
+        open_floor: "Открытая планировка",
+        updated_kitchen: "Обновленная кухня",
+        updated_baths: "Обновленные ванные",
+        fireplace: "Камин",
+        central_ac: "Центральный кондиционер",
+        hardwood: "Деревянные полы",
+        move_in_ready: "Готово к заселению",
+        fixer_upper: "Для ремонта OK",
+        other_features: "Другие особенности",
+        deal_breakers: "Критические факторы",
+        sellers_landlords: "Для продавцов/арендодателей",
+        property_address: "Адрес недвижимости",
+        year_built: "Год постройки",
+        bedrooms_input: "Спальни",
+        bathrooms_input: "Ванные",
+        mortgage_balance: "Остаток ипотеки",
+        estimated_value: "Оценочная стоимость",
+        sell_reason: "Причина продажи/аренды:",
+        upgrading: "Улучшение",
+        downsizing: "Уменьшение",
+        investment: "Инвестиции",
+        financial: "Финансовые",
+        other_reason: "Другая причина",
+        sell_timeline: "Сроки продажи/аренды:",
+        asap: "Как можно скорее",
+        property_condition: "Состояние недвижимости:",
+        excellent: "Отличное",
+        good: "Хорошее",
+        fair: "Удовлетворительное",
+        needs_work: "Требует ремонта",
+        upgrades: "Недавние улучшения/ремонт",
+        issues: "Известные проблемы с недвижимостью",
+        additional_info: "Дополнительная информация",
+        how_heard: "Как вы о нас узнали?",
+        referral: "Рекомендация",
+        website: "Веб-сайт",
+        social_media: "Социальные сети",
+        sign: "Вывеска",
+        online_review: "Онлайн-обзор",
+        other_source: "Другой источник",
+        agent_exp: "Предыдущий опыт с агентом:",
+        worked_agent: "Работал с агентом",
+        no_agent: "Нет опыта с агентом",
+        agent_desc: "Опишите предыдущий опыт с агентом",
+        requests: "Особые запросы или опасения",
+        submit: "Найдите лучшего агента сегодня!",
+        footer: "Работает на Web3RealtorFL - Соединение недвижимости и блокчейна",
+        thank_you: "Спасибо за отправку! Агент свяжется с вами в ближайшее время.",
+        ok: "ОК",
+        select_language: "Выберите предпочитаемый язык",
+        lang_english: "Английский",
+        lang_spanish: "Испанский",
+        lang_chinese: "Китайский",
+        lang_arabic: "Арабский",
+        lang_russian: "Русский",
+        lang_portuguese: "Португальский",
+        lang_french: "Французский",
+        lang_italian: "Итальянский",
+        lang_german: "Немецкий",
+      },
+      pt: {
+        title: "Desbloqueie sua propriedade na Flórida",
+        subtitle: "Combinação gratuita de agentes por um especialista licenciado FL + Innovador Web3",
+        name: "Seu nome",
+        email: "Seu email",
+        type_select: "Comprador, Vendedor, Locatário, Proprietário, Investidor",
+        type_buyer: "Comprador",
+        type_seller: "Vendedor",
+        type_renter: "Locatário",
+        type_landlord: "Proprietário",
+        type_investor: "Investidor",
+        details: "Por favor, compartilhe alguns detalhes sobre suas necessidades (localização, cronograma, orçamento, etc.)",
+        dropdown_btn: "+ Adicione mais detalhes para uma combinação de agente personalizada!",
+        intake_title: "Informações de entrada do cliente",
+        client_type: "Tipo de cliente",
+        first_time: "Primeira vez",
+        relocating: "Mudança",
+        contact_prefs: "Preferências de contato",
+        pref_contact_method: "Método de contato preferido:",
+        phone: "Telefone",
+        text: "Texto",
+        best_time: "Melhor horário para contato:",
+        morning: "Manhã",
+        afternoon: "Tarde",
+        evening: "Noite",
+        weekend: "Fim de semana",
+        phone_number: "Número de telefone",
+        address: "Endereço atual",
+        financial_info: "Informações financeiras",
+        income: "Renda anual familiar",
+        budget_min: "Orçamento mínimo ($)",
+        budget_max: "Orçamento máximo ($)",
+        pre_approved: "Pré-aprovado para hipoteca?",
+        yes: "Sim",
+        no: "Não",
+        in_process: "Em processo",
+        pre_approval_amount: "Valor da pré-aprovação (se aplicável)",
+        pref_lender: "Prestador preferido:",
+        have_lender: "Tenho um",
+        need_lender: "Preciso de recomendação",
+        timeline: "Cronograma:",
+        immediate: "Imediato",
+        "1_3_months": "1-3 meses",
+        "3_6_months": "3-6 meses",
+        "6_plus_months": "6+ meses",
+        financial_notes: "Preocupações ou notas financeiras",
+        buyers_renters: "Para compradores/locatários",
+        property_type: "Tipo de propriedade:",
+        single_family: "Unifamiliar",
+        condo: "Condomínio",
+        townhouse: "Casa geminada",
+        multi_family: "Multifamiliar",
+        commercial: "Comercial",
+        land: "Terreno",
+        bedrooms: "Quartos:",
+        "1_bed": "1 quarto",
+        "2_beds": "2 quartos",
+        "3_beds": "3 quartos",
+        "4_beds": "4 quartos",
+        "5_plus_beds": "5+ quartos",
+        no_pref_bed: "Sem preferência",
+        bathrooms: "Banheiros:",
+        "1_bath": "1 banheiro",
+        "1_5_baths": "1.5 banheiros",
+        "2_baths": "2 banheiros",
+        "2_5_baths": "2.5 banheiros",
+        "3_plus_baths": "3+ banheiros",
+        no_pref_bath: "Sem preferência",
+        square_footage: "Metragem quadrada preferida",
+        locations: "Locais/bairros preferidos",
+        must_haves: "Características indispensáveis:",
+        garage: "Garagem",
+        basement: "Porão",
+        pool: "Piscina",
+        yard: "Quintal",
+        main_floor_bed: "Quarto no andar principal",
+        home_office: "Escritório em casa",
+        open_floor: "Planta aberta",
+        updated_kitchen: "Cozinha atualizada",
+        updated_baths: "Banheiros atualizados",
+        fireplace: "Lareira",
+        central_ac: "Ar condicionado central",
+        hardwood: "Pisos de madeira",
+        move_in_ready: "Pronto para morar",
+        fixer_upper: "Para reforma OK",
+        other_features: "Outras características",
+        deal_breakers: "Fatores decisivos",
+        sellers_landlords: "Para vendedores/proprietários",
+        property_address: "Endereço da propriedade",
+        year_built: "Ano de construção",
+        bedrooms_input: "Quartos",
+        bathrooms_input: "Banheiros",
+        mortgage_balance: "Saldo da hipoteca",
+        estimated_value: "Valor estimado",
+        sell_reason: "Razão para vender/alugar:",
+        upgrading: "Melhoria",
+        downsizing: "Redução",
+        investment: "Investimento",
+        financial: "Financeiro",
+        other_reason: "Outra razão",
+        sell_timeline: "Cronograma para vender/alugar:",
+        asap: "O mais rápido possível",
+        property_condition: "Condição da propriedade:",
+        excellent: "Excelente",
+        good: "Bom",
+        fair: "Razoável",
+        needs_work: "Precisa de trabalho",
+        upgrades: "Melhorias/reformas recentes",
+        issues: "Problemas conhecidos com a propriedade",
+        additional_info: "Informações adicionais",
+        how_heard: "Como você ouviu falar de nós?",
+        referral: "Indicação",
+        website: "Website",
+        social_media: "Mídias sociais",
+        sign: "Placa",
+        online_review: "Revisão online",
+        other_source: "Outra fonte",
+        agent_exp: "Experiência anterior com agente:",
+        worked_agent: "Trabalhou com agente",
+        no_agent: "Sem experiência com agente",
+        agent_desc: "Descreva a experiência anterior com agente",
+        requests: "Pedidos ou preocupações especiais",
+        submit: "Encontre um agente top hoje!",
+        footer: "Desenvolvido por Web3RealtorFL - Conectando Imóveis e Blockchain",
+        thank_you: "Obrigado por enviar! Um agente entrará em contato em breve.",
+        ok: "OK",
+        select_language: "Selecione seu idioma preferido",
+        lang_english: "Inglês",
+        lang_spanish: "Espanhol",
+        lang_chinese: "Chinês",
+        lang_arabic: "Árabe",
+        lang_russian: "Russo",
+        lang_portuguese: "Português",
+        lang_french: "Francês",
+        lang_italian: "Italiano",
+        lang_german: "Alemão",
+      },
+      fr: {
+        title: "Déverrouillez votre propriété en Floride",
+        subtitle: "Matching gratuit avec un agent par un expert agréé FL + Innovateur Web3",
+        name: "Votre nom",
+        email: "Votre email",
+        type_select: "Acheteur, Vendeur, Locataire, Propriétaire, Investisseur",
+        type_buyer: "Acheteur",
+        type_seller: "Vendeur",
+        type_renter: "Locataire",
+        type_landlord: "Propriétaire",
+        type_investor: "Investisseur",
+        details: "Veuillez partager quelques détails sur vos besoins (emplacement, calendrier, budget, etc.)",
+        dropdown_btn: "+ Ajoutez plus de détails pour un matching d'agent sur mesure !",
+        intake_title: "Informations d'admission du client",
+        client_type: "Type de client",
+        first_time: "Première fois",
+        relocating: "Déménagement",
+        contact_prefs: "Préférences de contact",
+        pref_contact_method: "Méthode de contact préférée :",
+        phone: "Téléphone",
+        text: "Texte",
+        best_time: "Meilleur moment pour contacter :",
+        morning: "Matin",
+        afternoon: "Après-midi",
+        evening: "Soir",
+        weekend: "Week-end",
+        phone_number: "Numéro de téléphone",
+        address: "Adresse actuelle",
+        financial_info: "Informations financières",
+        income: "Revenu annuel du ménage",
+        budget_min: "Budget minimum ($)",
+        budget_max: "Budget maximum ($)",
+        pre_approved: "Pré-approuvé pour un prêt hypothécaire ?",
+        yes: "Oui",
+        no: "Non",
+        in_process: "En cours",
+        pre_approval_amount: "Montant de la pré-approbation (si applicable)",
+        pref_lender: "Prestateur préféré :",
+        have_lender: "J'en ai un",
+        need_lender: "Besoin d'une recommandation",
+        timeline: "Calendrier :",
+        immediate: "Immédiat",
+        "1_3_months": "1-3 mois",
+        "3_6_months": "3-6 mois",
+        "6_plus_months": "6+ mois",
+        financial_notes: "Préoccupations ou notes financières",
+        buyers_renters: "Pour acheteurs/locataires",
+        property_type: "Type de propriété :",
+        single_family: "Unifamiliale",
+        condo: "Condo",
+        townhouse: "Maison de ville",
+        multi_family: "Multifamiliale",
+        commercial: "Commercial",
+        land: "Terrain",
+        bedrooms: "Chambres :",
+        "1_bed": "1 chambre",
+        "2_beds": "2 chambres",
+        "3_beds": "3 chambres",
+        "4_beds": "4 chambres",
+        "5_plus_beds": "5+ chambres",
+        no_pref_bed: "Sans préférence",
+        bathrooms: "Salles de bain :",
+        "1_bath": "1 salle de bain",
+        "1_5_baths": "1.5 salles de bain",
+        "2_baths": "2 salles de bain",
+        "2_5_baths": "2.5 salles de bain",
+        "3_plus_baths": "3+ salles de bain",
+        no_pref_bath: "Sans préférence",
+        square_footage: "Superficie préférée",
+        locations: "Emplacements/quartiers préférés",
+        must_haves: "Caractéristiques indispensables :",
+        garage: "Garage",
+        basement: "Sous-sol",
+        pool: "Piscine",
+        yard: "Jardin",
+        main_floor_bed: "Chambre au rez-de-chaussée",
+        home_office: "Bureau à domicile",
+        open_floor: "Plan ouvert",
+        updated_kitchen: "Cuisine mise à jour",
+        updated_baths: "Salles de bain mises à jour",
+        fireplace: "Cheminée",
+        central_ac: "Climatisation centrale",
+        hardwood: "Planchers de bois franc",
+        move_in_ready: "Prêt à emménager",
+        fixer_upper: "À rénover OK",
+        other_features: "Autres caractéristiques",
+        deal_breakers: "Facteurs décisifs",
+        sellers_landlords: "Pour vendeurs/propriétaires",
+        property_address: "Adresse de la propriété",
+        year_built: "Année de construction",
+        bedrooms_input: "Chambres",
+        bathrooms_input: "Salles de bain",
+        mortgage_balance: "Solde de l'hypothèque",
+        estimated_value: "Valeur estimée",
+        sell_reason: "Raison de la vente/location :",
+        upgrading: "Amélioration",
+        downsizing: "Réduction",
+        investment: "Investissement",
+        financial: "Financier",
+        other_reason: "Autre raison",
+        sell_timeline: "Calendrier de vente/location :",
+        asap: "Dès que possible",
+        property_condition: "État de la propriété :",
+        excellent: "Excellent",
+        good: "Bon",
+        fair: "Moyen",
+        needs_work: "Besoin de travaux",
+        upgrades: "Améliorations/rénovations récentes",
+        issues: "Problèmes connus avec la propriété",
+        additional_info: "Informations supplémentaires",
+        how_heard: "Comment avez-vous entendu parler de nous ?",
+        referral: "Recommandation",
+        website: "Site web",
+        social_media: "Réseaux sociaux",
+        sign: "Panneau",
+        online_review: "Avis en ligne",
+        other_source: "Autre source",
+        agent_exp: "Expérience précédente avec un agent :",
+        worked_agent: "A travaillé avec un agent",
+        no_agent: "Aucune expérience avec un agent",
+        agent_desc: "Décrivez l'expérience précédente avec un agent",
+        requests: "Demandes ou préoccupations spéciales",
+        submit: "Trouvez un agent de premier plan dès aujourd'hui !",
+        footer: "Propulsé par Web3RealtorFL - Relier l'immobilier et la blockchain",
+        thank_you: "Merci d'avoir soumis ! Un agent vous contactera bientôt.",
+        ok: "OK",
+        select_language: "Sélectionnez votre langue préférée",
+        lang_english: "Anglais",
+        lang_spanish: "Espagnol",
+        lang_chinese: "Chinois",
+        lang_arabic: "Arabe",
+        lang_russian: "Russe",
+        lang_portuguese: "Portugais",
+        lang_french: "Français",
+        lang_italian: "Italien",
+        lang_german: "Allemand",
+      },
+      it: {
+        title: "Sblocca la tua proprietà in Florida",
+        subtitle: "Abbinamento gratuito con agente da un esperto autorizzato FL + Innovatore Web3",
+        name: "Il tuo nome",
+        email: "La tua email",
+        type_select: "Acquirente, Venditore, Affittuario, Proprietario, Investitore",
+        type_buyer: "Acquirente",
+        type_seller: "Venditore",
+        type_renter: "Affittuario",
+        type_landlord: "Proprietario",
+        type_investor: "Investitore",
+        details: "Per favore, condividi alcuni dettagli sulle tue esigenze (posizione, tempistiche, budget, ecc.)",
+        dropdown_btn: "+ Aggiungi più dettagli per un abbinamento agente personalizzato!",
+        intake_title: "Informazioni di accoglienza del cliente",
+        client_type: "Tipo di cliente",
+        first_time: "Prima volta",
+        relocating: "Trasloco",
+        contact_prefs: "Preferenze di contatto",
+        pref_contact_method: "Metodo di contatto preferito:",
+        phone: "Telefono",
+        text: "Testo",
+        best_time: "Miglior momento per contattare:",
+        morning: "Mattina",
+        afternoon: "Pomeriggio",
+        evening: "Sera",
+        weekend: "Fine settimana",
+        phone_number: "Numero di telefono",
+        address: "Indirizzo attuale",
+        financial_info: "Informazioni finanziarie",
+        income: "Reddito annuo familiare",
+        budget_min: "Budget minimo ($)",
+        budget_max: "Budget massimo ($)",
+        pre_approved: "Pre-approvato per il mutuo?",
+        yes: "Sì",
+        no: "No",
+        in_process: "In corso",
+        pre_approval_amount: "Importo di pre-approvazione (se applicabile)",
+        pref_lender: "Prestatore preferito:",
+        have_lender: "Ne ho uno",
+        need_lender: "Ho bisogno di una raccomandazione",
+        timeline: "Tempistiche:",
+        immediate: "Immediato",
+        "1_3_months": "1-3 mesi",
+        "3_6_months": "3-6 mesi",
+        "6_plus_months": "6+ mesi",
+        financial_notes: "Preoccupazioni o note finanziarie",
+        buyers_renters: "Per acquirenti/affittuari",
+        property_type: "Tipo di proprietà:",
+        single_family: "Unifamiliare",
+        condo: "Condominio",
+        townhouse: "Casa a schiera",
+        multi_family: "Plurifamiliare",
+        commercial: "Commerciale",
+        land: "Terreno",
+        bedrooms: "Camere da letto:",
+        "1_bed": "1 camera",
+        "2_beds": "2 camere",
+        "3_beds": "3 camere",
+        "4_beds": "4 camere",
+        "5_plus_beds": "5+ camere",
+        no_pref_bed: "Nessuna preferenza",
+        bathrooms: "Bagni:",
+        "1_bath": "1 bagno",
+        "1_5_baths": "1.5 bagni",
+        "2_baths": "2 bagni",
+        "2_5_baths": "2.5 bagni",
+        "3_plus_baths": "3+ bagni",
+        no_pref_bath: "Nessuna preferenza",
+        square_footage: "Metri quadrati preferiti",
+        locations: "Posizioni/quartieri preferiti",
+        must_haves: "Caratteristiche indispensabili:",
+        garage: "Garage",
+        basement: "Seminterrato",
+        pool: "Piscina",
+        yard: "Cortile",
+        main_floor_bed: "Camera al piano principale",
+        home_office: "Ufficio in casa",
+        open_floor: "Piantina aperta",
+        updated_kitchen: "Cucina aggiornata",
+        updated_baths: "Bagni aggiornati",
+        fireplace: "Camino",
+        central_ac: "Aria condizionata centrale",
+        hardwood: "Pavimenti in legno",
+        move_in_ready: "Pronto per il trasloco",
+        fixer_upper: "Da ristrutturare OK",
+        other_features: "Altre caratteristiche",
+        deal_breakers: "Fattori decisivi",
+        sellers_landlords: "Per venditori/proprietari",
+        property_address: "Indirizzo della proprietà",
+        year_built: "Anno di costruzione",
+        bedrooms_input: "Camere da letto",
+        bathrooms_input: "Bagni",
+        mortgage_balance: "Saldo del mutuo",
+        estimated_value: "Valore stimato",
+        sell_reason: "Motivo della vendita/affitto:",
+        upgrading: "Miglioramento",
+        downsizing: "Ridimensionamento",
+        investment: "Investimento",
+        financial: "Finanziario",
+        other_reason: "Altro motivo",
+        sell_timeline: "Tempistiche di vendita/affitto:",
+        asap: "Il prima possibile",
+        property_condition: "Condizione della proprietà:",
+        excellent: "Eccellente",
+        good: "Buono",
+        fair: "Discreto",
+        needs_work: "Necessita di lavoro",
+        upgrades: "Aggiornamenti/ristrutturazioni recenti",
+        issues: "Problemi noti con la proprietà",
+        additional_info: "Informazioni aggiuntive",
+        how_heard: "Come hai saputo di noi?",
+        referral: "Riferimento",
+        website: "Sito web",
+        social_media: "Social media",
+        sign: "Cartello",
+        online_review: "Recensione online",
+        other_source: "Altra fonte",
+        agent_exp: "Esperienza precedente con agente:",
+        worked_agent: "Ha lavorato con agente",
+        no_agent: "Nessuna esperienza con agente",
+        agent_desc: "Descrivi l'esperienza precedente con agente",
+        requests: "Richieste o preoccupazioni speciali",
+        submit: "Trova un agente top oggi!",
+        footer: "Offerto da Web3RealtorFL - Collegamento tra immobiliare e blockchain",
+        thank_you: "Grazie per l'invio! Un agente ti contatterà presto.",
+        ok: "OK",
+        select_language: "Seleziona la tua lingua preferita",
+        lang_english: "Inglese",
+        lang_spanish: "Spagnolo",
+        lang_chinese: "Cinese",
+        lang_arabic: "Arabo",
+        lang_russian: "Russo",
+        lang_portuguese: "Portoghese",
+        lang_french: "Francese",
+        lang_italian: "Italiano",
+        lang_german: "Tedesco",
+      },
+      de: {
+        title: "Entsperren Sie Ihre Florida-Immobilie",
+        subtitle: "Kostenloses Agenten-Matching durch einen lizenzierten FL-Experten + Web3-Innovator",
+        name: "Ihr Name",
+        email: "Ihre E-Mail",
+        type_select: "Käufer, Verkäufer, Mieter, Vermieter, Investor",
+        type_buyer: "Käufer",
+        type_seller: "Verkäufer",
+        type_renter: "Mieter",
+        type_landlord: "Vermieter",
+        type_investor: "Investor",
+        details: "Bitte teilen Sie einige Details zu Ihren Bedürfnissen mit (Standort, Zeitplan, Budget usw.)",
+        dropdown_btn: "+ Fügen Sie mehr Details für eine maßgeschneiderte Agenten-Zuordnung hinzu!",
+        intake_title: "Kundenaufnahmeinformationen",
+        client_type: "Kundentyp",
+        first_time: "Erstmalig",
+        relocating: "Umzug",
+        contact_prefs: "Kontaktpräferenzen",
+        pref_contact_method: "Bevorzugte Kontaktmethode:",
+        phone: "Telefon",
+        text: "Text",
+        best_time: "Beste Zeit für einen Kontakt:",
+        morning: "Morgen",
+        afternoon: "Nachmittag",
+        evening: "Abend",
+        weekend: "Wochenende",
+        phone_number: "Telefonnummer",
+        address: "Aktuelle Adresse",
+        financial_info: "Finanzielle Informationen",
+        income: "Jährliches Haushaltseinkommen",
+        budget_min: "Budget Minimum ($)",
+        budget_max: "Budget Maximum ($)",
+        pre_approved: "Vorab genehmigt für eine Hypothek?",
+        yes: "Ja",
+        no: "Nein",
+        in_process: "In Bearbeitung",
+        pre_approval_amount: "Vorabgenehmigungsbetrag (falls zutreffend)",
+        pref_lender: "Bevorzugter Kreditgeber:",
+        have_lender: "Habe einen",
+        need_lender: "Brauche eine Empfehlung",
+        timeline: "Zeitplan:",
+        immediate: "Sofort",
+        "1_3_months": "1-3 Monate",
+        "3_6_months": "3-6 Monate",
+        "6_plus_months": "6+ Monate",
+        financial_notes: "Finanzielle Bedenken oder Notizen",
+        buyers_renters: "Für Käufer/Mieter",
+        property_type: "Immobilientyp:",
+        single_family: "Einfamilienhaus",
+        condo: "Eigentumswohnung",
+        townhouse: "Reihenhaus",
+        multi_family: "Mehrfamilienhaus",
+        commercial: "Gewerblich",
+        land: "Grundstück",
+        bedrooms: "Schlafzimmer:",
+        "1_bed": "1 Bett",
+        "2_beds": "2 Betten",
+        "3_beds": "3 Betten",
+        "4_beds": "4 Betten",
+        "5_plus_beds": "5+ Betten",
+        no_pref_bed: "Keine Präferenz",
+        bathrooms: "Badezimmer:",
+        "1_bath": "1 Bad",
+        "1_5_baths": "1.5 Bäder",
+        "2_baths": "2 Bäder",
+        "2_5_baths": "2.5 Bäder",
+        "3_plus_baths": "3+ Bäder",
+        no_pref_bath: "Keine Präferenz",
+        square_footage: "Bevorzugte Quadratmeterzahl",
+        locations: "Bevorzugte Standorte/Viertel",
+        must_haves: "Must-Have-Merkmale:",
+        garage: "Garage",
+        basement: "Keller",
+        pool: "Pool",
+        yard: "Garten",
+        main_floor_bed: "Schlafzimmer im Erdgeschoss",
+        home_office: "Homeoffice",
+        open_floor: "Offene Planung",
+        updated_kitchen: "Aktualisierte Küche",
+        updated_baths: "Aktualisierte Badezimmer",
+        fireplace: "Kamin",
+        central_ac: "Zentrale Klimaanlage",
+        hardwood: "Holzböden",
+        move_in_ready: "Bezugsfertig",
+        fixer_upper: "Renovierungsbedürftig OK",
+        other_features: "Andere Merkmale",
+        deal_breakers: "Ausschlusskriterien",
+        sellers_landlords: "Für Verkäufer/Vermieter",
+        property_address: "Immobilienadresse",
+        year_built: "Baujahr",
+        bedrooms_input: "Schlafzimmer",
+        bathrooms_input: "Badezimmer",
+        mortgage_balance: "Hypothekensaldo",
+        estimated_value: "Geschätzter Wert",
+        sell_reason: "Grund für Verkauf/Vermietung:",
+        upgrading: "Aufwertung",
+        downsizing: "Verkleinerung",
+        investment: "Investition",
+        financial: "Finanziell",
+        other_reason: "Anderer Grund",
+        sell_timeline: "Zeitplan für Verkauf/Vermietung:",
+        asap: "So bald wie möglich",
+        property_condition: "Zustand der Immobilie:",
+        excellent: "Ausgezeichnet",
+        good: "Gut",
+        fair: "Mäßig",
+        needs_work: "Renovierungsbedürftig",
+        upgrades: "Kürzliche Upgrades/Renovierungen",
+        issues: "Bekannte Probleme mit der Immobilie",
+        additional_info: "Zusätzliche Informationen",
+        how_heard: "Wie haben Sie von uns erfahren?",
+        referral: "Empfehlung",
+        website: "Website",
+        social_media: "Soziale Medien",
+        sign: "Schild",
+        online_review: "Online-Bewertung",
+        other_source: "Andere Quelle",
+        agent_exp: "Frühere Erfahrungen mit einem Agenten:",
+        worked_agent: "Mit Agent gearbeitet",
+        no_agent: "Keine Agentenerfahrung",
+        agent_desc: "Beschreiben Sie frühere Erfahrungen mit einem Agenten",
+        requests: "Spezielle Anfragen oder Bedenken",
+        submit: "Finden Sie noch heute einen Top-Agenten!",
+        footer: "Bereitgestellt von Web3RealtorFL - Verbindung von Immobilien und Blockchain",
+        thank_you: "Vielen Dank für Ihre Einreichung! Ein Agent wird Sie bald kontaktieren.",
+        ok: "OK",
+        select_language: "Wählen Sie Ihre bevorzugte Sprache",
+        lang_english: "Englisch",
+        lang_spanish: "Spanisch",
+        lang_chinese: "Chinesisch",
+        lang_arabic: "Arabisch",
+        lang_russian: "Russisch",
+        lang_portuguese: "Portugiesisch",
+        lang_french: "Französisch",
+        lang_italian: "Italienisch",
+        lang_german: "Deutsch",
+      },
+      ja: {
+        title: "あなたのフロリダの不動産を解放",
+        subtitle: "フロリダ州認可の専門家 + Web3イノベーターによる無料エージェントマッチング",
+        name: "お名前",
+        email: "あなたのメール",
+        type_select: "購入者、売却者、賃借人、大家、投資家",
+        type_buyer: "購入者",
+        type_seller: "売却者",
+        type_renter: "賃借人",
+        type_landlord: "大家",
+        type_investor: "投資家",
+        details: "あなたのニーズに関する詳細（場所、時間枠、予算など）を共有してください",
+        dropdown_btn: "+ カスタマイズされたエージェントマッチングのために詳細を追加！",
+        intake_title: "クライアント情報収集",
+        client_type: "クライアントタイプ",
+        first_time: "初めて",
+        relocating: "引っ越し",
+        contact_prefs: "連絡の好み",
+        pref_contact_method: "希望の連絡方法：",
+        phone: "電話",
+        text: "テキスト",
+        best_time: "最適な連絡時間：",
+        morning: "朝",
+        afternoon: "午後",
+        evening: "夜",
+        weekend: "週末",
+        phone_number: "電話番号",
+        address: "現在の住所",
+        financial_info: "財務情報",
+        income: "年間世帯収入",
+        budget_min: "予算最低 ($)",
+        budget_max: "予算最高 ($)",
+        pre_approved: "住宅ローンの事前承認済みですか？",
+        yes: "はい",
+        no: "いいえ",
+        in_process: "処理中",
+        pre_approval_amount: "事前承認額（該当する場合）",
+        pref_lender: "希望の貸し手：",
+        have_lender: "持っている",
+        need_lender: "推薦が必要",
+        timeline: "時間枠：",
+        immediate: "即時",
+        "1_3_months": "1-3か月",
+        "3_6_months": "3-6か月",
+        "6_plus_months": "6か月以上",
+        financial_notes: "財務上の懸念またはメモ",
+        buyers_renters: "購入者/賃借人向け",
+        property_type: "物件タイプ：",
+        single_family: "一戸建て",
+        condo: "コンドミニアム",
+        townhouse: "タウンハウス",
+        multi_family: "多世帯住宅",
+        commercial: "商業用",
+        land: "土地",
+        bedrooms: "寝室：",
+        "1_bed": "1寝室",
+        "2_beds": "2寝室",
+        "3_beds": "3寝室",
+        "4_beds": "4寝室",
+        "5_plus_beds": "5寝室以上",
+        no_pref_bed: "特に希望なし",
+        bathrooms: "浴室：",
+        "1_bath": "1浴室",
+        "1_5_baths": "1.5浴室",
+        "2_baths": "2浴室",
+        "2_5_baths": "2.5浴室",
+        "3_plus_baths": "3浴室以上",
+        no_pref_bath: "特に希望なし",
+        square_footage: "希望する面積",
+        locations: "希望する場所/近隣",
+        must_haves: "必須の特徴：",
+        garage: "ガレージ",
+        basement: "地下室",
+        pool: "プール",
+        yard: "庭",
+        main_floor_bed: "1階の寝室",
+        home_office: "ホームオフィス",
+        open_floor: "オープンフロアプラン",
+        updated_kitchen: "更新されたキッチン",
+        updated_baths: "更新された浴室",
+        fireplace: "暖炉",
+        central_ac: "中央空調",
+        hardwood: "木製フローリング",
+        move_in_ready: "即入居可",
+        fixer_upper: "修復可",
+        other_features: "その他の特徴",
+        deal_breakers: "取引の障害",
+        sellers_landlords: "売家/大家向け",
+        property_address: "物件の住所",
+        year_built: "建造年",
+        bedrooms_input: "寝室",
+        bathrooms_input: "浴室",
+        mortgage_balance: "住宅ローンの残高",
+        estimated_value: "推定価値",
+        sell_reason: "売却/賃貸の理由：",
+        upgrading: "アップグレード",
+        downsizing: "ダウンサイズ",
+        investment: "投資",
+        financial: "財務",
+        other_reason: "その他の理由",
+        sell_timeline: "売却/賃貸の時間枠：",
+        asap: "できるだけ早く",
+        property_condition: "物件の状態：",
+        excellent: "優良",
+        good: "良好",
+        fair: "普通",
+        needs_work: "修繕が必要",
+        upgrades: "近期のアップグレード/改装",
+        issues: "物件の既知の問題",
+        additional_info: "追加情報",
+        how_heard: "どのようにして私たちを知りましたか？",
+        referral: "紹介",
+        website: "ウェブサイト",
+        social_media: "ソーシャルメディア",
+        sign: "看板",
+        online_review: "オンラインレビュー",
+        other_source: "その他の情報源",
+        agent_exp: "以前のエージェント経験：",
+        worked_agent: "以前のエージェントと協力した",
+        no_agent: "エージェント経験なし",
+        agent_desc: "以前のエージェント経験を記述",
+        requests: "特別な要望または懸念",
+        submit: "今日、トップエージェントとマッチング！",
+        footer: "Web3RealtorFL提供 - 不動産とブロックチェーンをつなぐ",
+        thank_you: "ご提出ありがとうございます！エージェントがまもなくご連絡いたします。",
+        ok: "OK"
+      }
+    };
+
+    // Language mapping from abbreviations to full English names
+    const languageNames = {
+      "en": "English",
+      "es": "Spanish",
+      "zh": "Chinese",
+      "ar": "Arabic",
+      "ru": "Russian",
+      "pt": "Portuguese",
+      "fr": "French",
+      "it": "Italian",
+      "de": "German",
+      "ja": "Japanese"
+    };
+
+    function changeLanguage(lang) {
+      const spans = document.querySelectorAll('.language-selector span:not(.more-languages) > span, .language-selector > span');
+      spans.forEach(span => {
+        span.style.color = 'rgba(255, 255, 255, 0.5)';
+      });
+      const selectedSpan = document.querySelector(`[onclick="changeLanguage('${lang}')"]`);
+      if (selectedSpan) selectedSpan.style.color = '#fff';
+      
+      if (translations[lang]) {
+        document.querySelectorAll("[data-lang]").forEach(element => {
+          const key = element.getAttribute("data-lang");
+          if (translations[lang][key]) {
+            if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+              element.placeholder = translations[lang][key];
+            } else if (element.tagName === "OPTION") {
+              element.textContent = translations[lang][key];
+            } else {
+              element.textContent = translations[lang][key];
+            }
+          }
+        });
+        document.documentElement.lang = lang;
+
+        // Update hidden input with full English name
+        document.getElementById("selectedLanguage").value = languageNames[lang] || lang;
+
+        console.log('Language changed to:', lang);
+      } else {
+        console.error(`Language ${lang} not found in translations.`);
+      }
+    }
+
+    // Load preferred language from localStorage if available
+    window.onload = function() {
+      const preferredLang = localStorage.getItem('preferredLanguage') || 'en';
+      changeLanguage(preferredLang);
+    };
+
+    function submitForm(event) {
+      event.preventDefault();
+      const form = event.target;
+      const iframe = document.getElementById('hiddenIframe');
+      
+      // Show loading state
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
+      
+      // Submit form
+      form.submit();
+      
+      // Create hidden iframe if it doesn't exist
+      if (!iframe) {
+        const iframe = document.createElement('iframe');
+        iframe.id = 'hiddenIframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+      }
+      
+      // Handle successful submission
+      iframe.onload = function() {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+        
+        // Show thank you popup
+        const popup = document.getElementById("thankYouPopup");
+        if (popup) {
+          popup.style.display = "block";
+        }
+      };
+    }
+
+    function toggleDropdown() {
+      var content = document.getElementById("moreInfo");
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    }
+
+    function closePopup() {
+      document.getElementById("thankYouPopup").style.display = "none";
+    }
+
+    // Hide popup on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById("thankYouPopup");
+      if (popup) {
+        popup.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
