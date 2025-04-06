@@ -458,6 +458,7 @@
         <span onclick="changeLanguage('it')">Italiano</span>
         <span onclick="changeLanguage('de')">Deutsch</span>
         <span onclick="changeLanguage('ja')">日本語</span>
+        <span onclick="changeLanguage('sv')">Svenska</span>
       </div>
     </span>
   </div>
@@ -766,7 +767,7 @@
             <img src="Logos/kw logo.png" alt="Keller Williams Logo" style="height: 60px; width: auto; display: block;">
           </a>
           <p style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 5px;">
-            <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Find your dream home with</a> Your trusted real estate brokerage partner.
+            <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="kw_link">Find your dream home with</a> <span data-lang="kw_text">Your trusted real estate brokerage partner.</span>
           </p>
         </div>
 
@@ -776,7 +777,7 @@
             <img src="Logos/propy-logo-1.png" alt="Propy Logo" style="height: 30px; width: auto; display: block;">
           </a>
           <p style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 18px;">
-            <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Propy</a> - Streamlined title and real estate transactions with blockchain tech.
+            <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="propy_link">Propy</a> - <span data-lang="propy_text">Streamlined title and real estate transactions with blockchain tech.</span>
           </p>
         </div>
       </div>
@@ -784,17 +785,19 @@
         <!-- Web3 Education -->
         <div style="position: relative; margin-top: 40px; margin-bottom: 30px;">
           <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
-            Web3 Education: 
-            <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;">Cyrin</a> | 
-            <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;">Updraft</a> | 
-            <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;">Your Courses</a> - Learn blockchain for real estate.
+            <span data-lang="web3_education">Web3 Education:</span> 
+            <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="cyrin">Cyrin</a> | 
+            <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="updraft">Updraft</a> | 
+            <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="your_courses">Your Courses</a> - 
+            <span data-lang="web3_text">Learn blockchain for real estate.</span>
           </p>
         </div>
 
         <!-- Foreclosure Resources -->
         <div style="position: relative; margin-bottom: 20px;">
           <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
-            <a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Free Foreclosure/Short Sale Resources</a> - Get help and info from NAR.
+            <a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="foreclosure_link">Free Foreclosure/Short Sale Resources</a> - 
+            <span data-lang="foreclosure_text">Get help and info from NAR.</span>
           </p>
         </div>
       </div>
@@ -952,8 +955,20 @@
         lang_italian: "Italian",
         lang_german: "German",
         lang_japanese: "Japanese",
+        lang_swedish: "Swedish",
         submitting: "Submitting...",
-        please_fill_name_email: "Please fill in your name and email before submitting."
+        please_fill_name_email: "Please fill in your name and email before submitting.",
+        kw_link: "Find your dream home with",
+        kw_text: "Your trusted real estate brokerage partner.",
+        propy_link: "Propy",
+        propy_text: "Streamlined title and real estate transactions with blockchain tech.",
+        web3_education: "Web3 Education:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Your Courses",
+        web3_text: "Learn blockchain for real estate.",
+        foreclosure_link: "Free Foreclosure/Short Sale Resources",
+        foreclosure_text: "Get help and info from NAR."
       },
       es: {
         title: "Desbloquea tu propiedad en Florida",
@@ -1064,7 +1079,7 @@
         needs_work: "Necesita trabajo",
         upgrades: "Mejoras/reformas recientes",
         issues: "Problemas conocidos con la propiedad",
-        additional_info: "Información adicional",
+        additional_info: "Informaciones adicionales",
         how_heard: "¿Cómo nos conociste?",
         referral: "Introducción",
         website: "Sitio web",
@@ -1092,8 +1107,20 @@
         lang_italian: "Italiano",
         lang_german: "Alemán",
         lang_japanese: "Japonés",
+        lang_swedish: "Sueco",
         submitting: "Enviando...",
-        please_fill_name_email: "Por favor, llena tu nombre y correo electrónico antes de enviar."
+        please_fill_name_email: "Por favor, llena tu nombre y correo electrónico antes de enviar.",
+        kw_link: "Encuentra la casa de tus sueños con",
+        kw_text: "Tu socio confiable en bienes raíces.",
+        propy_link: "Propy",
+        propy_text: "Transacciones de títulos y bienes raíces optimizadas con tecnología blockchain.",
+        web3_education: "Educación Web3:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Tus Cursos",
+        web3_text: "Aprende blockchain para bienes raíces.",
+        foreclosure_link: "Recursos Gratuitos para Ejecuciones Hipotecarias y Ventas Cortas",
+        foreclosure_text: "Obtén ayuda e información de NAR."
       },
       zh: {
         title: "解锁您的佛罗里达房产",
@@ -1165,7 +1192,7 @@
         no_pref_bath: "无偏好",
         square_footage: "首选面积",
         locations: "首选地点/近邻",
-        must_haves: "必备特点：",
+        must_haves: "Must-Have-Merkmale:",
         garage: "车库",
         basement: "地下室",
         pool: "泳池",
@@ -1232,8 +1259,20 @@
         lang_italian: "意大利语",
         lang_german: "德语",
         lang_japanese: "日语",
+        lang_swedish: "瑞典语",
         submitting: "提交中...",
-        please_fill_name_email: "请填写您的姓名和电子邮件地址"
+        please_fill_name_email: "请填写您的姓名和电子邮件地址",
+        kw_link: "找到您的梦想家园",
+        kw_text: "您值得信赖的房地产经纪伙伴",
+        propy_link: "Propy",
+        propy_text: "使用区块链技术简化产权和房地产交易",
+        web3_education: "Web3教育：",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "您的课程",
+        web3_text: "学习房地产区块链",
+        foreclosure_link: "免费止赎/短售资源",
+        foreclosure_text: "获取来自NAR的帮助和信息"
       },
       ar: {
         title: "افتح عقارك في فلوريدا",
@@ -1372,8 +1411,20 @@
         lang_italian: "الإيطالية",
         lang_german: "الألمانية",
         lang_japanese: "اليابانية",
+        lang_swedish: "السويدية",
         submitting: "جاري الإرسال...",
-        please_fill_name_email: "يرجى ملء اسمك وبريدك الإلكتروني قبل الإرسال."
+        please_fill_name_email: "يرجى ملء اسمك وبريدك الإلكتروني قبل الإرسال.",
+        kw_link: "ابحث عن منزلك الحلم مع",
+        kw_text: "شريكك الموثوق في العقارات.",
+        propy_link: "Propy",
+        propy_text: "عمليات تسجيل العقارات وانتقال الملكية المبسطة مع تكنولوجيا blockchain.",
+        web3_education: "التعليم Web3:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "دوراتك",
+        web3_text: "تعلم blockchain للعقارات.",
+        foreclosure_link: "موارد مجانية للرهون العقارية والبيع القصير",
+        foreclosure_text: "احصل على المساعدة والمعلومات من NAR."
       },
       ru: {
         title: "Откройте свою недвижимость во Флориде",
@@ -1512,8 +1563,20 @@
         lang_italian: "Итальянский",
         lang_german: "Немецкий",
         lang_japanese: "Японский",
+        lang_swedish: "Шведский",
         submitting: "Отправка...",
-        please_fill_name_email: "Пожалуйста, заполните имя и электронную почту"
+        please_fill_name_email: "Пожалуйста, заполните имя и электронную почту",
+        kw_link: "Найдите свою мечту",
+        kw_text: "Ваш надежный партнер в недвижимости.",
+        propy_link: "Propy",
+        propy_text: "Упрощенные сделки с недвижимостью и титулами с помощью технологии блокчейн.",
+        web3_education: "Web3-Бildung:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Ваши курсы",
+        web3_text: "Изучайте блокчейн для недвижимости.",
+        foreclosure_link: "Бесплатные ресурсы для ипотечных аукционов и продаж",
+        foreclosure_text: "Получите помощь и информацию от NAR."
       },
       pt: {
         title: "Desbloqueie sua propriedade na Flórida",
@@ -1652,8 +1715,20 @@
         lang_italian: "Italiano",
         lang_german: "Alemão",
         lang_japanese: "Japonês",
+        lang_swedish: "Sueco",
         submitting: "Enviando...",
-        please_fill_name_email: "Por favor, preencha seu nome e e-mail"
+        please_fill_name_email: "Por favor, preencha seu nome e e-mail",
+        kw_link: "Encontre sua casa dos sonhos com",
+        kw_text: "Seu parceiro confiável em imóveis.",
+        propy_link: "Propy",
+        propy_text: "Transações imobiliárias e de títulos simplificadas com tecnologia blockchain.",
+        web3_education: "Educação Web3:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Seus Cursos",
+        web3_text: "Aprenda blockchain para imóveis.",
+        foreclosure_link: "Recursos Gratuitos para Execuções Hipotecárias e Vendas Curtas",
+        foreclosure_text: "Obtenha ajuda e informações da NAR."
       },
       fr: {
         title: "Déverrouillez votre propriété en Floride",
@@ -1792,8 +1867,20 @@
         lang_italian: "Italien",
         lang_german: "Allemand",
         lang_japanese: "Japonais",
+        lang_swedish: "Suédois",
         submitting: "Envoi...",
-        please_fill_name_email: "Veuillez remplir votre nom et votre adresse e-mail"
+        please_fill_name_email: "Veuillez remplir votre nom et votre adresse e-mail",
+        kw_link: "Trouvez votre maison de rêve avec",
+        kw_text: "Votre partenaire de confiance en immobilier.",
+        propy_link: "Propy",
+        propy_text: "Transactions de titres et de biens immobiliers simplifiées avec la technologie blockchain.",
+        web3_education: "Éducation Web3:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Vos Cours",
+        web3_text: "Apprenez la blockchain pour l'immobilier.",
+        foreclosure_link: "Ressources Gratuites pour les Exécutions Hypothécaires et les Ventes à Court Terme",
+        foreclosure_text: "Obtenez de l'aide et des informations de NAR."
       },
       it: {
         title: "Sblocca la tua proprietà in Florida",
@@ -1932,8 +2019,20 @@
         lang_italian: "Italiano",
         lang_german: "Tedesco",
         lang_japanese: "Giapponese",
+        lang_swedish: "Svedese",
         submitting: "Invio...",
-        please_fill_name_email: "Per favore, compila il tuo nome e la tua email"
+        please_fill_name_email: "Per favore, compila il tuo nome e la tua email",
+        kw_link: "Trova la casa dei tuoi sogni con",
+        kw_text: "Il tuo partner di fiducia nell'immobiliare.",
+        propy_link: "Propy",
+        propy_text: "Transazioni immobiliari e titoli semplificate con tecnologia blockchain.",
+        web3_education: "Educazione Web3:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "I tuoi Corsi",
+        web3_text: "Impara la blockchain per l'immobiliare.",
+        foreclosure_link: "Risorse Gratuite per Esecuzioni Ipotecarie e Vendite a Breve Termine",
+        foreclosure_text: "Ottieni aiuto e informazioni da NAR."
       },
       de: {
         title: "Entsperren Sie Ihre Florida-Immobilie",
@@ -2072,8 +2171,20 @@
         lang_italian: "Italienisch",
         lang_german: "Deutsch",
         lang_japanese: "Japanisch",
+        lang_swedish: "Schwedisch",
         submitting: "Senden...",
-        please_fill_name_email: "Bitte füllen Sie Ihren Namen und Ihre E-Mail aus"
+        please_fill_name_email: "Bitte füllen Sie Ihren Namen und Ihre E-Mail aus",
+        kw_link: "Finden Sie Ihr Traumhaus mit",
+        kw_text: "Ihr vertrauenswürdiger Immobilienpartner.",
+        propy_link: "Propy",
+        propy_text: "Vereinfachte Immobilien- und Titeltransaktionen mit Blockchain-Technologie.",
+        web3_education: "Web3-Bildung:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Ihre Kurse",
+        web3_text: "Lernen Sie Blockchain für Immobilien.",
+        foreclosure_link: "Kostenlose Ressourcen für Zwangsversteigerungen und Kurzverkäufe",
+        foreclosure_text: "Holen Sie sich Hilfe und Informationen von NAR."
       },
       ja: {
         title: "あなたのフロリダの不動産を解放",
@@ -2212,8 +2323,39 @@
         lang_italian: "イタリア語",
         lang_german: "ドイツ語",
         lang_japanese: "日本語",
+        lang_swedish: "スウェーデン語",
         submitting: "送信中...",
-        please_fill_name_email: "お名前とメールアドレスを入力してください"
+        please_fill_name_email: "お名前とメールアドレスを入力してください",
+        kw_link: "あなたの夢の家を見つけて",
+        kw_text: "信頼できる不動産パートナーです。",
+        propy_link: "Propy",
+        propy_text: "ブロックチェーン技術を使用した不動産と所有権の取引を簡素化します。",
+        web3_education: "Web3教育：",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "あなたのコース",
+        web3_text: "不動産のブロックチェーンを学びましょう。",
+        foreclosure_link: "無料の競売/ショートセールリソース",
+        foreclosure_text: "NARからサポートと情報を得る"
+      },
+      sv: {
+        title: "Lås upp din fastighet i Florida",
+        subtitle: "Kostnadsfri agentmatchning av en licensierad FL-expert + Web3-innovator",
+        name: "Ditt namn",
+        email: "Din e-post",
+        type_select: "Köpare, säljare, hyresgäst, uttagare, investerare",
+        please_fill_name_email: "Fyll i ditt namn och e-post innan du skickar.",
+        kw_link: "Hitta din drömhus med",
+        kw_text: "Din betrodda fastighetsmäklarpartner.",
+        propy_link: "Propy",
+        propy_text: "Förenklade fastighets- och titeltransaktioner med blockchain-teknik.",
+        web3_education: "Web3-utbildning:",
+        cyrin: "Cyrin",
+        updraft: "Updraft",
+        your_courses: "Dina kurser",
+        web3_text: "Lär dig blockchain för fastigheter.",
+        foreclosure_link: "Kostnadsfria försäljnings- och kortförsäljningsresurser",
+        foreclosure_text: "Få hjälp och information från NAR."
       }
     };
 
@@ -2228,7 +2370,8 @@
       "fr": "French",
       "it": "Italian",
       "de": "German",
-      "ja": "Japanese"
+      "ja": "Japanese",
+      "sv": "Swedish"
     };
 
     function changeLanguage(lang) {
