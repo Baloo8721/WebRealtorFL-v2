@@ -414,14 +414,32 @@
       display: block;
     }
     .services-affiliates .kw-logo {
-      height: 180px;
+      height: 160px;
       width: auto;
       display: block;
+      margin-left: -40px;
+      transform: translateY(-20px);
+    }
+    .services-affiliates .kw-text {
+      position: relative;
+      left: -20px;
+      width: 325px;
+      transform: translateY(-10px);
+      text-align: left;
     }
     .services-affiliates .propy-logo {
       height: 27px;
       width: auto;
       display: block;
+      margin-left: 20px;
+      transform: translateY(-20px);
+    }
+    .services-affiliates .propy-text {
+      position: relative;
+      left: -20px;
+      width: 350px;
+      transform: translateY(-20px);
+      text-align: left;
     }
   </style>
 </head>
@@ -741,24 +759,24 @@
     </div>
     <!-- Updated Services/Affiliates Section -->
     <div class="services-affiliates" style="margin: 30px auto; max-width: 600px; color: #e0e6ed; font-size: 0.95em;">
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 15px 20px; align-items: center; padding: 15px 0;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px 20px; align-items: center; padding: 15px 0;">
         <!-- Keller Williams -->
-        <div>
+        <div style="text-align: left;">
           <a href="https://www.kw.com" target="_blank">
             <img src="Logos/kw logo.png" alt="Keller Williams Logo" class="kw-logo">
           </a>
         </div>
-        <p style="margin: 0;">
+        <p style="margin: 0;" class="kw-text">
           <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Find your dream home with Keller Williams</a> - Your trusted real estate brokerage partner.
         </p>
 
         <!-- Propy -->
-        <div>
+        <div style="text-align: right;">
           <a href="https://propy.com" target="_blank">
             <img src="Logos/propy-logo-1.png" alt="Propy Logo" class="propy-logo">
           </a>
         </div>
-        <p style="margin: 0;">
+        <p style="margin: 0;" class="propy-text">
           <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Propy</a> - Streamlined title and real estate transactions with blockchain tech.
         </p>
 
@@ -941,10 +959,10 @@
         subtitle: "Emparejamiento gratuito con agente por un experto licenciado FL + Innovador Web3",
         name: "Tu nombre",
         email: "Tu correo electrónico",
-        type_select: "Comprador, Vendedor, Inquilino, Arrendador, Inversionista",
+        type_select: "Comprador, Vendedor, Locatario, Arrendador, Inversionista",
         type_buyer: "Comprador",
         type_seller: "Vendedor",
-        type_renter: "Inquilino",
+        type_renter: "Locatario",
         type_landlord: "Arrendador",
         type_investor: "Inversionista",
         details: "Por favor, comparte algunos detalles sobre tus necesidades (ubicación, cronograma, presupuesto, etc.)",
@@ -982,7 +1000,7 @@
         "3_6_months": "3-6 meses",
         "6_plus_months": "6+ meses",
         financial_notes: "Preocupaciones o notas financieras",
-        buyers_renters: "Para compradores/inquilinos",
+        buyers_renters: "Para compradores/locatarios",
         property_type: "Tipo de propiedad:",
         single_family: "Unifamiliar",
         condo: "Condominio",
@@ -2102,7 +2120,7 @@
         "3_6_months": "3-6か月",
         "6_plus_months": "6か月以上",
         financial_notes: "財務上の懸念またはメモ",
-        buyers_renters: "購入者/賃借人向け",
+        buyers_renters: "買家/賃借人向け",
         property_type: "物件タイプ：",
         single_family: "一戸建",
         condo: "マンション",
@@ -2320,11 +2338,6 @@
 
     // Prevent blue highlight on mobile
     moreLanguages.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-    });
-
-    // Prevent blue highlight on desktop
-    moreLanguages.addEventListener('mousedown', function(e) {
       e.preventDefault();
     });
 
