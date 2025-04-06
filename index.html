@@ -359,6 +359,21 @@
         position: relative;
         left: 0;
       }
+      .crypto-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .crypto-label input[type="checkbox"] {
+        margin-left: 0;
+      }
+      .crypto-label input[type="checkbox"]::before {
+        content: "";
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        margin-right: 5px;
+      }
     }
     .section { animation: fadeIn 0.4s ease-in-out; }
     @keyframes fadeIn {
@@ -368,23 +383,27 @@
     .language-selector .more-languages {
       position: relative;
       display: inline-block;
+      cursor: pointer;
     }
     .language-selector .language-dropdown {
       display: none;
       position: absolute;
       right: 0;
       top: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 5px;
-      padding: 10px;
-      min-width: 120px;
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      min-width: 150px;
     }
     .language-selector .language-dropdown span {
       display: block;
-      padding: 5px 0;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
-    .language-selector .more-languages:hover .language-dropdown {
-      display: block;
+    .language-selector .language-dropdown span:hover {
+      background-color: #f5f5f5;
     }
   </style>
 </head>
@@ -394,7 +413,7 @@
     <span onclick="changeLanguage('es')">Español</span> | 
     <span onclick="changeLanguage('zh')">中文</span> | 
     <span onclick="changeLanguage('ar')">عربي</span> | 
-    <span class="more-languages">
+    <span class="more-languages" onclick="toggleLanguageDropdown()">
       More ▼
       <div class="language-dropdown">
         <span onclick="changeLanguage('ru')">Русский</span>
@@ -426,7 +445,7 @@
         <textarea name="entry.928741499" placeholder="Please share some details about your needs (location, timeline, budget, etc.)" data-lang="details"></textarea>
         
         <div class="form-group" style="text-align: left;">
-          <label style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
+          <label class="crypto-label" style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
             Using Crypto?<input type="checkbox" name="entry.870420118" value="Yes" style="margin-left: -26px; vertical-align: middle; position: relative; top: 0; left: 0;">
           </label>
         </div>
@@ -949,7 +968,7 @@
         "2_5_baths": "2.5 baños",
         "3_plus_baths": "3+ baños",
         no_pref_bath: "Sin preferencia",
-        square_footage: "Metros cuadrados preferidos",
+        square_footage: "Metragem quadrada preferida",
         locations: "Ubicaciones/barrios preferidos",
         must_haves: "Características indispensables:",
         garage: "Garaje",
@@ -1069,11 +1088,11 @@
         financial_notes: "财务问题或备注",
         buyers_renters: "买家/租户信息",
         property_type: "物业类型：",
-        single_family: "独栋住宅",
+        single_family: "一户建",
         condo: "公寓",
         townhouse: "联排别墅",
-        multi_family: "多家庭住宅",
-        commercial: "商业物业",
+        multi_family: "多户型",
+        commercial: "商业",
         land: "土地",
         bedrooms: "卧室：",
         "1_bed": "1卧",
@@ -1090,13 +1109,13 @@
         "3_plus_baths": "3浴以上",
         no_pref_bath: "无偏好",
         square_footage: "首选面积",
-        locations: "首选地点/社区",
+        locations: "首选地点/近邻",
         must_haves: "必备特点：",
         garage: "车库",
         basement: "地下室",
         pool: "泳池",
         yard: "庭院",
-        main_floor_bed: "主层卧室",
+        main_floor_bed: "一层卧室",
         home_office: "家庭办公室",
         open_floor: "开放式楼层",
         updated_kitchen: "更新厨房",
@@ -1124,12 +1143,12 @@
         sell_timeline: "出售/出租时间表：",
         asap: "尽快",
         property_condition: "物业状况：",
-        excellent: "优秀",
+        excellent: "优良",
         good: "良好",
-        fair: "一般",
+        fair: "普通",
         needs_work: "需要维修",
         upgrades: "近期升级/翻新",
-        issues: "已知物业问题",
+        issues: "物业问题",
         additional_info: "附加信息",
         how_heard: "您是如何得知我们的？",
         referral: "推荐",
@@ -1139,12 +1158,12 @@
         online_review: "在线评论",
         other_source: "其他来源",
         agent_exp: "以前的代理经验：",
-        worked_agent: "曾与代理合作",
+        worked_agent: "以前的代理合作",
         no_agent: "无代理经验",
         agent_desc: "描述以前的代理经验",
         requests: "特殊请求或关注点",
         submit: "立即找到我的专家代理",
-        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        footer: "Web3RealtorFL提供 - 不动产和区块链连接",
         thank_you: "感谢您的提交！代理将很快联系您。",
         ok: "确定",
         select_language: "选择您的首选语言",
@@ -1424,7 +1443,7 @@
         agent_desc: "Опишите предыдущий опыт с агентом",
         requests: "Особые запросы или опасения",
         submit: "Найдите лучшего агента сегодня!",
-        footer: "Работает на Web3RealtorFL - Соединение недвижимости и блокчейна",
+        footer: "Работает на Web3RealtorFL - Версия недвижимости и блокчейна",
         thank_you: "Спасибо за отправку! Агент свяжется с вами в ближайшее время.",
         ok: "ОК",
         select_language: "Выберите предпочитаемый язык",
