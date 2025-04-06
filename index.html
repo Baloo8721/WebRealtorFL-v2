@@ -408,6 +408,21 @@
     .language-selector .more-languages:hover .language-dropdown {
       display: block;
     }
+    .services-affiliates img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+    .services-affiliates .kw-logo {
+      height: 180px;
+      width: auto;
+      display: block;
+    }
+    .services-affiliates .propy-logo {
+      height: 27px;
+      width: auto;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -724,32 +739,51 @@
         <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
     </div>
-    <!-- New Services/Affiliates Section -->
-    <div class="services-affiliates" style="margin: 20px auto; max-width: 600px; text-align: left; color: #b0bec5; font-size: 0.9em; line-height: 1.6;">
-      <p>
-        <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none;">
-          <img src="Logos/kw logo.png" alt="Keller Williams Logo" style="height: 20px; vertical-align: middle; margin-right: 5px;">
-          Find your dream home with Keller Williams - Your trusted real estate brokerage partner
-        </a>
-      </p>
-      <p>
-        <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none;">
-          <img src="Logos/propy-logo-1.png" alt="Propy Logo" style="height: 20px; vertical-align: middle; margin-right: 5px;">
-          Propy - Streamlined title and real estate transactions with blockchain tech
-        </a>
-      </p>
-      <p>Web3 Education: 
-        <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;">Cyrin</a> | 
-        <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;">Updraft</a> | 
-        <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;">Your Courses</a> - Learn blockchain for real estate
-      </p>
-      <p><a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank" style="color: #26c6da; text-decoration: none;">Free Foreclosure/Short Sale Resources</a> - Get help and info from NAR.</p>
+    <!-- Updated Services/Affiliates Section -->
+    <div class="services-affiliates" style="margin: 30px auto; max-width: 600px; color: #e0e6ed; font-size: 0.95em;">
+      <div style="display: grid; grid-template-columns: auto 1fr; gap: 15px 20px; align-items: center; padding: 15px 0;">
+        <!-- Keller Williams -->
+        <div>
+          <a href="https://www.kw.com" target="_blank">
+            <img src="Logos/kw logo.png" alt="Keller Williams Logo" class="kw-logo">
+          </a>
+        </div>
+        <p style="margin: 0;">
+          <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Find your dream home with Keller Williams</a> - Your trusted real estate brokerage partner.
+        </p>
+
+        <!-- Propy -->
+        <div>
+          <a href="https://propy.com" target="_blank">
+            <img src="Logos/propy-logo-1.png" alt="Propy Logo" class="propy-logo">
+          </a>
+        </div>
+        <p style="margin: 0;">
+          <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Propy</a> - Streamlined title and real estate transactions with blockchain tech.
+        </p>
+
+        <!-- Web3 Education -->
+        <div style="grid-column: 1 / -1; padding-top: 10px;">
+          <p style="margin: 0;">
+            Web3 Education: 
+            <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;">Cyrin</a> | 
+            <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;">Updraft</a> | 
+            <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;">Your Courses</a> - Learn blockchain for real estate.
+          </p>
+        </div>
+
+        <!-- Foreclosure Resources -->
+        <div style="grid-column: 1 / -1;">
+          <p style="margin: 0;">
+            <a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;">Free Foreclosure/Short Sale Resources</a> - Get help and info from NAR.
+          </p>
+        </div>
+      </div>
     </div>
     <!-- Footer pushed down -->
     <footer style="margin-top: 40px; padding-bottom: 20px;">
       <a href="https://tylerbelisle.kw.com/" target="_blank" class="powered-by">Powered by <span style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px;">Web3RealtorFL</span> - Bridging Real Estate & Blockchain</a>
     </footer>
-  </div>
 
   <!-- Popup -->
   <div id="thankYouPopup" class="popup">
@@ -1153,7 +1187,7 @@
         issues: "物业问题",
         additional_info: "附加信息",
         how_heard: "您是如何得知我们的？",
-        referral: "推荐",
+        referral: "介绍",
         website: "网站",
         social_media: "社交媒体",
         sign: "看板",
@@ -2033,7 +2067,7 @@
         type_renter: "賃借人",
         type_landlord: "大家",
         type_investor: "投資家",
-        details: "あなたのニーズに関する詳細（場所、時間枠、予算など）を共有してください",
+        details: "あなたのニーズに関する詳細（場所、時間枠、予算等）を共有してください",
         dropdown_btn: "マッチングを強化 - よりスマートなフィットのために詳細を追加 +",
         intake_title: "クライアント情報収集",
         client_type: "クライアントタイプ",
