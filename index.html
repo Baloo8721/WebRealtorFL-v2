@@ -1285,7 +1285,7 @@
         property_condition: "حالة العقار：",
         excellent: "ممتاز",
         good: "جيد",
-        fair: "مقبول",
+        fair: "مoyen",
         needs_work: "يحتاج إلى عمل",
         upgrades: "التحديثات/التجديدات الأخيرة",
         issues: "المشكلات المعروفة بالعقار",
@@ -2068,7 +2068,7 @@
         financial_notes: "財務上の懸念またはメモ",
         buyers_renters: "購入者/賃借人向け",
         property_type: "物件タイプ：",
-        single_family: "一戸建て",
+        single_family: "一戸建",
         condo: "マンション",
         townhouse: "タウンハウス",
         multi_family: "集合住宅",
@@ -2257,6 +2257,45 @@
       if (popup) {
         popup.style.display = "none";
       }
+    });
+
+    let languageDropdownOpen = false;
+    const moreLanguages = document.querySelector('.more-languages');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    function toggleLanguageDropdown() {
+      languageDropdownOpen = !languageDropdownOpen;
+      languageDropdown.style.display = languageDropdownOpen ? 'block' : 'none';
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!moreLanguages.contains(e.target) && languageDropdownOpen) {
+        languageDropdownOpen = false;
+        languageDropdown.style.display = 'none';
+      }
+    });
+
+    // Handle touch events for mobile devices
+    moreLanguages.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      toggleLanguageDropdown();
+    });
+
+    // Prevent blue highlight on mobile
+    moreLanguages.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+    });
+
+    // Prevent blue highlight on desktop
+    moreLanguages.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+    });
+
+    // Handle click events
+    moreLanguages.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleLanguageDropdown();
     });
   </script>
 </body>
