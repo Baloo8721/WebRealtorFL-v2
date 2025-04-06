@@ -390,20 +390,23 @@
       position: absolute;
       right: 0;
       top: 100%;
-      background: white;
-      border-radius: 4px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 5px;
+      padding: 10px;
+      min-width: 120px;
       z-index: 1000;
-      min-width: 150px;
     }
     .language-selector .language-dropdown span {
       display: block;
-      padding: 8px 12px;
+      padding: 5px 0;
+      color: #fff;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
     .language-selector .language-dropdown span:hover {
-      background-color: #f5f5f5;
+      color: #26c6da;
+    }
+    .language-selector .more-languages:hover .language-dropdown {
+      display: block;
     }
   </style>
 </head>
@@ -413,7 +416,7 @@
     <span onclick="changeLanguage('es')">Español</span> | 
     <span onclick="changeLanguage('zh')">中文</span> | 
     <span onclick="changeLanguage('ar')">عربي</span> | 
-    <span class="more-languages" onclick="toggleLanguageDropdown()">
+    <span class="more-languages">
       More ▼
       <div class="language-dropdown">
         <span onclick="changeLanguage('ru')">Русский</span>
@@ -916,7 +919,7 @@
         intake_title: "Información de ingreso del cliente",
         client_type: "Tipo de cliente",
         first_time: "Primera vez",
-        relocating: "Mudándose",
+        relocating: "Mudanza",
         contact_prefs: "Preferencias de contacto",
         pref_contact_method: "Método de contacto preferido:",
         phone: "Teléfono",
@@ -1005,7 +1008,7 @@
         property_condition: "Condición de la propiedad:",
         excellent: "Excelente",
         good: "Bueno",
-        fair: "Regular",
+        fair: "Razoável",
         needs_work: "Necesita trabajo",
         upgrades: "Mejoras/renovaciones recientes",
         issues: "Problemas conocidos con la propiedad",
@@ -2296,6 +2299,26 @@
     moreLanguages.addEventListener('click', function(e) {
       e.preventDefault();
       toggleLanguageDropdown();
+    });
+
+    let languageSpans = languageDropdown.querySelectorAll('span');
+
+    languageSpans.forEach(span => {
+      span.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent closing the dropdown when selecting a language
+        const lang = this.getAttribute('onclick').match(/changeLanguage\('([^']+)'/)[1];
+        changeLanguage(lang);
+        languageDropdownOpen = false;
+        languageDropdown.style.display = 'none';
+      });
+
+      span.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+        const lang = this.getAttribute('onclick').match(/changeLanguage\('([^']+)'/)[1];
+        changeLanguage(lang);
+        languageDropdownOpen = false;
+        languageDropdown.style.display = 'none';
+      });
     });
   </script>
 </body>
