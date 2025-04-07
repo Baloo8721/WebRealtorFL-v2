@@ -447,39 +447,19 @@
     .checkbox-wrapper {
       display: flex;
       align-items: center;
+      gap: -70px;
       flex-wrap: nowrap;
       white-space: nowrap;
     }
     .checkbox-wrapper input[type="checkbox"] {
       order: 1;
-      margin-left: -10px; /* Adjust this value to move left/right */
       flex-shrink: 0;
+      transform: translateX(-30px);
     }
-    .checkbox-wrapper label {
+    .checkbox-wrapper label[data-lang="using_crypto"] {
       order: 0;
-      margin-right: 5px;
       white-space: nowrap;
       flex-shrink: 0;
-    }
-    /* Force "Using Crypto" text to stay on one line */
-    #moreInfo div:has(input#using_crypto) {
-      display: flex !important;
-      flex-wrap: nowrap !important;
-      align-items: center !important;
-      min-width: 0;
-      overflow: hidden !important;
-    }
-
-    #moreInfo div:has(input#using_crypto) label[data-lang="using_crypto"] {
-      white-space: nowrap !important;
-      flex-shrink: 0 !important;
-      margin-right: 5px !important;
-    }
-
-    #moreInfo div:has(input#using_crypto) input#using_crypto {
-      flex-shrink: 0 !important;
-      margin-left: 2px !important;
-      transform: translateX(-6px) !important; /* Move checkbox 6 pixels to the left */
     }
   </style>
 </head>
@@ -1163,7 +1143,7 @@
         updraft: "Updraft",
         your_courses: "Tus Cursos",
         web3_text: "Aprende blockchain para bienes raíces.",
-        foreclosure_link: "Recursos Gratuitos para Ejecuciones Hipotecarias y Ventas Cortas",
+        foreclosure_link: "Recursos Gratuitos para Ejecuciones Hipotecarias y Ventas Curtas",
         foreclosure_text: "Obtén ayuda e información de NAR.",
         using_crypto: "Usando Crypto"
       },
@@ -1241,7 +1221,7 @@
         garage: "车库",
         basement: "地下室",
         pool: "泳池",
-        yard: "庭院",
+        yard: "庭",
         main_floor_bed: "一层卧室",
         home_office: "家庭办公室",
         open_floor: "开放式楼层",
@@ -2491,7 +2471,7 @@
         investment: "Investering",
         financial: "Finansiell",
         other_reason: "Annan anledning",
-        sell_timeline: "Tidsram för att sälja/hyra ut:",
+        sell_timeline: "Tidsplan för att sälja/hyra ut:",
         asap: "Så snart som möjligt",
         property_condition: "Fastighetens skick:",
         excellent: "Utmärkt",
