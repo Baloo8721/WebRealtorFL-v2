@@ -48,6 +48,8 @@
       font-size: 0.9em;
       cursor: pointer;
       border: 1px solid rgba(255, 255, 255, 0.15);
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
     }
     .language-selector span {
       cursor: pointer;
@@ -261,27 +263,45 @@
       margin-bottom: 10px;
     }
     .checkbox-label {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
       cursor: pointer;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: background 0.3s ease;
     }
-    .checkbox-label:hover {
-      background: rgba(255, 255, 255, 0.1);
+
+    .checkbox-label span {
+      flex-shrink: 0;
     }
+
     .checkbox-label input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.1);
       cursor: pointer;
     }
+
     .checkbox-label input[type="checkbox"]:checked {
       background: #26c6da;
       border-color: #26c6da;
+    }
+
+    @media screen and (max-width: 768px) {
+      .checkbox-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
     }
     .powered-by {
       color: #b0bec5;
@@ -360,7 +380,7 @@
         left: 0;
       }
       .crypto-label {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 10px;
       }
@@ -447,27 +467,46 @@
     .checkbox-wrapper {
       display: inline-flex;
       align-items: center;
+      gap: 3px;
       flex-wrap: nowrap;
       white-space: nowrap;
-      position: relative;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9em;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .checkbox-wrapper span[data-lang] {
+      order: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .checkbox-wrapper input[type="checkbox"] {
       order: 1;
       flex-shrink: 0;
-      margin-left: -20px; /* Adjust this value to move left/right */
+      margin: 0;
     }
-    .checkbox-wrapper label[data-lang="using_crypto"] {
-      order: 0;
-      white-space: nowrap;
-      flex-shrink: 0;
-      position: relative;
-    }
-    /* Special handling for Russian text */
-    .checkbox-wrapper label[data-lang="using_crypto"]:lang(ru) {
-      margin-right: 20px !important; /* Add extra space for Russian text */
-    }
-    .checkbox-wrapper input[type="checkbox"]:has(label[data-lang="using_crypto"]:lang(ru)) {
-      margin-left: 50px !important; /* Adjust position for Russian text */
+    @media screen and (max-width: 768px) {
+      .checkbox-wrapper {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      .checkbox-wrapper span[data-lang] {
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .checkbox-wrapper input[type="checkbox"] {
+        margin: 0;
+      }
     }
   </style>
 </head>
@@ -510,11 +549,9 @@
         <textarea name="entry.928741499" placeholder="Please share some details about your needs (location, timeline, budget, etc.)" data-lang="details"></textarea>
         
         <div class="form-group" style="text-align: left;">
-          <label class="crypto-label" style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
-            <div class="checkbox-wrapper">
-              <input type="checkbox" name="entry.870420118" value="Yes" id="using_crypto">
-              <label data-lang="using_crypto">Using Crypto</label>
-            </div>
+          <label class="checkbox-label" for="using_crypto">
+            <span data-lang="using_crypto">Using Crypto</span>
+            <input type="checkbox" name="entry.870420118" value="Yes" id="using_crypto">
           </label>
         </div>
         
@@ -2180,7 +2217,7 @@
         good: "Gut",
         fair: "Mäßig",
         needs_work: "Renovierungsbedürftig",
-        upgrades: "Kürzliche Upgrades/Renovierungen",
+        upgrades: "Kürzliche Upgraderingar/Renovierungen",
         issues: "Bekannte Probleme mit der Immobilie",
         additional_info: "Zusätzliche Informationen",
         how_heard: "Wie haben Sie von uns erfahren?",
