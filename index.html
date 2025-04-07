@@ -458,6 +458,20 @@
       order: 0;
       margin-right: 5px;
     }
+    /* Prevent "Using Crypto" text from wrapping */
+    #moreInfo > div > label[data-lang="using_crypto"] {
+      white-space: nowrap !important;
+      display: inline !important;
+      overflow: hidden !important;
+      max-width: 100%;
+    }
+
+    #moreInfo > div {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      align-items: center;
+      overflow: hidden !important;
+    }
   </style>
 </head>
 <body>
