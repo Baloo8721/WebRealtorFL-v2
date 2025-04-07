@@ -17,7 +17,9 @@
       padding: 60px 15px 30px 15px;
       text-align: center;
       position: relative;
+      overflow-x: hidden;
     }
+    
     body::before {
       content: '';
       position: absolute;
@@ -506,6 +508,18 @@
       }
       .checkbox-wrapper input[type="checkbox"] {
         margin: 0;
+      }
+    }
+    /* Mobile-specific styles */
+    @media screen and (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+        background-position: center;
+        background-size: cover;
+      }
+      
+      body::before {
+        backdrop-filter: blur(3px);
       }
     }
   </style>
