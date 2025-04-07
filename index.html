@@ -447,19 +447,30 @@
     .checkbox-wrapper {
       display: flex;
       align-items: center;
-      gap: -70px;
       flex-wrap: nowrap;
       white-space: nowrap;
+      position: relative;
+      padding-right: 60px;
     }
     .checkbox-wrapper input[type="checkbox"] {
       order: 1;
       flex-shrink: 0;
-      transform: translateX(-30px);
+      position: absolute;
+      right: 0;
+      transform: translateX(30%);
+      margin-right: 6px;
     }
     .checkbox-wrapper label[data-lang="using_crypto"] {
       order: 0;
       white-space: nowrap;
       flex-shrink: 0;
+    }
+    /* Special handling for Russian text */
+    .checkbox-wrapper label[data-lang="using_crypto"]:lang(ru) {
+      margin-right: 20px; /* Add extra space for Russian text */
+    }
+    .checkbox-wrapper input[type="checkbox"]:has(label[data-lang="using_crypto"]:lang(ru)) {
+      transform: translateX(50%); /* Adjust position for Russian text */
     }
   </style>
 </head>
