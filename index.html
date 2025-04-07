@@ -444,6 +444,20 @@
     .services-affiliates {
       overflow: hidden;
     }
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    .checkbox-wrapper input[type="checkbox"] {
+      margin-left: 5px;
+      margin-right: 0;
+      order: 1;
+    }
+    .checkbox-wrapper label {
+      order: 0;
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -486,7 +500,10 @@
         
         <div class="form-group" style="text-align: left;">
           <label class="crypto-label" style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
-            Using Crypto?<input type="checkbox" name="entry.870420118" value="Yes" style="margin-left: -26px; vertical-align: middle; position: relative; top: 0; left: 0;">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" name="entry.870420118" value="Yes">
+              <label data-lang="using_crypto">Using Crypto</label>
+            </div>
           </label>
         </div>
         
@@ -971,7 +988,8 @@
         your_courses: "Your Courses",
         web3_text: "Learn blockchain for real estate.",
         foreclosure_link: "Free Foreclosure/Short Sale Resources",
-        foreclosure_text: "Get help and info from NAR."
+        foreclosure_text: "Get help and info from NAR.",
+        using_crypto: "Using Crypto"
       },
       es: {
         title: "Desbloquea tu propiedad en Florida",
@@ -1096,7 +1114,7 @@
         agent_desc: "Describe la experiencia previa con agente",
         requests: "Solicitudes o preocupaciones especiales",
         submit: "Encuentra mi agente experto ahora",
-        footer: "Powered by Web3RealtorFL - Bridging Real Estate & Blockchain",
+        footer: "Desarrollado por Web3RealtorFL - Conectando Inmuebles y Blockchain",
         thank_you: "¡Gracias por enviar! Un agente te contactará pronto.",
         ok: "OK",
         select_language: "Seleccione su idioma preferido",
@@ -1116,14 +1134,15 @@
         kw_link: "Encuentra la casa de tus sueños con",
         kw_text: "Tu socio confiable en bienes raíces.",
         propy_link: "Propy",
-        propy_text: "Transacciones de títulos y bienes raíces optimizadas con tecnología blockchain.",
+        propy_text: "Transacciones inmobiliarias y de títulos simplificadas con tecnología blockchain.",
         web3_education: "Educación Web3:",
         cyrin: "Cyrin",
         updraft: "Updraft",
         your_courses: "Tus Cursos",
         web3_text: "Aprende blockchain para bienes raíces.",
         foreclosure_link: "Recursos Gratuitos para Ejecuciones Hipotecarias y Ventas Cortas",
-        foreclosure_text: "Obtén ayuda e información de NAR."
+        foreclosure_text: "Obtén ayuda e información de NAR.",
+        using_crypto: "Usando Crypto"
       },
       zh: {
         title: "解锁您的佛罗里达房产",
@@ -1275,7 +1294,8 @@
         your_courses: "您的课程",
         web3_text: "学习房地产区块链",
         foreclosure_link: "免费止赎/短售资源",
-        foreclosure_text: "获取来自NAR的帮助和信息"
+        foreclosure_text: "获取来自NAR的帮助和信息",
+        using_crypto: "使用加密货币"
       },
       ar: {
         title: "افتح عقارك في فلوريدا",
@@ -1427,7 +1447,8 @@
         your_courses: "دوراتك",
         web3_text: "تعلم blockchain للعقارات.",
         foreclosure_link: "موارد مجانية للرهون العقارية والبيع القصير",
-        foreclosure_text: "احصل على المساعدة والمعلومات من NAR."
+        foreclosure_text: "احصل على المساعدة والمعلومات من NAR.",
+        using_crypto: "استخدام العملات المشفرة"
       },
       ru: {
         title: "Откройте свою недвижимость во Флориде",
@@ -1579,7 +1600,8 @@
         your_courses: "Ваши курсы",
         web3_text: "Изучайте блокчейн для недвижимости.",
         foreclosure_link: "Бесплатные ресурсы для ипотечных аукционов и продаж",
-        foreclosure_text: "Получите помощь и информацию от NAR."
+        foreclosure_text: "Получите помощь и информацию от NAR.",
+        using_crypto: "Использование криптовалюты"
       },
       pt: {
         title: "Desbloqueie sua propriedade na Flórida",
@@ -1731,7 +1753,8 @@
         your_courses: "Seus Cursos",
         web3_text: "Aprenda blockchain para imóveis.",
         foreclosure_link: "Recursos Gratuitos para Execuções Hipotecárias e Vendas Curtas",
-        foreclosure_text: "Obtenha ajuda e informações da NAR."
+        foreclosure_text: "Obtenha ajuda e informações da NAR.",
+        using_crypto: "Usando Crypto"
       },
       fr: {
         title: "Déverrouillez votre propriété en Floride",
@@ -1883,7 +1906,8 @@
         your_courses: "Vos Cours",
         web3_text: "Apprenez la blockchain pour l'immobilier.",
         foreclosure_link: "Ressources Gratuites pour les Exécutions Hypothécaires et les Ventes à Court Terme",
-        foreclosure_text: "Obtenez de l'aide et des informations de NAR."
+        foreclosure_text: "Obtenez de l'aide et des informations de NAR.",
+        using_crypto: "Utilisation de Crypto"
       },
       it: {
         title: "Sblocca la tua proprietà in Florida",
@@ -2035,7 +2059,8 @@
         your_courses: "I tuoi Corsi",
         web3_text: "Impara la blockchain per l'immobiliare.",
         foreclosure_link: "Risorse Gratuite per Esecuzioni Ipotecarie e Vendite a Breve Termine",
-        foreclosure_text: "Ottieni aiuto e informazioni da NAR."
+        foreclosure_text: "Ottieni aiuto e informazioni da NAR.",
+        using_crypto: "Utilizzo Crypto"
       },
       de: {
         title: "Entsperren Sie Ihre Florida-Immobilie",
@@ -2187,7 +2212,8 @@
         your_courses: "Ihre Kurse",
         web3_text: "Lernen Sie Blockchain für Immobilien.",
         foreclosure_link: "Kostenlose Ressourcen für Zwangsversteigerungen und Kurzverkäufe",
-        foreclosure_text: "Holen Sie sich Hilfe und Informationen von NAR."
+        foreclosure_text: "Holen Sie sich Hilfe und Informationen von NAR.",
+        using_crypto: "Verwendung von Crypto"
       },
       ja: {
         title: "あなたのフロリダの不動産を解放",
@@ -2259,7 +2285,7 @@
         no_pref_bath: "特に希望なし",
         square_footage: "希望する面積",
         locations: "希望する場所/近隣",
-        must_haves: "必須の特徴：",
+        must_haves: "Must-Have-Merkmale:",
         garage: "ガレージ",
         basement: "地下室",
         pool: "プール",
@@ -2339,7 +2365,8 @@
         your_courses: "あなたのコース",
         web3_text: "不動産のブロックチェーンを学びましょう。",
         foreclosure_link: "無料の競売/ショートセールリソース",
-        foreclosure_text: "NARからサポートと情報を得る"
+        foreclosure_text: "NARからサポートと情報を得る",
+        using_crypto: "暗号通貨を使用"
       },
       sv: {
         title: "Lås upp din Florida-fastighet",
@@ -2378,7 +2405,7 @@
         no: "Nej",
         in_process: "Under behandling",
         pre_approval_amount: "Förgodkänt belopp (om tillämpligt)",
-        pref_lender: "Föredragen långivare:",
+        pref_lender: "Prestador preferido:",
         have_lender: "Har en",
         need_lender: "Behöver rekommendation",
         timeline: "Tidsram:",
@@ -2446,7 +2473,7 @@
         property_condition: "Fastighetens skick:",
         excellent: "Utmärkt",
         good: "Bra",
-        fair: "Rimligt",
+        fair: "Mäßig",
         needs_work: "Behöver arbete",
         upgrades: "Kürzliche upgraderingar/renoveringar",
         issues: "Kända problem med fastigheten",
@@ -2490,7 +2517,8 @@
         your_courses: "Dina kurser",
         web3_text: "Lär dig blockchain för fastigheter.",
         foreclosure_link: "Kostnadsfria försäljnings- och kortförsäljningsresurser",
-        foreclosure_text: "Få hjälp och info från NAR."
+        foreclosure_text: "Få hjälp och info från NAR.",
+        using_crypto: "Använder Crypto"
       }
     };
 
