@@ -445,32 +445,29 @@
       overflow: hidden;
     }
     .checkbox-wrapper {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       flex-wrap: nowrap;
       white-space: nowrap;
       position: relative;
-      padding-right: 60px;
     }
     .checkbox-wrapper input[type="checkbox"] {
       order: 1;
       flex-shrink: 0;
-      position: absolute;
-      right: 0;
-      transform: translateX(30%);
-      margin-right: 6px;
+      margin-left: -20px; /* Adjust this value to move left/right */
     }
     .checkbox-wrapper label[data-lang="using_crypto"] {
       order: 0;
       white-space: nowrap;
       flex-shrink: 0;
+      position: relative;
     }
     /* Special handling for Russian text */
     .checkbox-wrapper label[data-lang="using_crypto"]:lang(ru) {
-      margin-right: 20px; /* Add extra space for Russian text */
+      margin-right: 20px !important; /* Add extra space for Russian text */
     }
     .checkbox-wrapper input[type="checkbox"]:has(label[data-lang="using_crypto"]:lang(ru)) {
-      transform: translateX(50%); /* Adjust position for Russian text */
+      margin-left: 50px !important; /* Adjust position for Russian text */
     }
   </style>
 </head>
