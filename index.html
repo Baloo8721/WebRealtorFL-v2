@@ -448,29 +448,38 @@
       display: flex;
       align-items: center;
       flex-wrap: nowrap;
+      white-space: nowrap;
     }
     .checkbox-wrapper input[type="checkbox"] {
-      margin-left: 5px;
-      margin-right: 0;
       order: 1;
+      margin-left: -25px; /* Adjust this value to move left/right */
+      flex-shrink: 0;
     }
     .checkbox-wrapper label {
       order: 0;
       margin-right: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    /* Prevent "Using Crypto" text from wrapping */
-    #moreInfo > div > label[data-lang="using_crypto"] {
-      white-space: nowrap !important;
-      display: inline !important;
-      overflow: hidden !important;
-      max-width: 100%;
-    }
-
-    #moreInfo > div {
+    /* Force "Using Crypto" text to stay on one line */
+    #moreInfo div:has(input#using_crypto) {
       display: flex !important;
       flex-wrap: nowrap !important;
-      align-items: center;
+      align-items: center !important;
+      min-width: 0;
       overflow: hidden !important;
+    }
+
+    #moreInfo div:has(input#using_crypto) label[data-lang="using_crypto"] {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      margin-right: 5px !important;
+    }
+
+    #moreInfo div:has(input#using_crypto) input#using_crypto {
+      flex-shrink: 0 !important;
+      margin-left: 2px !important;
+      transform: translateX(-6px) !important; /* Move checkbox 6 pixels to the left */
     }
   </style>
 </head>
@@ -515,7 +524,7 @@
         <div class="form-group" style="text-align: left;">
           <label class="crypto-label" style="display: inline-block; white-space: nowrap; margin: 0; padding: 0; font-size: 0.9em;">
             <div class="checkbox-wrapper">
-              <input type="checkbox" name="entry.870420118" value="Yes">
+              <input type="checkbox" name="entry.870420118" value="Yes" id="using_crypto">
               <label data-lang="using_crypto">Using Crypto</label>
             </div>
           </label>
