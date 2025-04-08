@@ -64,16 +64,15 @@
       
       body::before {
         position: absolute;
-        top: 0;
+        top: -20%;
         left: 0;
         width: 100%;
-        height: 200%; /* Extra tall to cover full scroll range */
-        /* Use a smaller, mobile-optimized image */
-        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop') no-repeat center top;
-        background-size: cover;
-        background-attachment: scroll;
+        height: 140%;
+        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop') no-repeat center top;
+        background-size: 100% auto;
         z-index: -1;
         transform: none !important;
+        transition: transform 0.1s linear;
       }
       
       body::after {
@@ -2203,7 +2202,7 @@
         updraft: "Updraft",
         your_courses: "I tuoi Corsi",
         web3_text: "Impara la blockchain per l'immobiliare.",
-        foreclosure_link: "Risorse Gratuite per Esecuzioni Ipotecarie e Vendite a Breve Termine",
+        foreclosure_link: "Risorse Gratuite per Esecuzioni Ipotecarie e Vendi a Breve Termine",
         foreclosure_text: "Ottieni aiuto e informazioni da NAR.",
         using_crypto: "Utilizzo Crypto"
       },
@@ -2868,12 +2867,15 @@
         overlay.style.height = '100dvh';
       }
 
-      // Apply parallax only on desktop/iPad (>768px)
+      // Parallax effect for desktop/iPad (>768px) and mobile sync (≤768px)
       if (window.innerWidth > 768) {
         const scrollY = window.scrollY;
         bg.style.transform = `translateY(${scrollY * 0.3}px)`;
       } else {
-        bg.style.transform = 'translateY(0)';
+        const scrollY = window.scrollY;
+        const maxScroll = contentHeight - viewportHeight;
+        const scrollPercent = Math.min(scrollY / maxScroll, 1); // 0 to 1
+        bg.style.transform = `translateY(${scrollPercent * 15}%)`; // 15% max movement
       }
     }
 
