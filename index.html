@@ -2728,5 +2728,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
+  <script>
+    // Detect Chrome mobile and remove zoom effect
+    const isChromeMobile = /Chrome/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
+
+    if (isChromeMobile) {
+      const bg = document.querySelector('body::before');
+      if (bg) {
+        // Set background-size to a fixed value to prevent zoom in Chrome mobile
+        bg.style.backgroundSize = '100% 100%';
+        bg.style.backgroundAttachment = 'fixed';
+      }
+    }
+  </script>
 </body>
 </html>
