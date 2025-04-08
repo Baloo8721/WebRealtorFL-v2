@@ -15,9 +15,12 @@
       padding: 60px 15px 30px 15px;
       text-align: center;
       position: relative;
+      min-height: -webkit-fill-available;
+      min-height: -moz-available;
+      min-height: stretch;
+      min-height: fill-available;
+      min-height: 100vh;
       overflow-x: hidden;
-      min-height: 100vh; /* Fallback for older browsers */
-      min-height: 100dvh; /* Use dynamic viewport height for mobile */
     }
     
     body::before {
@@ -25,13 +28,13 @@
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
+      bottom: 0;
       width: 100%;
-      height: 100%; /* Base height */
-      min-height: 100dvh; /* Ensure it matches dynamic viewport height */
+      height: 100%;
       background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
       background-size: cover;
       z-index: -1;
-      transform: translateZ(0);
     }
     
     body::after {
@@ -39,9 +42,10 @@
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
+      bottom: 0;
       width: 100%;
-      height: 100%; /* Base height */
-      min-height: 100dvh; /* Ensure it matches dynamic viewport height */
+      height: 100%;
       background: rgba(16, 27, 40, 0.6);
       backdrop-filter: blur(-1px);
       z-index: 0;
@@ -441,100 +445,6 @@
       flex-shrink: 0;
       margin: 0;
     }
-    .section { animation: fadeIn 0.4s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0.6; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .language-selector .more-languages {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-    }
-    .language-selector .language-dropdown {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 5px;
-      padding: 10px;
-      min-width: 120px;
-      z-index: 1000;
-    }
-    .language-selector .language-dropdown span {
-      display: block;
-      padding: 5px 0;
-      color: #fff;
-      cursor: pointer;
-    }
-    .language-selector .language-dropdown span:hover {
-      color: #26c6da;
-    }
-    .language-selector .more-languages:hover .language-dropdown {
-      display: block;
-    }
-    .services-affiliates img {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
-    .services-affiliates .kw-logo {
-      height: 60px;
-      width: auto;
-      display: block;
-      margin-left: -60px;
-    }
-    .services-affiliates .kw-text {
-      position: relative;
-      left: -40px;
-      width: 325px;
-      transform: translateY(-10px);
-      text-align: left;
-    }
-    .services-affiliates .propy-logo {
-      height: 27px;
-      width: auto;
-      display: block;
-      margin-left: 12px;
-      margin-top: -5px;
-      margin-bottom: 5px;
-    }
-    .services-affiliates .propy-text {
-      position: relative;
-      left: -40px;
-      width: 325px;
-      transform: translateY(-10px);
-      text-align: left;
-    }
-    .services-affiliates {
-      overflow: hidden;
-    }
-    .checkbox-wrapper {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      padding: 0;
-      margin: 0;
-      font-size: 0.9em;
-      max-width: 100%;
-      overflow: hidden;
-    }
-    .checkbox-wrapper span[data-lang] {
-      order: 0;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .checkbox-wrapper input[type="checkbox"] {
-      order: 1;
-      flex-shrink: 0;
-      margin: 0;
-    }
   </style>
 </head>
 <body>
@@ -542,7 +452,6 @@
     <span onclick="changeLanguage('en')">English</span> | 
     <span onclick="changeLanguage('es')">Español</span> | 
     <span onclick="changeLanguage('zh')">中文</span> | 
-    <span onclick="changeLanguage('ar')">عربي</span> | 
     <span class="more-languages">
       More ▼
       <div class="language-dropdown">
@@ -1102,7 +1011,7 @@
         yes: "Sí",
         no: "No",
         in_process: "En proceso",
-        pre_approval_amount: "Monto de preaprobación (si aplica)",
+        pre_approval_amount: "Monto de pre-approbación (si aplica)",
         pref_lender: "Prestador preferido:",
         have_lender: "Tengo uno",
         need_lender: "Necesito recomendación",
