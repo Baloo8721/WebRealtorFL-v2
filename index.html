@@ -20,18 +20,16 @@
       min-height: 100dvh; /* Use dynamic viewport height for mobile */
     }
     
-    body::before {
-      content: '';
+    .background-image {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%; /* Base height */
-      min-height: 100dvh; /* Ensure it matches dynamic viewport height */
+      height: 100%;
+      min-height: 100dvh;
       background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
       background-size: cover;
       z-index: -1;
-      transform: translateZ(0);
     }
     
     body::after {
@@ -62,19 +60,16 @@
         overscroll-behavior-y: none;
       }
       
-      body::before {
-        position: fixed;
+      .background-image {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        min-height: 100dvh;
-        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
-        background-size: cover;
+        height: 150%;
         background-attachment: scroll;
+        background-position: center top;
         z-index: -1;
-        will-change: transform;
-        transform: translateY(0);
+        transform: none;
       }
       
       body::after {
@@ -579,19 +574,16 @@
         background-size: cover;
       }
       
-      body::before {
-        backdrop-filter: blur(3px);
-        position: fixed;
+      .background-image {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        height: 150%;
+        background-attachment: scroll;
+        background-position: center top;
         z-index: -1;
-        transform: none !important;
-        transform-origin: center center;
+        transform: none;
       }
       
       body::after {
@@ -609,6 +601,7 @@
   </style>
 </head>
 <body>
+  <div class="background-image"></div>
   <div class="language-selector">
     <span onclick="changeLanguage('en')">English</span> | 
     <span onclick="changeLanguage('es')">Español</span> | 
