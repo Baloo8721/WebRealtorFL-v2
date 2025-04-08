@@ -59,20 +59,20 @@
       body {
         padding: 50px 15px 30px 15px;
         background: none;
-        overscroll-behavior-y: none;
       }
       
       body::before {
-        position: absolute;
-        top: -20%;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
-        height: 140%;
-        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop') no-repeat center top;
-        background-size: 100% auto;
+        height: 100%;
+        min-height: 100dvh;
+        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+        background-size: cover;
         z-index: -1;
         transform: none !important;
-        transition: transform 0.1s linear;
+        image-rendering: -webkit-optimize-contrast;
       }
       
       body::after {
@@ -2867,15 +2867,10 @@
         overlay.style.height = '100dvh';
       }
 
-      // Parallax effect for desktop/iPad (>768px) and mobile sync (≤768px)
+      // Parallax effect for desktop/iPad (>768px) only
       if (window.innerWidth > 768) {
         const scrollY = window.scrollY;
         bg.style.transform = `translateY(${scrollY * 0.3}px)`;
-      } else {
-        const scrollY = window.scrollY;
-        const maxScroll = contentHeight - viewportHeight;
-        const scrollPercent = Math.min(scrollY / maxScroll, 1); // 0 to 1
-        bg.style.transform = `translateY(${scrollPercent * 15}%)`; // 15% max movement
       }
     }
 
