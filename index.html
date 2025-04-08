@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title data-lang="title">Web3RealtorFL - Your Florida Property Match</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -52,6 +52,63 @@
       margin: 0 auto;
       position: relative;
       z-index: 2;
+    }
+
+    /* Mobile-specific fixes */
+    @media screen and (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding: 50px 15px 30px 15px;
+        background: none !important;
+        position: relative;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100vmax;
+        height: 100vmax;
+        min-height: -webkit-fill-available;
+        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1080&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        overflow: hidden;
+        will-change: auto;
+        backface-visibility: visible;
+        image-rendering: crisp-edges;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: -webkit-fill-available;
+        background: rgba(16, 27, 40, 0.6);
+        z-index: 0;
+        backdrop-filter: none;
+      }
+
+      .container {
+        transform: translateZ(0);
+      }
+    }
+
+    /* Disable parallax on mobile */
+    @media (max-width: 768px) {
+      body::before {
+        transform: translate(-50%, -50%) !important;
+        animation: none !important;
+        transition: none !important;
+      }
     }
 
     /* Mobile-specific styles only */
@@ -2859,25 +2916,12 @@
 
     // Parallax effect with height fix and mobile optimization
     function updateParallax() {
-      const bg = document.querySelector('body::before');
-      const overlay = document.querySelector('body::after');
-      const body = document.body;
-      const contentHeight = body.scrollHeight;
-      const viewportHeight = window.innerHeight;
-
-      // Ensure background and overlay match content height if taller than viewport
-      if (contentHeight > viewportHeight) {
-        bg.style.height = `${contentHeight}px`;
-        overlay.style.height = `${contentHeight}px`;
-      } else {
-        bg.style.height = '100dvh';
-        overlay.style.height = '100dvh';
-      }
-
-      // Parallax effect for desktop/iPad (>768px) only
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 768) { // Desktop-only parallax
         const scrollY = window.scrollY;
-        bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+        const bg = document.querySelector('body::before');
+        if (bg) {
+          bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
       }
     }
 
