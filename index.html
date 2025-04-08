@@ -61,44 +61,27 @@
         -webkit-overflow-scrolling: touch;
         padding: 50px 15px 30px 15px;
         background: none !important;
-        position: relative;
       }
 
       body::before {
-        content: '';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 100vmax;
-        height: 100vmax;
-        min-height: -webkit-fill-available;
-        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1080&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-        overflow: hidden;
-        will-change: auto;
-        backface-visibility: visible;
-        image-rendering: crisp-edges;
-      }
-
-      body::after {
-        content: '';
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         min-height: -webkit-fill-available;
-        background: rgba(16, 27, 40, 0.6);
-        z-index: 0;
-        backdrop-filter: none;
+        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1080&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        transform: none;
       }
 
-      .container {
-        transform: translateZ(0);
+      body::after {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        min-height: -webkit-fill-available;
+        backdrop-filter: none;
       }
     }
 
