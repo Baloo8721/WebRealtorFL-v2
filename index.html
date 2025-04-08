@@ -831,24 +831,21 @@
       };
     }
 
-    // Keep your original parallax effect, but add Chrome mobile check
+    // Parallax effect with mobile check
     function updateParallax() {
-      const isChromeMobile = /Chrome/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
-      const bg = document.querySelector('body::before');
-
-      if (isChromeMobile && bg) {
-        bg.style.backgroundSize = '100% 100%';
-        bg.style.backgroundAttachment = 'fixed';
-        bg.style.transform = 'none';
-      } else if (window.innerWidth > 768 && bg) {
+      // Only apply parallax on desktop
+      if (window.innerWidth > 768) {
         const scrollY = window.scrollY;
-        bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+        const bg = document.querySelector('body::before');
+        if (bg) {
+          bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
       }
       document.body.style.height = '100vh';
       document.body.style.minHeight = '100vh';
     }
 
-    // Keep your original scroll handling
+    // Use requestAnimationFrame for smoother updates
     let ticking = false;
     function onScroll() {
       if (!ticking) {
@@ -860,7 +857,7 @@
       }
     }
 
-    // Event listeners with Chrome mobile override
+    // Event listeners
     window.addEventListener('scroll', throttle(onScroll, 16));
     window.addEventListener('resize', updateParallax);
     window.addEventListener('load', () => {
@@ -2740,17 +2737,16 @@
       };
     }
 
-    // Parallax effect with height fix and mobile optimization
+    // Parallax effect with mobile check
     function updateParallax() {
-      if (window.innerWidth > 768) { // Desktop-only parallax
+      // Only apply parallax on desktop
+      if (window.innerWidth > 768) {
         const scrollY = window.scrollY;
         const bg = document.querySelector('body::before');
-
         if (bg) {
           bg.style.transform = `translateY(${scrollY * 0.3}px)`;
         }
       }
-      // Ensure proper height calculation
       document.body.style.height = '100vh';
       document.body.style.minHeight = '100vh';
     }
@@ -2767,13 +2763,9 @@
       }
     }
 
-    // Run on scroll, resize, and load
+    // Event listeners
     window.addEventListener('scroll', throttle(onScroll, 16));
-    window.addEventListener('resize', () => {
-      updateParallax();
-      document.body.style.height = '100vh';
-      document.body.style.minHeight = '100vh';
-    });
+    window.addEventListener('resize', updateParallax);
     window.addEventListener('load', () => {
       updateParallax();
       document.body.style.height = '100vh';
