@@ -819,6 +819,58 @@
   <iframe name="hiddenIframe" style="display:none;"></iframe>
 
   <script>
+    // Keep your original throttle function
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        if (!inThrottle) {
+          func.apply(this, arguments);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    }
+
+    // Keep your original parallax effect, but add Chrome mobile check
+    function updateParallax() {
+      const isChromeMobile = /Chrome/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
+      const bg = document.querySelector('body::before');
+
+      if (isChromeMobile && bg) {
+        bg.style.backgroundSize = '100% 100%';
+        bg.style.backgroundAttachment = 'fixed';
+        bg.style.transform = 'none';
+      } else if (window.innerWidth > 768 && bg) {
+        const scrollY = window.scrollY;
+        bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+      }
+      document.body.style.height = '100vh';
+      document.body.style.minHeight = '100vh';
+    }
+
+    // Keep your original scroll handling
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Event listeners with Chrome mobile override
+    window.addEventListener('scroll', throttle(onScroll, 16));
+    window.addEventListener('resize', updateParallax);
+    window.addEventListener('load', () => {
+      updateParallax();
+      document.body.style.height = '100vh';
+      document.body.style.minHeight = '100vh';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script>
     const translations = {
       en: {
         title: "Unlock Your Florida Property",
@@ -2693,6 +2745,7 @@
       if (window.innerWidth > 768) { // Desktop-only parallax
         const scrollY = window.scrollY;
         const bg = document.querySelector('body::before');
+
         if (bg) {
           bg.style.transform = `translateY(${scrollY * 0.3}px)`;
         }
