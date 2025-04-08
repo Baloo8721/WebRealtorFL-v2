@@ -15,12 +15,10 @@
       padding: 60px 15px 30px 15px;
       text-align: center;
       position: relative;
-      min-height: -webkit-fill-available;
-      min-height: -moz-available;
-      min-height: stretch;
-      min-height: fill-available;
       min-height: 100vh;
       overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
     body::before {
@@ -2699,6 +2697,9 @@
           bg.style.transform = `translateY(${scrollY * 0.3}px)`;
         }
       }
+      // Ensure proper height calculation
+      document.body.style.height = '100vh';
+      document.body.style.minHeight = '100vh';
     }
 
     // Use requestAnimationFrame for smoother updates
@@ -2715,17 +2716,17 @@
 
     // Run on scroll, resize, and load
     window.addEventListener('scroll', throttle(onScroll, 16));
-    window.addEventListener('resize', updateParallax);
-    window.addEventListener('load', updateParallax);
-  </script>
-  <script>
-    // Add mobile scroll lock
-    if (window.innerWidth <= 768) {
-      window.addEventListener('scroll', function(e) {
-        e.preventDefault();
-        window.scrollTo(0, 0);
-      }, { passive: false });
-    }
+    window.addEventListener('resize', () => {
+      updateParallax();
+      document.body.style.height = '100vh';
+      document.body.style.minHeight = '100vh';
+    });
+    window.addEventListener('load', () => {
+      updateParallax();
+      document.body.style.height = '100vh';
+      document.body.style.minHeight = '100vh';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
