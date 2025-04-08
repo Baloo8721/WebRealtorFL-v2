@@ -54,148 +54,6 @@
       z-index: 2;
     }
 
-    /* Mobile-specific fixes */
-    @media screen and (max-width: 768px) {
-      body {
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        padding: 50px 15px 30px 15px;
-        background: none !important;
-        height: 100%;
-        position: relative;
-        overscroll-behavior-y: contain;
-      }
-
-      body::before {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: -webkit-fill-available;
-        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1080&auto=format&fit=crop');
-        background-size: cover;
-        background-position: center;
-        background-attachment: scroll;
-      }
-
-      body::after {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        min-height: -webkit-fill-available;
-        backdrop-filter: none;
-      }
-    }
-
-    /* Disable parallax on mobile */
-    @media (max-width: 768px) {
-      body::before {
-        transform: translate(-50%, -50%) !important;
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-
-    /* Mobile-specific styles only */
-    @media screen and (max-width: 768px) {
-      body {
-        padding: 50px 15px 30px 15px;
-        overflow-x: hidden;
-        position: relative;
-        background-attachment: scroll !important;
-      }
-      
-      body::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        min-height: -webkit-fill-available;
-        background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1080&auto=format&fit=crop') no-repeat center center;
-        background-size: cover;
-        background-attachment: scroll;
-        transform: none;
-        -webkit-transform: none;
-        will-change: unset;
-        background-position: center center;
-      }
-      
-      body::after {
-        position: absolute;
-        height: auto;
-        min-height: 100%;
-        background: rgba(16, 27, 40, 0.6);
-        backdrop-filter: none;
-      }
-
-      /* Add this to prevent mobile address bar resize issues */
-      @supports (height: 100dvh) {
-        body::before {
-          height: 100dvh;
-        }
-      }
-    }
-    
-    /* Mobile-first background fix */
-    @media screen and (max-width: 768px) {
-      body {
-        position: relative;
-        overflow-x: hidden;
-        padding: 50px 15px 30px 15px;
-        background: none !important;
-        height: auto;
-        min-height: 100vh;
-      }
-
-      body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80&ixlib=rb-1.2.1');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: scroll;
-        z-index: -1;
-        
-        /* Critical mobile fixes */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        image-rendering: -webkit-optimize-contrast;
-        backface-visibility: hidden;
-        perspective: 1000;
-        overflow: hidden;
-        touch-action: none;
-      }
-
-      body::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        background: rgba(16, 27, 40, 0.6);
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      /* Disable all background movement */
-      body::before {
-        transform: none !important;
-        animation: none !important;
-        transition: none !important;
-        will-change: auto !important;
-      }
-    }
-    
     .language-selector {
       position: fixed;
       top: 0;
@@ -453,25 +311,6 @@
       border-color: #26c6da;
     }
 
-    @media screen and (max-width: 768px) {
-      .checkbox-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        max-width: 100%;
-        overflow: hidden;
-      }
-      .checkbox-label span {
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .checkbox-label input[type="checkbox"] {
-        margin: 0;
-      }
-    }
     .powered-by {
       color: #b0bec5;
       margin-top: 20px;
@@ -507,62 +346,6 @@
     }
     .popup button:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
-    }
-    @media (max-width: 480px) {
-      h1 { font-size: 1.8em; }
-      p.subtitle { font-size: 0.9em; }
-      .form-box { padding: 15px; }
-      .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-      }
-      .checkbox-label {
-        width: auto;
-        margin: 0;
-        font-size: 0.85em;
-        padding: 5px 8px;
-      }
-      .checkbox-label:only-child,
-      .checkbox-label:nth-last-child(1):nth-child(odd) {
-        grid-column: 1 / -1;
-      }
-      .dropdown-content { max-height: 400px; }
-      .input-group { flex-direction: column; gap: 4px; }
-      .language-selector { 
-        padding: 8px 15px;
-        font-size: 0.8em;
-      }
-      body {
-        padding: 50px 15px 30px 15px;
-      }
-    }
-    @media screen and (max-width: 768px) {
-      .form-group label {
-        white-space: normal;
-      }
-      .form-group input[type="checkbox"] {
-        margin-left: 10px;
-      }
-      .form-group label input[type="checkbox"] {
-        position: relative;
-        left: 0;
-      }
-      .crypto-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .crypto-label input[type="checkbox"] {
-        margin-left: 0;
-      }
-      .crypto-label input[type="checkbox"]::before {
-        content: "";
-        display: inline-block;
-        width: 1em;
-        height: 1em;
-        margin-right: 5px;
-      }
     }
     .section { animation: fadeIn 0.4s ease-in-out; }
     @keyframes fadeIn {
@@ -658,116 +441,99 @@
       flex-shrink: 0;
       margin: 0;
     }
-    @media screen and (max-width: 768px) {
-      .checkbox-wrapper {
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        max-width: 100%;
-        overflow: hidden;
-      }
-      .checkbox-wrapper span[data-lang] {
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .checkbox-wrapper input[type="checkbox"] {
-        margin: 0;
-      }
+    .section { animation: fadeIn 0.4s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0.6; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    /* Mobile-specific styles */
-    @media screen and (max-width: 768px) {
-      body {
-        background-attachment: scroll;
-        background-position: center;
-        background-size: cover;
-      }
-      
-      body::before {
-        backdrop-filter: blur(3px);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        z-index: -1;
-        transform: none !important;
-        transform-origin: center center;
-      }
-      
-      body::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(16, 27, 40, 0.6);
-        backdrop-filter: blur(-1px);
-        z-index: 0;
-      }
+    .language-selector .more-languages {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
     }
-    
-    /* Mobile-first background fix */
-    @media screen and (max-width: 768px) {
-      body {
-        position: relative;
-        overflow-x: hidden;
-        padding: 50px 15px 30px 15px;
-        background: none !important;
-        height: auto;
-        min-height: 100vh;
-      }
-
-      body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80&ixlib=rb-1.2.1');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        z-index: -1;
-        
-        /* Critical mobile fixes */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        image-rendering: -webkit-optimize-contrast;
-        backface-visibility: hidden;
-        perspective: 1000;
-        overflow: hidden;
-        touch-action: none;
-      }
-
-      body::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 100vh;
-        background: rgba(16, 27, 40, 0.6);
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      /* Disable all background movement */
-      body::before {
-        transform: none !important;
-        animation: none !important;
-        transition: none !important;
-        will-change: auto !important;
-      }
+    .language-selector .language-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 5px;
+      padding: 10px;
+      min-width: 120px;
+      z-index: 1000;
+    }
+    .language-selector .language-dropdown span {
+      display: block;
+      padding: 5px 0;
+      color: #fff;
+      cursor: pointer;
+    }
+    .language-selector .language-dropdown span:hover {
+      color: #26c6da;
+    }
+    .language-selector .more-languages:hover .language-dropdown {
+      display: block;
+    }
+    .services-affiliates img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+    .services-affiliates .kw-logo {
+      height: 60px;
+      width: auto;
+      display: block;
+      margin-left: -60px;
+    }
+    .services-affiliates .kw-text {
+      position: relative;
+      left: -40px;
+      width: 325px;
+      transform: translateY(-10px);
+      text-align: left;
+    }
+    .services-affiliates .propy-logo {
+      height: 27px;
+      width: auto;
+      display: block;
+      margin-left: 12px;
+      margin-top: -5px;
+      margin-bottom: 5px;
+    }
+    .services-affiliates .propy-text {
+      position: relative;
+      left: -40px;
+      width: 325px;
+      transform: translateY(-10px);
+      text-align: left;
+    }
+    .services-affiliates {
+      overflow: hidden;
+    }
+    .checkbox-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9em;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .checkbox-wrapper span[data-lang] {
+      order: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .checkbox-wrapper input[type="checkbox"] {
+      order: 1;
+      flex-shrink: 0;
+      margin: 0;
     }
   </style>
 </head>
