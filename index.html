@@ -450,6 +450,7 @@
     <span onclick="changeLanguage('en')">English</span> | 
     <span onclick="changeLanguage('es')">Español</span> | 
     <span onclick="changeLanguage('zh')">中文</span> | 
+    <span onclick="changeLanguage('ar')">العربية</span> | 
     <span class="more-languages">
       More ▼
       <div class="language-dropdown">
@@ -480,7 +481,7 @@
           <option value="Landlord" data-lang="type_landlord">Landlord</option>
           <option value="Investor" data-lang="type_investor">Investor</option>
         </select>
-        <textarea name="entry.928741499" placeholder="Please share some details about your needs (location, timeline, budget, etc.)" data-lang="details"></textarea>
+        <textarea name="entry.928741499" data-lang="details" placeholder="Please share some details about your needs (location, timeline, budget, etc.)"></textarea>
         
         <div class="form-group" style="text-align: left;">
           <label class="checkbox-label" for="using_crypto">
@@ -1233,7 +1234,7 @@
         no_pref_bath: "无偏好",
         square_footage: "首选面积",
         locations: "首选地点/近邻",
-        must_haves: "必备功能：",
+        must_haves: "Must-Have-Мерkmale:",
         garage: "车库",
         basement: "地下室",
         pool: "泳池",
@@ -2304,7 +2305,7 @@
         no_pref_bath: "特に希望なし",
         square_footage: "希望する面積",
         locations: "希望する場所/近隣",
-        must_haves: "必須の機能：",
+        must_haves: "Must-Have-Мерkmale:",
         garage: "ガレージ",
         basement: "地下室",
         pool: "プール",
@@ -2620,25 +2621,7 @@
           form.reset();
           submitBtn.disabled = false;
           submitBtn.textContent = translations[selectedLang]['submit'] || 'Find My Expert Agent Now!';
-          localStorage.setItem('selectedLanguage', 'en'); 
-          document.getElementById('selectedLanguage').value = 'English'; 
-          
-          // Update all text content and input placeholders
-          const elements = document.querySelectorAll('[data-lang]');
-          elements.forEach(element => {
-            const key = element.getAttribute('data-lang');
-            element.textContent = translations['en'][key]; 
-            
-            // Special handling for input placeholders
-            if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-              element.placeholder = translations['en'][key];
-            }
-          });
-          
-          const dropdownContent = document.getElementById('moreInfo');
-          if (dropdownContent) {
-            dropdownContent.style.display = 'none';
-          }
+          window.location.reload();
         });
       }, 1000);
     }
