@@ -845,20 +845,8 @@
       document.body.style.minHeight = '100vh';
     }
 
-    // Use requestAnimationFrame for smoother updates
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateParallax();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
     // Event listeners
-    window.addEventListener('scroll', throttle(onScroll, 16));
+    window.addEventListener('scroll', throttle(updateParallax, 16));
     window.addEventListener('resize', updateParallax);
     window.addEventListener('load', () => {
       updateParallax();
@@ -2751,20 +2739,8 @@
       document.body.style.minHeight = '100vh';
     }
 
-    // Use requestAnimationFrame for smoother updates
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateParallax();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
     // Event listeners
-    window.addEventListener('scroll', throttle(onScroll, 16));
+    window.addEventListener('scroll', throttle(updateParallax, 16));
     window.addEventListener('resize', updateParallax);
     window.addEventListener('load', () => {
       updateParallax();
