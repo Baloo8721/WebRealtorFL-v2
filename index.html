@@ -585,6 +585,49 @@
     .web3-bold {
       font-weight: 700;
     }
+
+    .chatbot-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #26c6da, #0288d1);
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(38, 198, 218, 0.6);
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .chatbot-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(38, 198, 218, 0.7);
+    }
+
+    .chatbot-button svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
+    @media (max-width: 768px) {
+      .chatbot-button {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .chatbot-button svg {
+        width: 25px;
+        height: 25px;
+      }
+    }
   </style>
 </head>
 
@@ -1076,6 +1119,14 @@
 
   <!-- Hidden iframe for form submission -->
   <iframe name="hiddenIframe" style="display:none;"></iframe>
+
+  <!-- Chatbot Button -->
+  <button class="chatbot-button" id="chatbotButton" aria-label="Open chat assistant">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z" />
+      <path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z" />
+    </svg>
+  </button>
 
   <script>
     // Keep your original throttle function
@@ -3205,6 +3256,13 @@
         icon.style.transform = "rotate(180deg)";
       }
     }
+  </script>
+
+  <script>
+    // Chatbot button handler
+    document.getElementById('chatbotButton').addEventListener('click', function () {
+      alert('AI Assistant coming soon! Check back later for Web3 and real estate assistance.');
+    });
   </script>
 </body>
 
