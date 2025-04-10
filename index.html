@@ -28,6 +28,8 @@
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     body::before {
@@ -42,7 +44,11 @@
       background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
       background-size: cover;
       background-attachment: fixed;
+      -webkit-background-size: cover;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
       z-index: -1;
+      will-change: auto;
     }
 
     body::after {
@@ -3138,7 +3144,7 @@
     });
   </script>
   <script>
-    // Throttle function for performance optimization
+    // Replace the updateParallax function and related event listeners with a simpler implementation
     function throttle(func, limit) {
       let inThrottle;
       return function () {
@@ -3150,29 +3156,15 @@
       };
     }
 
-    // Parallax effect with mobile check
-    function updateParallax() {
-      // Only apply parallax on desktop
-      if (window.innerWidth > 768) {
-        const scrollY = window.scrollY;
-        const bg = document.querySelector('body::before');
-        if (bg) {
-          bg.style.transform = `translateY(${scrollY * 0.3}px)`;
-        }
-      }
+    // Simplified background handling that works consistently across devices
+    function handleBackground() {
       document.body.style.height = '100vh';
       document.body.style.minHeight = '100vh';
     }
 
     // Event listeners
-    window.addEventListener('scroll', throttle(updateParallax, 16));
-    window.addEventListener('resize', updateParallax);
-    window.addEventListener('load', () => {
-      updateParallax();
-      document.body.style.height = '100vh';
-      document.body.style.minHeight = '100vh';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    window.addEventListener('load', handleBackground);
+    window.addEventListener('resize', throttle(handleBackground, 100));
   </script>
   <script>
     // Add smooth scroll function
