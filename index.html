@@ -382,6 +382,11 @@
     .language-selector .language-dropdown span:hover {
       color: #26c6da;
     }
+    @media (min-width: 768px) {
+      .language-selector .more-languages:hover .language-dropdown {
+        display: block;
+      }
+    }
     .services-affiliates img {
       height: 40px;
       width: auto;
@@ -846,7 +851,7 @@
   <!-- Popup -->
   <div id="thankYouPopup" class="popup">
     <p data-lang="thank_you">Thank you for submitting! An agent will contact you soon.</p>
-    <button onclick="closePopup()" data-lang="ok">OK</button>
+    <button onclick="window.location.reload()" data-lang="ok">OK</button>
   </div>
 
   <!-- Hidden iframe for form submission -->
@@ -1663,7 +1668,7 @@
       },
       pt: {
         title: "Desbloqueie sua propriedade na Flórida",
-        subtitle: "Emparelhamentos Rápidos e Gratuitos de Agentes, Poderizados por Expertos FL Licenciados & <span class='web3-bold'>Web3</span>",
+        subtitle: "Emparelhamentos Rápidos e Gratuitos de Agentes, Poderizados por Expertos FL Licenziados & <span class='web3-bold'>Web3</span>",
         name: "Seu nome",
         email: "Seu email",
         type_select: "Comprador, Vendedor, Locatário, Proprietário, Investidor",
@@ -2428,7 +2433,7 @@
         your_courses: "あなたのコース",
         web3_text: "不動産をためのブロックチェーンを学びましょう。",
         foreclosure_link: "無料の競売/短期販売リソース",
-        foreclosure_text: "NAR로부터 도움과 정보를 받아보세요.",
+        foreclosure_text: "NAR로부터 도움과 정보를 받아보세요。",
         using_crypto: "暗号通貨を使用"
       },
       sv: {
@@ -2695,7 +2700,7 @@
         issues: "부동산의 알려진 문제",
         additional_info: "추가 정보",
         how_heard: "어떻게 우리를 알게 되었나요?",
-        referral: "추천",
+        referral: "소개",
         website: "웹사이트",
         social_media: "소셜 미디어",
         sign: "간판",
@@ -2863,8 +2868,8 @@
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
       if (!moreLanguages.contains(e.target) && languageDropdownOpen) {
-        languageDropdownOpen = false;
         languageDropdown.style.display = 'none';
+        languageDropdownOpen = false;
       }
     });
 
@@ -2943,17 +2948,32 @@
     });
   </script>
   <script>
-    // Detect Chrome mobile and remove zoom effect
-    const isChromeMobile = /Chrome/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
-
-    if (isChromeMobile) {
-      const bg = document.querySelector('body::before');
-      if (bg) {
-        // Set background-size to a fixed value to prevent zoom in Chrome mobile
-        bg.style.backgroundSize = '100% 100%';
-        bg.style.backgroundAttachment = 'fixed';
+    // Add scroll reset functionality with smooth animation
+    function resetScroll() {
+      // First try the modern way with scroll behavior
+      try {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      } catch (e) {
+        // Fallback for older browsers
+        window.scrollTo(0, 0);
       }
     }
+
+    // Add scroll reset to page load events
+    window.addEventListener('load', resetScroll, false);
+    window.addEventListener('hashchange', resetScroll, false);
+    window.addEventListener('DOMContentLoaded', resetScroll, false);
+
+    // Also add a timeout to ensure it runs after other load events
+    setTimeout(resetScroll, 0);
+
+    // Add scroll reset to beforeunload to prevent scroll position from being saved
+    window.addEventListener('beforeunload', function() {
+      window.scrollTo(0, 0);
+    });
   </script>
 </body>
 </html>
