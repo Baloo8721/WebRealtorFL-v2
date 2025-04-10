@@ -141,9 +141,9 @@
       width: 100%;
       padding: 12px;
       margin: 25px 0;
-      background: linear-gradient(to right, #26c6da, #0288d1);
-      color: #fff;
-      border: 1px solid #26c6da;
+      background: transparent;
+      color: #26c6da;
+      border: 2px solid #26c6da;
       border-radius: 6px;
       font-size: 1em;
       font-weight: 400;
@@ -156,12 +156,21 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      animation: pulse 2s infinite;
     }
-    .dropdown-btn:hover {
-      background: linear-gradient(to right, #0288d1, #01579b);
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(38, 198, 218, 0.5);
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(38, 198, 218, 0.6);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
+      }
     }
+
     .dropdown-icon {
       font-size: 0.9em;
       margin-left: 10px;
@@ -188,6 +197,13 @@
     }
     .dropdown-btn:hover::before {
       left: 100%;
+    }
+    .dropdown-btn:hover {
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      color: #fff;
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(38, 198, 218, 0.5);
+      animation: none;
     }
     .submit-btn {
       padding: 12px;
@@ -2285,7 +2301,7 @@
         type_renter: "賃借人",
         type_landlord: "大家",
         type_investor: "投資家",
-        details: "(どこ、いつ、予算、暗号/伝統) – より良く速い結果を望みますか？下のフォームに記入して専門家レベルのマッチングを得ましょう！",
+        details: "(どこ、いつ、予算、暗号化/伝統) – より良く速い結果を望みますか？下のフォームに記入して専門家レベルのマッチングを得ましょう！",
         dropdown_btn: "マッチングを強化 – よりスマートなマッチングのために詳細を追加 +",
         intake_title: "クライアント情報収集",
         client_type: "クライアントタイプ",
