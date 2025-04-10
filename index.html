@@ -443,6 +443,32 @@
       flex-shrink: 0;
       margin: 0;
     }
+    @media (max-width: 768px) {
+      .services-affiliates > div {
+        flex-direction: column;
+        align-items: center;
+      }
+      .services-affiliates > div > div {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px 0;
+        height: auto;
+        padding: 15px;
+      }
+      .services-affiliates .kw-logo {
+        margin-left: 0;
+      }
+      .services-affiliates .propy-logo {
+        margin-left: 0;
+      }
+      .services-affiliates .kw-text,
+      .services-affiliates .propy-text {
+        left: 0;
+        width: 100%;
+        transform: none;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -468,7 +494,7 @@
 
   <div class="container">
     <h1 data-lang="title">Unlock Your Florida Property</h1>
-    <p class="subtitle" data-lang="subtitle">Free Agent Matching by a Licensed FL Expert + Web3 Innovator</p>
+    <p class="subtitle" data-lang="subtitle">Free, Fast Agent Matches Powered by Licensed FL Experts & Web3</p>
     <div class="form-box">
       <form id="referralForm" action="https://docs.google.com/forms/d/e/1FAIpQLSegIYmEO6DOSP9LLY3Zao_nK7Un5vEuA_LrtZgyJvedzvXs0Q/formResponse" method="post" target="hiddenIframe" onsubmit="submitForm(event)">
        
@@ -861,7 +887,7 @@
     const translations = {
       en: {
         title: "Unlock Your Florida Property",
-        subtitle: "Free Agent Matching by a Licensed FL Expert + Web3 Innovator",
+        subtitle: "Free, Fast Agent Matches Powered by Licensed FL Experts & Web3",
         name: "Your Name",
         email: "Your Email",
         type_select: "Buyer, Seller, Renter, Landlord, Investor",
@@ -1015,7 +1041,7 @@
       },
       es: {
         title: "Desbloquea tu propiedad en Florida",
-        subtitle: "Emparejamiento gratuito con agente por un experto licenciado FL + Innovador Web3",
+        subtitle: "Emparejamientos de Agentes Gratuitos y Rápidos, Potenciados por Expertos FL Licenciados & Web3",
         name: "Tu nombre",
         email: "Tu correo electrónico",
         type_select: "Comprador, Vendedor, Locatario, Arrendador, Inversionista",
@@ -1169,7 +1195,7 @@
       },
       zh: {
         title: "解锁您的佛罗里达房产",
-        subtitle: "由佛罗里达州持牌专家和Web3创新者提供免费代理匹配",
+        subtitle: "由佛罗里达州许可专家和Web3赋能的免费快速代理匹配",
         name: "您的姓名",
         email: "您的电子邮件",
         type_select: "买家、卖家、租户、房东、投资者",
@@ -1323,7 +1349,7 @@
       },
       ar: {
         title: "افتح عقارك في فلوريدا",
-        subtitle: "مطابقة مجانية مع وكيل من خبير مرخص في فلوريدا + مبتكر Web3",
+        subtitle: "تطابقات وكلاء مجانية وسريعة مدعومة من قبل خبراء FL المرخصين و Web3",
         name: "اسمك",
         email: "بريدك الإلكتروني",
         type_select: "مشتري، بائع، مستأجر، مالك، مستثمر",
@@ -1477,7 +1503,7 @@
       },
       ru: {
         title: "Откройте свою недвижимость во Флориде",
-        subtitle: "Бесплатный подбор агента от лицензированного эксперта Флориды + новатора Web3",
+        subtitle: "Бесплатные и быстрые подборы агентов, поддерживаемые лицензированными экспертами FL и Web3",
         name: "Ваше имя",
         email: "Ваш email",
         type_select: "Покупатель, Продавец, Арендатор, Арендодатель, Инвестор",
@@ -1631,7 +1657,7 @@
       },
       pt: {
         title: "Desbloqueie sua propriedade na Flórida",
-        subtitle: "Combinação gratuita de agentes por um especialista licenciado FL + Innovador Web3",
+        subtitle: "Emparelhamentos Rápidos e Gratuitos de Agentes, Poderizados por Expertos FL Licenciados & Web3",
         name: "Seu nome",
         email: "Seu email",
         type_select: "Comprador, Vendedor, Locatário, Proprietário, Investidor",
@@ -1785,7 +1811,7 @@
       },
       fr: {
         title: "Déverrouillez votre propriété en Floride",
-        subtitle: "Matching gratuit avec un agent par un expert agréé FL + Innovateur Web3",
+        subtitle: "Mises en correspondance d'agents gratuites et rapides, alimentées par des experts FL agréés et Web3",
         name: "Votre nom",
         email: "Votre email",
         type_select: "Acheteur, Vendeur, Locataire, Propriétaire, Investisseur",
@@ -1820,7 +1846,7 @@
         no: "Non",
         in_process: "En cours",
         pre_approval_amount: "Montant de la pré-approbation (si applicable)",
-        pref_lender: "Prestateur préféré :",
+        pref_lender: "Prestador préféré :",
         have_lender: "J'en ai un",
         need_lender: "Besoin d'une recommandation",
         timeline: "Calendrier :",
@@ -1939,7 +1965,7 @@
       },
       it: {
         title: "Sblocca la tua proprietà in Florida",
-        subtitle: "Combinação gratuita de agentes por um especialista licenciado FL + Innovador Web3",
+        subtitle: "Accoppiamenti Gratuiti e Veloci di Agenti Potenziati da Experti FL Licenziati & Web3",
         name: "Il tuo nome",
         email: "La tua email",
         type_select: "Acquirente, Venditore, Affittuario, Proprietario, Investitore",
@@ -1966,7 +1992,7 @@
         phone_number: "Numero di telefono",
         address: "Indirizzo attuale",
         financial_info: "Informazioni finanziarie",
-        income: "Reddito annuo familiare",
+        income: "Reddito annuo del nucleo familiare",
         budget_min: "Budget minimo ($)",
         budget_max: "Budget massimo ($)",
         pre_approved: "Pre-approvato per il mutuo?",
@@ -2024,7 +2050,7 @@
         fixer_upper: "Da ristrutturare OK",
         other_features: "Altre caratteristiche",
         deal_breakers: "Fattori decisivi",
-        sellers_landlords: "Per vendedores/proprietari",
+        sellers_landlords: "Per venditori/proprietari",
         property_address: "Indirizzo della proprietà",
         year_built: "Anno di costruzione",
         bedrooms_input: "Camere da letto",
@@ -2035,7 +2061,7 @@
         upgrading: "Miglioramento",
         downsizing: "Ridimensionamento",
         investment: "Investimento",
-        financial: "Financeiro",
+        financial: "Finanziario",
         other_reason: "Altro motivo",
         sell_timeline: "Tempistiche di vendita/affitto:",
         asap: "Il prima possibile",
@@ -2093,7 +2119,7 @@
       },
       de: {
         title: "Entsperren Sie Ihre Florida-Immobilie",
-        subtitle: "Kostenloses Agenten-Matching durch einen lizenzierten FL-Experten + Web3-Innovator",
+        subtitle: "Kostenlose und schnelle Agenten-Matches, unterstützt von lizenzierten FL-Experten & Web3",
         name: "Ihr Name",
         email: "Ihre E-Mail",
         type_select: "Käufer, Verkäufer, Mieter, Vermieter, Investor",
@@ -2247,8 +2273,8 @@
       },
       ja: {
         title: "あなたのフロリダの不動産を解放",
-        subtitle: "フロリダ州認可の専門家 + Web3イノベーターによる無料エージェントマッチング",
-        name: "お名前",
+        subtitle: "フロリダ州許可の専門家とWeb3によって提供される無料の高速エージェントマッチング",
+        name: "あなたの名前",
         email: "あなたのメール",
         type_select: "購入者、売却者、賃借人、大家、投資家",
         type_buyer: "購入者",
@@ -2256,8 +2282,8 @@
         type_renter: "賃借人",
         type_landlord: "大家",
         type_investor: "投資家",
-        details: "あなたのニーズに関する詳細（位置、時間枠、予算等）を共有してください",
-        dropdown_btn: "マッチングを強化 - よりスマートなフィットのために詳細を追加 +",
+        details: "あなたのニーズに関する詳細（位置、時間枠、予算など）を共有してください",
+        dropdown_btn: "マッチングを強化 – よりスマートなフィットのために詳細を追加 +",
         intake_title: "クライアント情報収集",
         client_type: "クライアントタイプ",
         first_time: "初めて",
@@ -2283,15 +2309,15 @@
         in_process: "処理中",
         pre_approval_amount: "事前承認額（該当する場合）",
         pref_lender: "希望の貸し手：",
-        have_lender: "持っている",
+        have_lender: "持っています",
         need_lender: "推薦が必要",
         timeline: "時間枠：",
         immediate: "即時",
-        "1_3_months": "1-3か月",
-        "3_6_months": "3-6か月",
-        "6_plus_months": "6か月以上",
+        "1_3_months": "1-3ヶ月",
+        "3_6_months": "3-6ヶ月",
+        "6_plus_months": "6ヶ月以上",
         financial_notes: "財務上の懸念またはメモ",
-        buyers_renters: "買家/賃借人向け",
+        buyers_renters: "購入者/賃借人向け",
         property_type: "物件タイプ：",
         single_family: "一戸建",
         condo: "マンション",
@@ -2355,7 +2381,7 @@
         upgrades: "近期のアップグレード/改装",
         issues: "物件の問題",
         additional_info: "追加情報",
-        how_heard: "どのようにして私たちを知りましたか？",
+        how_heard: "どうして私たちを知りましたか？",
         referral: "紹介",
         website: "ウェブサイト",
         social_media: "ソーシャルメディア",
@@ -2387,21 +2413,21 @@
         submitting: "送信中...",
         please_fill_name_email: "お名前とメールアドレスを入力してください。",
         kw_link: "あなたの夢の家を見つけて",
-        kw_text: "信頼できる不動産パートナーです。",
+        kw_text: "信頼できる不動産中間パートナーです。",
         propy_link: "Propy",
         propy_text: "ブロックチェーン技術を使用した不動産と所有権の取引を簡素化します。",
         web3_education: "Web3教育：",
         cyrin: "Cyrin",
         updraft: "Updraft",
         your_courses: "あなたのコース",
-        web3_text: "不動産のブロックチェーンを学びましょう。",
+        web3_text: "不動産をためのブロックチェーンを学びましょう。",
         foreclosure_link: "無料の競売/短期販売リソース",
-        foreclosure_text: "NARからサポートと情報を得る",
+        foreclosure_text: "NAR로부터 도움과 정보를 받아보세요.",
         using_crypto: "暗号通貨を使用"
       },
       sv: {
         title: "Lås upp din Florida-fastighet",
-        subtitle: "Gratis agentmatchning av en licensierad FL-expert + Web3-innovatör",
+        subtitle: "Gratis och snabba agentmatchningar, drivna av licensierade FL-expertiser & Web3",
         name: "Ditt namn",
         email: "Din e-post",
         type_select: "Köpare, Säljare, Hyresgäst, Hyresvärd, Investerare",
@@ -2554,7 +2580,7 @@
       },
       ko: {
         title: "당신의 플로리다 부동산을 열어보세요",
-        subtitle: "플로리다 주 허가 전문가 + Web3 혁신가가 제공하는 무료 에이전트 매칭",
+        subtitle: "플로리다 주 허가 전문가와 Web3로 구동되는 무료, 빠른 에이전트 매칭",
         name: "당신의 이름",
         email: "당신의 이메일",
         type_select: "구매자, 판매자, 임차인, 임대인, 투자자",
@@ -2582,8 +2608,8 @@
         address: "현재 주소",
         financial_info: "재무 정보",
         income: "연간 가구 소득",
-        budget_min: "최소 예산 ($)",
-        budget_max: "최대 예산 ($)",
+        budget_min: "예산 최소 ($)",
+        budget_max: "예산 최대 ($)",
         pre_approved: "모기지 사전 승인 여부?",
         yes: "예",
         no: "아니요",
@@ -2621,7 +2647,7 @@
         "3_plus_baths": "3+ 욕실",
         no_pref_bath: "선호 없음",
         square_footage: "선호하는 평수",
-        locations: "선호하는 위치/동네",
+        locations: "선호하는 위치/근처",
         must_haves: "Must-Have-Мерkmale:",
         garage: "차고",
         basement: "지하실",
@@ -2653,7 +2679,7 @@
         financial: "재정",
         other_reason: "기타 이유",
         sell_timeline: "판매/임대 일정:",
-        asap: "최대한 빨리",
+        asap: "できるだけ 빨리",
         property_condition: "부동산 상태:",
         excellent: "최상",
         good: "양호",
@@ -2670,10 +2696,10 @@
         online_review: "온라인 리뷰",
         other_source: "기타 출처",
         agent_exp: "이전 에이전트 경험:",
-        worked_agent: "에이전트와 협력함",
+        worked_agent: "이전 에이전트와 협력함",
         no_agent: "에이전트 경험 없음",
         agent_desc: "이전 에이전트 경험 설명",
-        requests: "특별 요청 또는 우려 사항",
+        requests: "특별한 요청 또는 우려 사항",
         submit: "지금 내 전문 에이전트를 찾아보세요!",
         footer: "Web3RealtorFL 제공 - 부동산과 블록체인을 연결",
         thank_you: "제출해 주셔서 감사합니다! 에이전트가 곧 연락드릴 것입니다.",
@@ -2763,6 +2789,15 @@
       const emailInput = form.querySelector('input[name="entry.194166878"]');
       const selectedLang = localStorage.getItem('selectedLanguage') || 'en';
 
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value.trim())) {
+        const popup = document.getElementById('thankYouPopup');
+        popup.style.display = 'block';
+        popup.querySelector('p').textContent = translations[selectedLang]['please_fill_name_email'] || 'Please enter a valid email address.';
+        return;
+      }
+
       if (!nameInput.value.trim() || !emailInput.value.trim()) {
         const popup = document.getElementById('thankYouPopup');
         popup.style.display = 'block';
@@ -2785,6 +2820,8 @@
         popup.addEventListener('click', function() {
           popup.style.display = 'none';
           form.reset();
+          document.getElementById('moreInfo').style.display = 'none'; // Reset dropdown
+          changeLanguage(selectedLang); // Reapply language
           submitBtn.disabled = false;
           submitBtn.textContent = translations[selectedLang]['submit'] || 'Find My Expert Agent Now!';
           window.location.reload();
