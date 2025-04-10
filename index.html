@@ -158,24 +158,12 @@
       overflow: hidden;
       animation: pulse 2s infinite;
     }
-
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
-      }
-      50% {
-        box-shadow: 0 4px 20px rgba(38, 198, 218, 0.6);
-      }
-      100% {
-        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
-      }
-    }
-
-    .dropdown-icon {
-      font-size: 0.9em;
-      margin-left: 10px;
-      transition: transform 0.3s ease;
-      position: relative;
+    .dropdown-btn:hover {
+      background: linear-gradient(to right, #26c6da, #0288d1);
+      color: #fff;
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(38, 198, 218, 0.5);
+      animation: none;
     }
     .dropdown-btn:hover .dropdown-icon {
       transform: rotate(180deg);
@@ -187,23 +175,22 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: 0.5s;
     }
     .dropdown-btn:hover::before {
       left: 100%;
     }
-    .dropdown-btn:hover {
-      background: linear-gradient(to right, #26c6da, #0288d1);
-      color: #fff;
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(38, 198, 218, 0.5);
-      animation: none;
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(38, 198, 218, 0.6);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
+      }
     }
     .submit-btn {
       padding: 12px;
@@ -483,7 +470,7 @@
       }
     }
     .web3-bold {
-      font-weight: 600;
+      font-weight: 700;
     }
   </style>
 </head>
@@ -526,7 +513,7 @@
         </select>
         <div class="form-group">
           <label for="details" data-lang="details_label">Details</label>
-          <textarea name="entry.928741499" data-lang="details" placeholder="Where, when, budget, Crypto/Traditional"></textarea>
+          <textarea name="entry.928741499" data-lang="details" placeholder="(where, when, budget, Crypto/Traditional) – Want better, faster results? Fill out the form below for expert-level matching!"></textarea>
         </div>
         
         <div class="form-group" style="text-align: left;">
@@ -1223,8 +1210,8 @@
         type_renter: "租户",
         type_landlord: "房东",
         type_investor: "投资者",
-        details: "(地点、时间、预算、加密/传统) – 想要更好、更快的结果？填写下面的表格以获得专家级匹配！",
-        dropdown_btn: "增强匹配度 – 添加更多详细信息以获得更智能的匹配 +",
+        details: "(地点、时间、预算、加密/传统) – 想要更好、更快的结果？填写下方表格以获得专家级匹配！",
+        dropdown_btn: "增强匹配度 – 添加更多详情以获得更智能的匹配 +",
         intake_title: "客户信息采集",
         client_type: "客户类型",
         first_time: "首次购房者",
@@ -1377,7 +1364,7 @@
         type_renter: "مستأجر",
         type_landlord: "مالك",
         type_investor: "مستثمر",
-        details: "(أين، متى، الميزانية، كريبتو/تقليدي) – هل تريد نتائج أفضل وأسرع؟ املأ النموذج أدناه لمطابقة على مستوى الخبراء!",
+        details: "(أين، متى، الميزانية، كريبتو/تقليدية) – هل تريد نتائج أفضل وأسرع؟ املأ النموذج أدناه لمطابقة على مستوى الخبراء!",
         dropdown_btn: "تحسين التطابق – أضف المزيد من التفاصيل للحصول على تطابق أكثر ذكاءً +",
         intake_title: "معلومات استقبال العميل",
         client_type: "نوع العميل",
@@ -1685,7 +1672,7 @@
         type_renter: "Locatário",
         type_landlord: "Proprietário",
         type_investor: "Investidor",
-        details: "(onde, quando, orçamento, Cripto/Tradução) – Quer resultados melhores e mais rápidos? Preencha o formulário abaixo para uma correspondência de nível especialista!",
+        details: "(onde, quando, orçamento, Cripto/Tradução) – Quer resultados melhores e mais rápidos? Preencha o formulário abaixo para obter um emparelhamento de experto!",
         dropdown_btn: "Aprimore seu emparelhamento – Adicione mais detalhes para um emparelhamento mais inteligente +",
         intake_title: "Informações de entrada do cliente",
         client_type: "Tipo de cliente",
@@ -1839,7 +1826,7 @@
         type_renter: "Locataire",
         type_landlord: "Propriétaire",
         type_investor: "Investisseur",
-        details: "(où, quand, budget, Crypto/Traditionnel) – Voulez-vous de meilleurs résultats plus rapides ? Remplissez le formulaire ci-dessous pour un matching expert !",
+        details: "(où, quand, budget, Crypto/Traditionnel) – Voulez-vous des résultats meilleurs et plus rapides ? Remplissez le formulaire ci-dessous pour un emparejement d'expert !",
         dropdown_btn: "Améliorez votre correspondance – Ajoutez plus de détails pour une correspondance plus intelligente +",
         intake_title: "Informations d'admission du client",
         client_type: "Type de client",
@@ -1993,7 +1980,7 @@
         type_renter: "Affittuario",
         type_landlord: "Proprietario",
         type_investor: "Investitore",
-        details: "(dove, quando, budget, Cripto/Tradizionale) – Vuoi risultati migliori e più veloci? Compila il modulo qui sotto per un abbinamento di livello esperto!",
+        details: "(dove, quando, budget, Cripto/Tradizionale) – Vuoi risultati migliori e più rapidi? Compila il modulo qui sotto per un accoppiamento di esperto!",
         dropdown_btn: "Migliora il tuo abbinamento – Aggiungi più dettagli per un abbinamento più intelligente +",
         intake_title: "Informazioni di accoglienza del cliente",
         client_type: "Tipo di cliente",
@@ -2301,7 +2288,7 @@
         type_renter: "賃借人",
         type_landlord: "大家",
         type_investor: "投資家",
-        details: "(どこ、いつ、予算、暗号化/伝統) – より良く速い結果を望みますか？下のフォームに記入して専門家レベルのマッチングを得ましょう！",
+        details: "(どこ、いつ、予算、Crypto/Traditional) – より良い、より早い結果を望む場合は、以下のフォームを記入してエキスパートマッチングを受けてください！",
         dropdown_btn: "マッチングを強化 – よりスマートなマッチングのために詳細を追加 +",
         intake_title: "クライアント情報収集",
         client_type: "クライアントタイプ",
@@ -2601,14 +2588,14 @@
         title: "당신의 플로리다 부동산을 열어보세요",
         subtitle: "플로리다 주 허가 전문가와 <span class='web3-bold'>Web3</span>로 구동되는 무료, 빠른 에이전트 매칭",
         name: "당신의 이름",
-        email: "당신의 이메일",
-        type_select: "구매자, 판매자, 임차인, 임대인, 투자자",
+        email: "당신의 메일",
+        type_select: "구매자, 판매자, 임차인,大家, 투자자",
         type_buyer: "구매자",
         type_seller: "판매자",
         type_renter: "임차인",
-        type_landlord: "임대인",
+        type_landlord: "大家",
         type_investor: "투자자",
-        details: "(어디, 언제, 예산, 암호화/전통) – 더 나은, 더 빠른 결과를 원하세요? 아래 양식을 작성하여 전문가 수준의 매칭을 받으세요!",
+        details: "(어디, 언제, 예산, Crypto/Traditional) – 더 나은, 더 빠른 결과를 원하시나요? 아래 양식을 작성하여 전문가 매칭을 받으세요!",
         dropdown_btn: "매칭 향상 – 더 똑똑한 매칭을 위해 자세한 정보 추가 +",
         intake_title: "고객 정보 수집",
         client_type: "고객 유형",
@@ -2708,7 +2695,7 @@
         issues: "부동산의 알려진 문제",
         additional_info: "추가 정보",
         how_heard: "어떻게 우리를 알게 되었나요?",
-        referral: "소개",
+        referral: "추천",
         website: "웹사이트",
         social_media: "소셜 미디어",
         sign: "간판",
@@ -2855,6 +2842,22 @@
       } else {
         content.style.display = "block";
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById("thankYouPopup");
+      if (popup) {
+        popup.style.display = "none";
+      }
+    });
+
+    let languageDropdownOpen = false;
+    const moreLanguages = document.querySelector('.more-languages');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    function toggleLanguageDropdown() {
+      languageDropdownOpen = !languageDropdownOpen;
+      languageDropdown.style.display = languageDropdownOpen ? 'block' : 'none';
     }
 
     // Close dropdown when clicking outside
