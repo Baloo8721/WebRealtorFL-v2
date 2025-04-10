@@ -1,11 +1,20 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
   <title data-lang="title">Web3RealtorFL - Your Florida Property Match</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       color: #fff;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -20,7 +29,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
-    
+
     body::before {
       content: '';
       position: fixed;
@@ -34,7 +43,7 @@
       background-size: cover;
       z-index: -1;
     }
-    
+
     body::after {
       content: '';
       position: fixed;
@@ -48,7 +57,7 @@
       backdrop-filter: blur(-1px);
       z-index: 0;
     }
-    
+
     .container {
       max-width: 550px;
       margin: 0 auto;
@@ -72,16 +81,24 @@
       touch-action: pan-y;
       -webkit-overflow-scrolling: touch;
     }
+
     .language-selector span {
       cursor: pointer;
       transition: color 0.3s ease;
     }
+
     .language-selector span:hover {
       color: #26c6da;
     }
-    h1, h3, h4, .section-title, .form-group-title {
+
+    h1,
+    h3,
+    h4,
+    .section-title,
+    .form-group-title {
       font-family: 'Inter', sans-serif;
     }
+
     h1 {
       font-size: 2.25em;
       color: #26c6da;
@@ -90,6 +107,7 @@
       letter-spacing: -0.015em;
       text-shadow: 0 2px 6px rgba(38, 198, 218, 0.4);
     }
+
     p.subtitle {
       font-size: 1.15em;
       color: #e0e6ed;
@@ -97,6 +115,7 @@
       letter-spacing: 0.02em;
       margin-bottom: 20px;
     }
+
     .form-box {
       background: rgba(30, 40, 60, 0.6);
       padding: 25px 25px 5px 25px;
@@ -108,7 +127,10 @@
       position: relative;
       z-index: 2;
     }
-    form input, form textarea, form select {
+
+    form input,
+    form textarea,
+    form select {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
@@ -121,22 +143,30 @@
       outline: none;
       transition: background 0.3s ease;
     }
-    form input:focus, form textarea:focus, form select:focus {
+
+    form input:focus,
+    form textarea:focus,
+    form select:focus {
       background: rgba(255, 255, 255, 0.18);
       border-color: #26c6da;
     }
-    form input::placeholder, form textarea::placeholder {
+
+    form input::placeholder,
+    form textarea::placeholder {
       color: #d0d0d0;
       font-weight: 300;
     }
+
     form textarea {
       height: 70px;
       resize: vertical;
     }
+
     form select {
       background: rgba(255, 255, 255, 0.12) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="white"><polygon points="0,0 8,0 4,8"/></svg>') no-repeat 95% center;
       appearance: none;
     }
+
     .dropdown-btn {
       width: 100%;
       padding: 12px;
@@ -158,6 +188,7 @@
       overflow: hidden;
       animation: pulse 2s infinite;
     }
+
     .dropdown-btn:hover {
       background: linear-gradient(to right, #26c6da, #0288d1);
       color: #fff;
@@ -165,9 +196,11 @@
       box-shadow: 0 6px 20px rgba(38, 198, 218, 0.5);
       animation: none;
     }
+
     .dropdown-btn:hover .dropdown-icon {
       transform: rotate(180deg);
     }
+
     .dropdown-btn::before {
       content: '';
       position: absolute;
@@ -178,20 +211,25 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: 0.5s;
     }
+
     .dropdown-btn:hover::before {
       left: 100%;
     }
+
     @keyframes pulse {
       0% {
         box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
       }
+
       50% {
         box-shadow: 0 4px 20px rgba(38, 198, 218, 0.6);
       }
+
       100% {
         box-shadow: 0 4px 15px rgba(38, 198, 218, 0.4);
       }
     }
+
     .submit-btn {
       padding: 12px;
       margin: 24px 0;
@@ -213,10 +251,12 @@
       margin-right: auto;
       font-weight: 600;
     }
+
     .submit-btn:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
       border-color: #0288d1;
     }
+
     .dropdown-content {
       display: none;
       background: rgba(30, 40, 60, 0.95);
@@ -229,6 +269,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(8px);
     }
+
     .dropdown-content h3 {
       font-size: 1.2em;
       color: #26c6da;
@@ -239,6 +280,7 @@
       text-transform: uppercase;
       opacity: 0.9;
     }
+
     .section {
       margin-bottom: 25px;
       padding: 18px;
@@ -246,12 +288,31 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       transition: all 0.3s ease;
     }
-    .section:nth-child(1) { background: linear-gradient(to right, rgba(35, 45, 65, 0.9), rgba(45, 55, 75, 0.9)); }
-    .section:nth-child(2) { background: linear-gradient(to right, rgba(40, 50, 70, 0.9), rgba(50, 60, 80, 0.9)); }
-    .section:nth-child(3) { background: linear-gradient(to right, rgba(45, 55, 75, 0.9), rgba(55, 65, 85, 0.9)); }
-    .section:nth-child(4) { background: linear-gradient(to right, rgba(50, 60, 80, 0.9), rgba(60, 70, 90, 0.9)); }
-    .section:nth-child(5) { background: linear-gradient(to right, rgba(55, 65, 85, 0.9), rgba(65, 75, 95, 0.9)); }
-    .section:nth-child(6) { background: linear-gradient(to right, rgba(60, 70, 90, 0.9), rgba(70, 80, 100, 0.9)); }
+
+    .section:nth-child(1) {
+      background: linear-gradient(to right, rgba(35, 45, 65, 0.9), rgba(45, 55, 75, 0.9));
+    }
+
+    .section:nth-child(2) {
+      background: linear-gradient(to right, rgba(40, 50, 70, 0.9), rgba(50, 60, 80, 0.9));
+    }
+
+    .section:nth-child(3) {
+      background: linear-gradient(to right, rgba(45, 55, 75, 0.9), rgba(55, 65, 85, 0.9));
+    }
+
+    .section:nth-child(4) {
+      background: linear-gradient(to right, rgba(50, 60, 80, 0.9), rgba(60, 70, 90, 0.9));
+    }
+
+    .section:nth-child(5) {
+      background: linear-gradient(to right, rgba(55, 65, 85, 0.9), rgba(65, 75, 95, 0.9));
+    }
+
+    .section:nth-child(6) {
+      background: linear-gradient(to right, rgba(60, 70, 90, 0.9), rgba(70, 80, 100, 0.9));
+    }
+
     .section-title {
       font-size: 1.05em;
       color: #26c6da;
@@ -262,6 +323,7 @@
       letter-spacing: 0.03em;
       text-transform: uppercase;
     }
+
     .section-title::after {
       content: '';
       flex-grow: 1;
@@ -269,9 +331,11 @@
       background: rgba(255, 255, 255, 0.3);
       margin-left: 15px;
     }
+
     .form-group {
       margin-bottom: 12px;
     }
+
     .form-group-title {
       font-size: 0.88em;
       color: #e0e6ed;
@@ -280,12 +344,14 @@
       letter-spacing: 0.04em;
       opacity: 0.9;
     }
+
     .checkbox-group {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 10px;
     }
+
     .checkbox-label {
       display: inline-flex;
       align-items: center;
@@ -322,9 +388,11 @@
       text-decoration: none;
       transition: color 0.3s ease;
     }
+
     .powered-by:hover {
       color: #e0e6ed;
     }
+
     .popup {
       background: rgba(30, 40, 60, 0.95);
       backdrop-filter: blur(10px);
@@ -339,6 +407,7 @@
       z-index: 1000;
       display: none;
     }
+
     .popup button {
       background: linear-gradient(to right, #26c6da, #0288d1);
       border: none;
@@ -349,19 +418,33 @@
       font-weight: 500;
       transition: background 0.3s ease;
     }
+
     .popup button:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
     }
-    .section { animation: fadeIn 0.4s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0.6; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .section {
+      animation: fadeIn 0.4s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0.6;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .language-selector .more-languages {
       position: relative;
       display: inline-block;
       cursor: pointer;
     }
+
     .language-selector .language-dropdown {
       display: none;
       position: absolute;
@@ -373,31 +456,37 @@
       min-width: 120px;
       z-index: 1000;
     }
+
     .language-selector .language-dropdown span {
       display: block;
       padding: 5px 0;
       color: #fff;
       cursor: pointer;
     }
+
     .language-selector .language-dropdown span:hover {
       color: #26c6da;
     }
+
     @media (min-width: 768px) {
       .language-selector .more-languages:hover .language-dropdown {
         display: block;
       }
     }
+
     .services-affiliates img {
       height: 40px;
       width: auto;
       display: block;
     }
+
     .services-affiliates .kw-logo {
       height: 60px;
       width: auto;
       display: block;
       margin-left: -60px;
     }
+
     .services-affiliates .kw-text {
       position: relative;
       left: -40px;
@@ -405,6 +494,7 @@
       transform: translateY(-10px);
       text-align: left;
     }
+
     .services-affiliates .propy-logo {
       height: 27px;
       width: auto;
@@ -413,6 +503,7 @@
       margin-top: -5px;
       margin-bottom: 5px;
     }
+
     .services-affiliates .propy-text {
       position: relative;
       left: -40px;
@@ -420,9 +511,11 @@
       transform: translateY(-10px);
       text-align: left;
     }
+
     .services-affiliates {
       overflow: hidden;
     }
+
     .checkbox-wrapper {
       display: inline-flex;
       align-items: center;
@@ -435,6 +528,7 @@
       max-width: 100%;
       overflow: hidden;
     }
+
     .checkbox-wrapper span[data-lang] {
       order: 0;
       white-space: nowrap;
@@ -443,29 +537,35 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .checkbox-wrapper input[type="checkbox"] {
       order: 1;
       flex-shrink: 0;
       margin: 0;
     }
+
     @media (max-width: 768px) {
-      .services-affiliates > div {
+      .services-affiliates>div {
         flex-direction: column;
         align-items: center;
       }
-      .services-affiliates > div > div {
+
+      .services-affiliates>div>div {
         width: 100%;
         max-width: 300px;
         margin: 10px 0;
         height: auto;
         padding: 15px;
       }
+
       .services-affiliates .kw-logo {
         margin-left: 0;
       }
+
       .services-affiliates .propy-logo {
         margin-left: 0;
       }
+
       .services-affiliates .kw-text,
       .services-affiliates .propy-text {
         left: 0;
@@ -474,17 +574,19 @@
         text-align: center;
       }
     }
+
     .web3-bold {
       font-weight: 700;
     }
   </style>
 </head>
+
 <body>
   <div class="language-selector">
-    <span onclick="changeLanguage('en')">English</span> | 
-    <span onclick="changeLanguage('es')">Español</span> | 
-    <span onclick="changeLanguage('zh')">中文</span> | 
-    <span onclick="changeLanguage('ar')">العربية</span> | 
+    <span onclick="changeLanguage('en')">English</span> |
+    <span onclick="changeLanguage('es')">Español</span> |
+    <span onclick="changeLanguage('zh')">中文</span> |
+    <span onclick="changeLanguage('ar')">العربية</span> |
     <span class="more-languages">
       More ▼
       <div class="language-dropdown">
@@ -502,10 +604,13 @@
 
   <div class="container">
     <h1 data-lang="title">Unlock Your Florida Property</h1>
-    <p class="subtitle" data-lang="subtitle">Free, Fast Agent Matches Powered by Licensed FL Experts & <span class="web3-bold">Web3</span></p>
+    <p class="subtitle" data-lang="subtitle">Free, Fast Agent Matches Powered by Licensed FL Experts & <span
+        class="web3-bold">Web3</span></p>
     <div class="form-box">
-      <form id="referralForm" action="https://docs.google.com/forms/d/e/1FAIpQLSegIYmEO6DOSP9LLY3Zao_nK7Un5vEuA_LrtZgyJvedzvXs0Q/formResponse" method="post" target="hiddenIframe" onsubmit="submitForm(event)">
-       
+      <form id="referralForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSegIYmEO6DOSP9LLY3Zao_nK7Un5vEuA_LrtZgyJvedzvXs0Q/formResponse"
+        method="post" target="hiddenIframe" onsubmit="submitForm(event)">
+
         <input type="text" name="entry.29929900" placeholder="Your Name" data-lang="name">
         <input type="email" name="entry.194166878" placeholder="Your Email" data-lang="email">
         <select name="entry.664237403">
@@ -518,65 +623,81 @@
         </select>
         <div class="form-group">
           <label for="details" data-lang="details_label">Details</label>
-          <textarea name="entry.928741499" data-lang="details" placeholder="(where, when, budget, Crypto/Traditional) – Want better, faster results? Fill out the form below for expert-level matching!"></textarea>
+          <textarea name="entry.928741499" data-lang="details"
+            placeholder="(where, when, budget, Crypto/Traditional) – Want better, faster results? Fill out the form below for expert-level matching!"></textarea>
         </div>
-        
+
         <div class="form-group" style="text-align: left;">
           <label class="checkbox-label" for="using_crypto">
             <span data-lang="using_crypto">Using Crypto</span>
             <input type="checkbox" name="entry.870420118" value="Yes" id="using_crypto">
           </label>
         </div>
-        
+
         <input type="hidden" name="entry.46770330" id="selectedLanguage" value="en">
-        
-        <button type="button" class="dropdown-btn" onclick="toggleDropdown()" data-lang="dropdown_btn">Enhance Your Match – Add More Details for a Smarter Fit + <span class="dropdown-icon">▼</span></button>
-        
+
+        <button type="button" class="dropdown-btn" onclick="toggleDropdown()" data-lang="dropdown_btn">Enhance Your
+          Match – Add More Details for a Smarter Fit + <span class="dropdown-icon">▼</span></button>
+
         <div id="moreInfo" class="dropdown-content">
           <h3 data-lang="intake_title">Client Intake Information</h3>
-          
+
           <!-- SECTION 1: CLIENT TYPE -->
           <div class="section">
             <h4 class="section-title" data-lang="client_type">Client Type</h4>
             <div class="checkbox-group">
-              <label class="checkbox-label"><input type="checkbox" name="entry.2125021941" value="Buyer"> <span data-lang="type_buyer">Buyer</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.1530468854" value="Seller"> <span data-lang="type_seller">Seller</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.543064537" value="Renter"> <span data-lang="type_renter">Renter</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.2121218188" value="Landlord"> <span data-lang="type_landlord">Landlord</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.1540533292" value="Investor"> <span data-lang="type_investor">Investor</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.2094145242" value="First-time"> <span data-lang="first_time">First-time</span></label>
-              <label class="checkbox-label"><input type="checkbox" name="entry.1682660374" value="Relocating"> <span data-lang="relocating">Relocating</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.2125021941" value="Buyer"> <span
+                  data-lang="type_buyer">Buyer</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1530468854" value="Seller"> <span
+                  data-lang="type_seller">Seller</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.543064537" value="Renter"> <span
+                  data-lang="type_renter">Renter</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.2121218188" value="Landlord"> <span
+                  data-lang="type_landlord">Landlord</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1540533292" value="Investor"> <span
+                  data-lang="type_investor">Investor</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.2094145242" value="First-time"> <span
+                  data-lang="first_time">First-time</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="entry.1682660374" value="Relocating"> <span
+                  data-lang="relocating">Relocating</span></label>
             </div>
           </div>
-          
+
           <!-- SECTION 2: CONTACT PREFERENCES -->
           <div class="section">
             <h4 class="section-title" data-lang="contact_prefs">Contact Preferences</h4>
             <div class="form-group">
               <p class="form-group-title" data-lang="pref_contact_method">Preferred Contact Method:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1784470935" value="Email"> <span data-lang="email">Email</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1382135505" value="Phone"> <span data-lang="phone">Phone</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.746457842" value="Text"> <span data-lang="text">Text</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1784470935" value="Email"> <span
+                    data-lang="email">Email</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1382135505" value="Phone"> <span
+                    data-lang="phone">Phone</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.746457842" value="Text"> <span
+                    data-lang="text">Text</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="best_time">Best Time to Contact:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.507870323" value="Morning"> <span data-lang="morning">Morning</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.633156447" value="Afternoon"> <span data-lang="afternoon">Afternoon</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1588225936" value="Evening"> <span data-lang="evening">Evening</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.396561234" value="Weekend"> <span data-lang="weekend">Weekend</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.507870323" value="Morning"> <span
+                    data-lang="morning">Morning</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.633156447" value="Afternoon"> <span
+                    data-lang="afternoon">Afternoon</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1588225936" value="Evening"> <span
+                    data-lang="evening">Evening</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.396561234" value="Weekend"> <span
+                    data-lang="weekend">Weekend</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <input type="tel" name="entry.933003305" placeholder="Phone Number" data-lang="phone_number">
               <input type="text" name="entry.2027979226" placeholder="Current Address" data-lang="address">
             </div>
           </div>
-          
+
           <!-- SECTION 3: FINANCIAL INFORMATION -->
           <div class="section">
             <h4 class="section-title" data-lang="financial_info">Financial Information</h4>
@@ -587,129 +708,181 @@
                 <input type="text" name="entry.1742932268" placeholder="Budget Max ($)" data-lang="budget_max">
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="pre_approved">Pre-approved for Mortgage?</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1486562159" value="Yes"> <span data-lang="yes">Yes</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.11298010" value="No"> <span data-lang="no">No</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1352288329" value="In Process"> <span data-lang="in_process">In Process</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1486562159" value="Yes"> <span
+                    data-lang="yes">Yes</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.11298010" value="No"> <span
+                    data-lang="no">No</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1352288329" value="In Process"> <span
+                    data-lang="in_process">In Process</span></label>
               </div>
-              <input type="text" name="entry.1914208" placeholder="Pre-approval Amount (if applicable)" data-lang="pre_approval_amount">
+              <input type="text" name="entry.1914208" placeholder="Pre-approval Amount (if applicable)"
+                data-lang="pre_approval_amount">
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="pref_lender">Preferred Lender:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.2001525745" value="Have one"> <span data-lang="have_lender">Have One</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1610573986" value="Need Recommendation"> <span data-lang="need_lender">Need Recommendation</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2001525745" value="Have one"> <span
+                    data-lang="have_lender">Have One</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1610573986"
+                    value="Need Recommendation"> <span data-lang="need_lender">Need Recommendation</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="timeline">Timeline:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1350110018" value="Timeline: Immediate"> <span data-lang="immediate">Immediate</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1154472175" value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.541301262" value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.955570355" value="Timeline: 6+ Months"> <span data-lang="6_plus_months">6+ Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1350110018"
+                    value="Timeline: Immediate"> <span data-lang="immediate">Immediate</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1154472175"
+                    value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.541301262"
+                    value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.955570355" value="Timeline: 6+ Months">
+                  <span data-lang="6_plus_months">6+ Months</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
-              <textarea name="entry.943507636" placeholder="Financial Concerns or Notes" data-lang="financial_notes"></textarea>
+              <textarea name="entry.943507636" placeholder="Financial Concerns or Notes"
+                data-lang="financial_notes"></textarea>
             </div>
           </div>
-          
+
           <!-- SECTION 4: PROPERTY DETAILS (BUYERS/RENTERS) -->
           <div class="section">
             <h4 class="section-title" data-lang="buyers_renters">For Buyers/Renters</h4>
             <div class="form-group">
               <p class="form-group-title" data-lang="property_type">Property Type:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.2032480613" value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1441698003" value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.893527413" value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.936901716" value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.710696599" value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1394304339" value="Property Type: Land"> <span data-lang="land">Land</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2032480613"
+                    value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1441698003"
+                    value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.893527413"
+                    value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.936901716"
+                    value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.710696599"
+                    value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1394304339"
+                    value="Property Type: Land"> <span data-lang="land">Land</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="bedrooms">Bedrooms:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.381637243" value="Bedrooms: 1 Bed"> <span data-lang="1_bed">1 Bed</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.490256528" value="Bedrooms: 2 Bed"> <span data-lang="2_beds">2 Beds</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1853218821" value="Bedrooms: 3 Bed"> <span data-lang="3_beds">3 Beds</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.450869975" value="Bedrooms: 4 Bed"> <span data-lang="4_beds">4 Beds</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.2124537367" value="Bedrooms: 5+ Bed"> <span data-lang="5_plus_beds">5+ Beds</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.745418077" value="Bedrooms: No Preference"> <span data-lang="no_pref_bed">No Preference</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.381637243" value="Bedrooms: 1 Bed">
+                  <span data-lang="1_bed">1 Bed</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.490256528" value="Bedrooms: 2 Bed">
+                  <span data-lang="2_beds">2 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1853218821" value="Bedrooms: 3 Bed">
+                  <span data-lang="3_beds">3 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.450869975" value="Bedrooms: 4 Bed">
+                  <span data-lang="4_beds">4 Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2124537367" value="Bedrooms: 5+ Bed">
+                  <span data-lang="5_plus_beds">5+ Beds</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.745418077"
+                    value="Bedrooms: No Preference"> <span data-lang="no_pref_bed">No Preference</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="bathrooms">Bathrooms:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.473709838" value="Bathrooms: 1 Bath"> <span data-lang="1_bath">1 Bath</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.558316983" value="Bathrooms: 1.5 Bath"> <span data-lang="1_5_baths">1.5 Baths</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1272970267" value="Bathrooms: 2 Bath"> <span data-lang="2_baths">2 Baths</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.858835020" value="Bathrooms: 2.5 Bath"> <span data-lang="2_5_baths">2.5 Baths</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1878111594" value="Bathrooms: 3+ Bath"> <span data-lang="3_plus_baths">3+ Baths</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1808838484" value="Bathrooms: No Preference"> <span data-lang="no_pref_bath">No Preference</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.473709838" value="Bathrooms: 1 Bath">
+                  <span data-lang="1_bath">1 Bath</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.558316983" value="Bathrooms: 1.5 Bath">
+                  <span data-lang="1_5_baths">1.5 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1272970267" value="Bathrooms: 2 Bath">
+                  <span data-lang="2_baths">2 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.858835020" value="Bathrooms: 2.5 Bath">
+                  <span data-lang="2_5_baths">2.5 Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1878111594" value="Bathrooms: 3+ Bath">
+                  <span data-lang="3_plus_baths">3+ Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1808838484"
+                    value="Bathrooms: No Preference"> <span data-lang="no_pref_bath">No Preference</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
-              <input type="text" name="entry.1104731367" placeholder="Preferred Square Footage" data-lang="square_footage">
-              <input type="text" name="entry.1104739701" placeholder="Preferred Locations/Neighborhoods" data-lang="locations">
+              <input type="text" name="entry.1104731367" placeholder="Preferred Square Footage"
+                data-lang="square_footage">
+              <input type="text" name="entry.1104739701" placeholder="Preferred Locations/Neighborhoods"
+                data-lang="locations">
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="must_haves">Must-Have Features:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.186840909" value="Must-Have: Garage"> <span data-lang="garage">Garage</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.2019790382" value="Must-Have: Basement"> <span data-lang="basement">Basement</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.41356420" value="Must-Have: Pool"> <span data-lang="pool">Pool</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1340775271" value="Must-Have: Yard"> <span data-lang="yard">Yard</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.537888490" value="Must-Have: Main Floor Bedroom"> <span data-lang="main_floor_bed">Main Floor Bedroom</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.766433860" value="Must-Have: Home Office"> <span data-lang="home_office">Home Office</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1135960778" value="Must-Have: Open Floor Plan"> <span data-lang="open_floor">Open Floor Plan</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1108962639" value="Must-Have: Updated Kitchen"> <span data-lang="updated_kitchen">Updated Kitchen</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.912778126" value="Must-Have: Updated Baths"> <span data-lang="updated_baths">Updated Baths</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1595561522" value="Must-Have: Fireplace"> <span data-lang="fireplace">Fireplace</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1229026181" value="Must-Have: Central A/C"> <span data-lang="central_ac">Central A/C</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1332651778" value="Must-Have: Hardwood Floors"> <span data-lang="hardwood">Hardwood Floors</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.582819493" value="Must-Have: Move-in Ready"> <span data-lang="move_in_ready">Move-in Ready</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.112908864" value="Must-Have: Fixer-Upper OK"> <span data-lang="fixer_upper">Fixer-Upper OK</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.186840909" value="Must-Have: Garage">
+                  <span data-lang="garage">Garage</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.2019790382"
+                    value="Must-Have: Basement"> <span data-lang="basement">Basement</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.41356420" value="Must-Have: Pool">
+                  <span data-lang="pool">Pool</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1340775271" value="Must-Have: Yard">
+                  <span data-lang="yard">Yard</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.537888490"
+                    value="Must-Have: Main Floor Bedroom"> <span data-lang="main_floor_bed">Main Floor
+                    Bedroom</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.766433860"
+                    value="Must-Have: Home Office"> <span data-lang="home_office">Home Office</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1135960778"
+                    value="Must-Have: Open Floor Plan"> <span data-lang="open_floor">Open Floor Plan</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1108962639"
+                    value="Must-Have: Updated Kitchen"> <span data-lang="updated_kitchen">Updated Kitchen</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.912778126"
+                    value="Must-Have: Updated Baths"> <span data-lang="updated_baths">Updated Baths</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1595561522"
+                    value="Must-Have: Fireplace"> <span data-lang="fireplace">Fireplace</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1229026181"
+                    value="Must-Have: Central A/C"> <span data-lang="central_ac">Central A/C</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1332651778"
+                    value="Must-Have: Hardwood Floors"> <span data-lang="hardwood">Hardwood Floors</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.582819493"
+                    value="Must-Have: Move-in Ready"> <span data-lang="move_in_ready">Move-in Ready</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.112908864"
+                    value="Must-Have: Fixer-Upper OK"> <span data-lang="fixer_upper">Fixer-Upper OK</span></label>
               </div>
               <textarea name="entry.1696772007" placeholder="Other Features" data-lang="other_features"></textarea>
             </div>
-            
+
             <div class="form-group">
               <textarea name="entry.49408788" placeholder="Deal Breakers" data-lang="deal_breakers"></textarea>
             </div>
           </div>
-          
+
           <!-- SECTION 5: PROPERTY DETAILS (SELLERS/LANDLORDS) -->
           <div class="section">
             <h4 class="section-title" data-lang="sellers_landlords">For Sellers/Landlords</h4>
             <div class="form-group">
               <input type="text" name="entry.995591954" placeholder="Property Address" data-lang="property_address">
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="property_type">Property Type:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1964844066" value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.320610869" value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1576703618" value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1409071418" value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.386997212" value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.252273983" value="Property Type: Land"> <span data-lang="land">Land</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1964844066"
+                    value="Property Type: Single-family"> <span data-lang="single_family">Single-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.320610869"
+                    value="Property Type: Condo"> <span data-lang="condo">Condo</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1576703618"
+                    value="Property Type: Townhouse"> <span data-lang="townhouse">Townhouse</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1409071418"
+                    value="Property Type: Multi-family"> <span data-lang="multi_family">Multi-family</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.386997212"
+                    value="Property Type: Commercial"> <span data-lang="commercial">Commercial</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.252273983" value="Property Type: Land">
+                  <span data-lang="land">Land</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <div class="input-group">
                 <input type="text" name="entry.718364055" placeholder="Year Built" data-lang="year_built">
@@ -724,78 +897,102 @@
                 <input type="text" name="entry.1264906576" placeholder="Estimated Value" data-lang="estimated_value">
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="sell_reason">Reason for Selling/Renting:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1965702414" value="Reason: Upgrading"> <span data-lang="upgrading">Upgrading</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1916753753" value="Reason: Downsizing"> <span data-lang="downsizing">Downsizing</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1063786855" value="Reason: Relocating"> <span data-lang="relocating">Relocating</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.391207480" value="Reason: Investment"> <span data-lang="investment">Investment</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.652358924" value="Reason: Financial"> <span data-lang="financial">Financial</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1965702414" value="Reason: Upgrading">
+                  <span data-lang="upgrading">Upgrading</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1916753753" value="Reason: Downsizing">
+                  <span data-lang="downsizing">Downsizing</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1063786855" value="Reason: Relocating">
+                  <span data-lang="relocating">Relocating</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.391207480" value="Reason: Investment">
+                  <span data-lang="investment">Investment</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.652358924" value="Reason: Financial">
+                  <span data-lang="financial">Financial</span></label>
               </div>
               <textarea name="entry.2025298834" placeholder="Other Reason" data-lang="other_reason"></textarea>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="sell_timeline">Timeline to Sell/Rent:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1209899382" value="Timeline: ASAP"> <span data-lang="asap">ASAP</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1878946645" value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.983580418" value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.788733893" value="Timeline: 6+ Months"> <span data-lang="6_plus_months">6+ Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1209899382" value="Timeline: ASAP">
+                  <span data-lang="asap">ASAP</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1878946645"
+                    value="Timeline: 1-3 Months"> <span data-lang="1_3_months">1-3 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.983580418"
+                    value="Timeline: 3-6 Months"> <span data-lang="3_6_months">3-6 Months</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.788733893" value="Timeline: 6+ Months">
+                  <span data-lang="6_plus_months">6+ Months</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="property_condition">Property Condition:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1925501794" value="Condition: Excellent"> <span data-lang="excellent">Excellent</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1675887181" value="Condition: Good"> <span data-lang="good">Good</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.82161121" value="Condition: Fair"> <span data-lang="fair">Fair</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.799326532" value="Condition: Needs Work"> <span data-lang="needs_work">Needs Work</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1925501794"
+                    value="Condition: Excellent"> <span data-lang="excellent">Excellent</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1675887181" value="Condition: Good">
+                  <span data-lang="good">Good</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.82161121" value="Condition: Fair">
+                  <span data-lang="fair">Fair</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.799326532"
+                    value="Condition: Needs Work"> <span data-lang="needs_work">Needs Work</span></label>
               </div>
             </div>
-            
+
             <div class="form-group">
-              <textarea name="entry.2034397475" placeholder="Recent Upgrades/Renovations" data-lang="upgrades"></textarea>
+              <textarea name="entry.2034397475" placeholder="Recent Upgrades/Renovations"
+                data-lang="upgrades"></textarea>
             </div>
-            
+
             <div class="form-group">
               <textarea name="entry.642482004" placeholder="Known Issues with Property" data-lang="issues"></textarea>
             </div>
           </div>
-          
+
           <!-- SECTION 6: ADDITIONAL INFORMATION -->
           <div class="section">
             <h4 class="section-title" data-lang="additional_info">Additional Information</h4>
             <div class="form-group">
               <p class="form-group-title" data-lang="how_heard">How did you hear about us?</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.739656714" value="Heard: Referral"> <span data-lang="referral">Referral</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.623494412" value="Heard: Website"> <span data-lang="website">Website</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1204546887" value="Heard: Social Media"> <span data-lang="social_media">Social Media</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.489161094" value="Heard: Sign"> <span data-lang="sign">Sign</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1272950740" value="Heard: Online Review"> <span data-lang="online_review">Online Review</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.739656714" value="Heard: Referral">
+                  <span data-lang="referral">Referral</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.623494412" value="Heard: Website">
+                  <span data-lang="website">Website</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1204546887"
+                    value="Heard: Social Media"> <span data-lang="social_media">Social Media</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.489161094" value="Heard: Sign"> <span
+                    data-lang="sign">Sign</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1272950740"
+                    value="Heard: Online Review"> <span data-lang="online_review">Online Review</span></label>
               </div>
               <textarea name="entry.2122877220" placeholder="Other Source" data-lang="other_source"></textarea>
             </div>
-            
+
             <div class="form-group">
               <p class="form-group-title" data-lang="agent_exp">Previous Agent Experience:</p>
               <div class="checkbox-group">
-                <label class="checkbox-label"><input type="checkbox" name="entry.1463224356" value="Other SourceAgent Experience: Yes"> <span data-lang="worked_agent">Worked with Agent</span></label>
-                <label class="checkbox-label"><input type="checkbox" name="entry.1363468769" value="Agent Experience: No"> <span data-lang="no_agent">No Agent Experience</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1463224356"
+                    value="Other SourceAgent Experience: Yes"> <span data-lang="worked_agent">Worked with
+                    Agent</span></label>
+                <label class="checkbox-label"><input type="checkbox" name="entry.1363468769"
+                    value="Agent Experience: No"> <span data-lang="no_agent">No Agent Experience</span></label>
               </div>
-              <textarea name="entry.1285214427" placeholder="Describe Previous Agent Experience" data-lang="agent_desc"></textarea>
+              <textarea name="entry.1285214427" placeholder="Describe Previous Agent Experience"
+                data-lang="agent_desc"></textarea>
             </div>
-            
+
             <div class="form-group">
-              <textarea name="entry.1296254458" placeholder="Special Requests or Concerns" data-lang="requests"></textarea>
+              <textarea name="entry.1296254458" placeholder="Special Requests or Concerns"
+                data-lang="requests"></textarea>
             </div>
           </div>
         </div>
-        
+
         <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
     </div>
@@ -803,55 +1000,71 @@
     <div class="services-affiliates" style="margin: 30px auto; max-width: 600px; color: #e0e6ed; font-size: 0.95em;">
       <div style="max-width: 600px; display: flex; justify-content: space-between;">
         <!-- Keller Williams Box -->
-        <div style="background: rgba(30, 40, 60, 0); border-radius: 8px; padding: 20px; width: 255px; height: 150px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; margin-right: 10px;">
-          <a href="https://www.kw.com" target="_blank" style="display: block; position: relative; left: 0px; top: -10px;">
+        <div
+          style="background: rgba(30, 40, 60, 0); border-radius: 8px; padding: 20px; width: 255px; height: 150px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; margin-right: 10px;">
+          <a href="https://www.kw.com" target="_blank"
+            style="display: block; position: relative; left: 0px; top: -10px;">
             <img src="Logos/kw logo.png" alt="Keller Williams Logo" style="height: 60px; width: auto; display: block;">
           </a>
-          <p style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 5px;">
-            <a href="https://www.kw.com/search" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="kw_link">Find your dream home with</a> <span data-lang="kw_text">Your trusted real estate brokerage partner.</span>
+          <p
+            style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 5px;">
+            <a href="https://www.kw.com/search" target="_blank"
+              style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="kw_link">Find your dream home
+              with</a> <span data-lang="kw_text">Your trusted real estate brokerage partner.</span>
           </p>
         </div>
 
         <!-- Propy Box -->
-        <div style="background: rgba(30, 40, 60, 0); border-radius: 8px; padding: 20px; width: 255px; height: 150px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div
+          style="background: rgba(30, 40, 60, 0); border-radius: 8px; padding: 20px; width: 255px; height: 150px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;">
           <a href="https://propy.com" target="_blank" style="display: block; position: relative; left: 0px; top: -5px;">
             <img src="Logos/propy-logo-1.png" alt="Propy Logo" style="height: 30px; width: auto; display: block;">
           </a>
-          <p style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 18px;">
-            <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="propy_link">Propy</a> - <span data-lang="propy_text">Streamlined title and real estate transactions with blockchain tech.</span>
+          <p
+            style="margin: 0; line-height: 1.2; text-align: center; color: #e0e6ed; position: relative; left: 0px; top: 18px;">
+            <a href="https://propy.com" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;"
+              data-lang="propy_link">Propy</a> - <span data-lang="propy_text">Streamlined title and real estate
+              transactions with blockchain tech.</span>
           </p>
         </div>
       </div>
 
-        <!-- Web3 Education -->
-        <div style="position: relative; margin-top: 40px; margin-bottom: 30px;">
-          <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
-            <span data-lang="web3_education">Web3 Education:</span> 
-            <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="cyrin">Cyrin</a> | 
-            <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="updraft">Updraft</a> | 
-            <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;" data-lang="your_courses">Your Courses</a> - 
-            <span data-lang="web3_text">Learn blockchain for real estate.</span>
-          </p>
-        </div>
+      <!-- Web3 Education -->
+      <div style="position: relative; margin-top: 40px; margin-bottom: 30px;">
+        <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
+          <span data-lang="web3_education">Web3 Education:</span>
+          <a href="https://cyrin.io" target="_blank" style="color: #26c6da; text-decoration: none;"
+            data-lang="cyrin">Cyrin</a> |
+          <a href="https://updraft.io" target="_blank" style="color: #26c6da; text-decoration: none;"
+            data-lang="updraft">Updraft</a> |
+          <a href="https://your-web3-site.com" target="_blank" style="color: #26c6da; text-decoration: none;"
+            data-lang="your_courses">Your Courses</a> -
+          <span data-lang="web3_text">Learn blockchain for real estate.</span>
+        </p>
+      </div>
 
-        <!-- Foreclosure Resources -->
-        <div style="position: relative; margin-bottom: 20px;">
-          <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
-            <a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank" style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="foreclosure_link">Free Foreclosure/Short Sale Resources</a> - 
-            <span data-lang="foreclosure_text">Get help and info from NAR.</span>
-          </p>
-        </div>
+      <!-- Foreclosure Resources -->
+      <div style="position: relative; margin-bottom: 20px;">
+        <p style="position: relative; margin-left: 0px; margin-top: 0px; max-width: 600px; line-height: 1.4;">
+          <a href="https://www.nar.realtor/short-sales-foreclosures" target="_blank"
+            style="color: #26c6da; text-decoration: none; font-weight: 500;" data-lang="foreclosure_link">Free
+            Foreclosure/Short Sale Resources</a> -
+          <span data-lang="foreclosure_text">Get help and info from NAR.</span>
+        </p>
       </div>
     </div>
-    <!-- Footer pushed down -->
-    <footer style="margin-top: 40px; padding-bottom: 20px;">
-      <a href="https://tylerbelisle.kw.com/" target="_blank" class="powered-by">Powered by <span style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px;">Web3RealtorFL</span> - Bridging Real Estate & Blockchain</a>
-    </footer>
+  </div>
+  <!-- Footer pushed down -->
+  <footer style="margin-top: 40px; padding-bottom: 20px;">
+    <a href="https://tylerbelisle.kw.com/" target="_blank" class="powered-by">Powered by <span
+        style="text-decoration: underline; text-decoration-color: #666; text-underline-offset: 2px;">Web3RealtorFL</span>
+      - Bridging Real Estate & Blockchain</a>
+  </footer>
 
   <!-- Popup -->
   <div id="thankYouPopup" class="popup">
     <p data-lang="thank_you">Thank you for submitting! An agent will contact you soon.</p>
-    <button onclick="window.location.reload()" data-lang="ok">OK</button>
+    <button onclick="closePopup()">OK</button>
   </div>
 
   <!-- Hidden iframe for form submission -->
@@ -861,7 +1074,7 @@
     // Keep your original throttle function
     function throttle(func, limit) {
       let inThrottle;
-      return function() {
+      return function () {
         if (!inThrottle) {
           func.apply(this, arguments);
           inThrottle = true;
@@ -1118,7 +1331,7 @@
         "2_5_baths": "2.5 baños",
         "3_plus_baths": "3+ baños",
         no_pref_bath: "Sin preferencia",
-        square_footage: "Metragem quadrada preferida",
+        square_footage: "Metraje cuadrado preferido",
         locations: "Ubicaciones/barrios preferidos",
         must_haves: "Características indispensables:",
         garage: "Garaje",
@@ -2420,7 +2633,6 @@
         lang_german: "ドイツ語",
         lang_japanese: "日本語",
         lang_swedish: "スウェーデン語",
-        lang_korean: "韓国語",
         submitting: "送信中...",
         please_fill_name_email: "お名前とメールアドレスを入力してください。",
         kw_link: "あなたの夢の家を見つけて",
@@ -2786,7 +2998,7 @@
       document.getElementById('selectedLanguage').value = languageNames[lang];
     }
 
-    window.onload = function() {
+    window.onload = function () {
       // Always default to English when the page loads
       localStorage.setItem('selectedLanguage', 'en');
       changeLanguage('en');
@@ -2827,29 +3039,19 @@
       setTimeout(() => {
         popup.style.display = 'block';
         popup.querySelector('p').textContent = translations[selectedLang]['thank_you'] || 'Thank you for submitting! An agent will contact you soon.';
-
-        popup.addEventListener('click', function() {
-          popup.style.display = 'none';
-          form.reset();
-          document.getElementById('moreInfo').style.display = 'none'; // Reset dropdown
-          changeLanguage(selectedLang); // Reapply language
-          submitBtn.disabled = false;
-          submitBtn.textContent = translations[selectedLang]['submit'] || 'Find My Expert Agent Now!';
-          window.location.reload();
-        });
-      }, 1000);
+      }, 300);
     }
 
-    function toggleDropdown() {
-      var content = document.getElementById("moreInfo");
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
+    function closePopup() {
+      const popup = document.getElementById('thankYouPopup');
+      if (popup) {
+        popup.style.display = 'none';
+        // Refresh the page to reset the form
+        window.location.reload();
       }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const popup = document.getElementById("thankYouPopup");
       if (popup) {
         popup.style.display = "none";
@@ -2866,7 +3068,7 @@
     }
 
     // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       if (!moreLanguages.contains(e.target) && languageDropdownOpen) {
         languageDropdown.style.display = 'none';
         languageDropdownOpen = false;
@@ -2874,18 +3076,18 @@
     });
 
     // Handle touch events for mobile devices
-    moreLanguages.addEventListener('touchstart', function(e) {
+    moreLanguages.addEventListener('touchstart', function (e) {
       e.preventDefault();
       toggleLanguageDropdown();
     });
 
     // Prevent blue highlight on mobile
-    moreLanguages.addEventListener('touchstart', function(e) {
+    moreLanguages.addEventListener('touchstart', function (e) {
       e.preventDefault();
     });
 
     // Handle click events
-    moreLanguages.addEventListener('click', function(e) {
+    moreLanguages.addEventListener('click', function (e) {
       e.preventDefault();
       toggleLanguageDropdown();
     });
@@ -2893,7 +3095,7 @@
     let languageSpans = languageDropdown.querySelectorAll('span');
 
     languageSpans.forEach(span => {
-      span.addEventListener('click', function(e) {
+      span.addEventListener('click', function (e) {
         e.stopPropagation(); // Prevent closing the dropdown when selecting a language
         const lang = this.getAttribute('onclick').match(/changeLanguage\('([^']+)'/)[1];
         changeLanguage(lang);
@@ -2901,7 +3103,7 @@
         languageDropdown.style.display = 'none';
       });
 
-      span.addEventListener('touchstart', function(e) {
+      span.addEventListener('touchstart', function (e) {
         e.stopPropagation();
         const lang = this.getAttribute('onclick').match(/changeLanguage\('([^']+)'/)[1];
         changeLanguage(lang);
@@ -2914,7 +3116,7 @@
     // Throttle function for performance optimization
     function throttle(func, limit) {
       let inThrottle;
-      return function() {
+      return function () {
         if (!inThrottle) {
           func.apply(this, arguments);
           inThrottle = true;
@@ -2948,32 +3150,45 @@
     });
   </script>
   <script>
-    // Add scroll reset functionality with smooth animation
-    function resetScroll() {
-      // First try the modern way with scroll behavior
-      try {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      } catch (e) {
-        // Fallback for older browsers
-        window.scrollTo(0, 0);
+    // Add smooth scroll function
+    function smoothScrollToTop() {
+      const start = window.pageYOffset;
+      const duration = 500; // 0.5 seconds
+      const startTime = performance.now();
+
+      function step(timestamp) {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        window.scrollTo(0, start * (1 - ease));
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
       }
+
+      requestAnimationFrame(step);
     }
 
-    // Add scroll reset to page load events
-    window.addEventListener('load', resetScroll, false);
-    window.addEventListener('hashchange', resetScroll, false);
-    window.addEventListener('DOMContentLoaded', resetScroll, false);
-
-    // Also add a timeout to ensure it runs after other load events
-    setTimeout(resetScroll, 0);
-
-    // Add scroll reset to beforeunload to prevent scroll position from being saved
-    window.addEventListener('beforeunload', function() {
-      window.scrollTo(0, 0);
-    });
+    // Replace all scroll reset calls with smooth scroll
+    window.addEventListener('load', smoothScrollToTop);
+    window.addEventListener('hashchange', smoothScrollToTop);
+    window.addEventListener('DOMContentLoaded', smoothScrollToTop);
+    setTimeout(smoothScrollToTop, 0);
+  </script>
+  <script>
+    function toggleDropdown() {
+      var x = document.getElementById("moreInfo");
+      var icon = document.querySelector(".dropdown-icon");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+        icon.style.transform = "rotate(0deg)";
+      } else {
+        x.style.display = "block";
+        icon.style.transform = "rotate(180deg)";
+      }
+    }
   </script>
 </body>
+
 </html>
