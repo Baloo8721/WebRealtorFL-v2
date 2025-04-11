@@ -71,13 +71,15 @@
 
     // Mobile focus handling
     chatInput.addEventListener('focus', function () {
+      document.body.style.overflow = 'hidden'; // Lock page scroll
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
-        chatInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 300); // Delay for keyboard animation
     });
 
     chatInput.addEventListener('blur', function () {
+      document.body.style.overflow = ''; // Unlock page scroll
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
       }, 200); // Delay for keyboard dismissal
@@ -102,7 +104,7 @@
       // Scroll to bottom smoothly
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
-        chatContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        chatContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 100); // Delay to ensure message renders
     }
 
