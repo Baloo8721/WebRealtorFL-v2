@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web3 Real Estate Chatbot</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js"></script>
 </head>
 <body>
   <div class="chat-container">
@@ -12,13 +13,178 @@
       <h2>Web3 Real Estate Chatbot</h2>
       <button id="close-btn" onclick="window.close()">×</button>
     </div>
-    <div class="chat-body">
-      <div class="message bot">Welcome! I’m your Web3 Real Estate Chatbot. Ask me anything (coming soon)!</div>
+    <div class="chat-body" id="chatBody">
+      <div class="message bot">Welcome! I'm your Web3 Real Estate Chatbot. Ask about buying homes, Web3, crypto, or blockchain deals!</div>
     </div>
     <div class="chat-footer">
-      <input type="text" placeholder="Ask about properties or Web3..." disabled>
-      <button disabled>Send</button>
+      <input type="text" id="chatInput" placeholder="Ask about properties or Web3...">
+      <button id="sendBtn">Send</button>
     </div>
   </div>
+
+  <script>
+    // Load Transformers.js model with retry
+    let pipeline = null;
+    async function loadModel(attempt = 1, maxAttempts = 3) {
+      try {
+        pipeline = await transformers.pipeline('text-classification', 'Xenova/distilbert-sst-2-int8');
+        console.log('Model loaded!');
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot';
+        botMsg.textContent = 'Fully loaded! Ready for your real estate or Web3 questions.';
+        document.getElementById('chatBody').appendChild(botMsg);
+      } catch (err) {
+        console.error(`Model load attempt ${attempt} failed:`, err);
+        if (attempt < maxAttempts) {
+          console.log(`Retrying... (${attempt + 1}/${maxAttempts})`);
+          setTimeout(() => loadModel(attempt + 1, maxAttempts), 3000);
+        } else {
+          console.log('Model failed, using keyword fallback.');
+        }
+      }
+    }
+    loadModel();
+
+    // Chat functionality
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const chatBody = document.getElementById('chatBody');
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.textContent = message;
+      chatBody.appendChild(userMsg);
+
+      // Clear input
+      chatInput.value = '';
+
+      // Get bot response
+      getBotResponse(message);
+
+      // Scroll to bottom
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Strict keyword matching
+    function matchKeywords(input, keywords) {
+      const cleanInput = input.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+      return keywords.some(keyword => {
+        const cleanKeyword = keyword.toLowerCase();
+        return cleanInput.includes(cleanKeyword) || cleanKeyword.includes(cleanInput);
+      });
+    }
+
+    async function getBotResponse(message) {
+      let reply = 'Not sure I got that. Try asking about buying a home, Web3, crypto, or blockchain deals!';
+
+      // Response mappings with priority
+      const responseMap = [
+        {
+          intent: 'real_estate_process',
+          keywords: ['how to buy a house', 'buy a home', 'buying home', 'purchase house', 'real estate process', 'how real estate work', 'buy property', 'home buying'],
+          reply: 'Buying a home starts with setting a budget, finding a property (online or via agents), making an offer, securing financing (or crypto with Web3), and closing with contracts. Blockchain can streamline it with smart contracts. Want details on any step?'
+        },
+        {
+          intent: 'smart_contract',
+          keywords: ['smart contract', 'smart contracts', 'blockchain contract'],
+          reply: 'Smart contracts are self-executing agreements on the blockchain. In real estate, they automate tasks like title transfers or escrow, cutting costs and boosting trust.'
+        },
+        {
+          intent: 'property_search',
+          keywords: ['find house', 'miami house', 'search home', 'property in', 'find property', 'look for house'],
+          reply: 'I can\'t search listings yet, but tell me your budget, location (e.g., Miami), or type (condo, house), and I\'ll guide you with Web3 or traditional steps!'
+        },
+        {
+          intent: 'crypto_purchase',
+          keywords: ['buy with bitcoin', 'bitcoin real estate', 'crypto property', 'buy house crypto', 'crypto home', 'bitcoin home'],
+          reply: 'You can buy properties with Bitcoin or other cryptos on platforms like Propy. The crypto\'s converted to USD at closing, secured by blockchain.'
+        },
+        {
+          intent: 'crypto_question',
+          keywords: ['crypto', 'what is crypto', 'whats crypto', 'whast crypto', 'cryptocurrency', 'bitcoin', 'ethereum'],
+          reply: 'Crypto is digital money on blockchain, like Bitcoin or Ethereum. In real estate, it\'s used for payments or tokenized properties on platforms like Propy.'
+        },
+        {
+          intent: 'web3_question',
+          keywords: ['web3', 'what is web3', 'whats web3', 'web 3', 'blockchain internet', 'decentralized web'],
+          reply: 'Web3 is the decentralized internet powered by blockchain. In real estate, it enables crypto payments, smart contracts, and tokenized properties for secure, transparent deals.'
+        },
+        {
+          intent: 'tokenization',
+          keywords: ['tokenization', 'tokenize property', 'real estate tokens', 'property tokens'],
+          reply: 'Tokenization splits real estate into digital tokens on the blockchain. You can buy fractions of properties, making investing easier and more liquid.'
+        },
+        {
+          intent: 'defi',
+          keywords: ['defi', 'decentralized finance', 'crypto finance'],
+          reply: 'DeFi (decentralized finance) uses blockchain for lending, trading, or investing without banks. In real estate, it can fund projects or offer crypto-based loans.'
+        },
+        {
+          intent: 'blockchain_real_estate',
+          keywords: ['blockchain real estate', 'web3 real estate', 'crypto real estate', 'blockchain property'],
+          reply: 'Blockchain real estate uses Web3 tech—crypto payments, smart contracts, tokenization—for faster, cheaper, transparent deals vs. traditional methods.'
+        },
+        {
+          intent: 'dao',
+          keywords: ['dao', 'what is dao', 'daos real estate', 'decentralized organization'],
+          reply: 'A DAO (Decentralized Autonomous Organization) is a blockchain-based group for collective decisions. In real estate, DAOs can crowdfund properties or manage rentals.'
+        }
+      ];
+
+      // Normalize input
+      const normalizedMessage = message.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+
+      // Try model if loaded
+      if (pipeline) {
+        try {
+          const result = await pipeline(message);
+          console.log('Model result:', result);
+          const score = result[0].score;
+          const label = result[0].label; // POSITIVE or NEGATIVE
+
+          if (label === 'POSITIVE' && score > 0.7) {
+            // Prioritize specific intents
+            for (const response of responseMap) {
+              if (matchKeywords(normalizedMessage, response.keywords)) {
+                reply = response.reply;
+                break;
+              }
+            }
+          }
+        } catch (err) {
+          console.error('Model inference failed:', err);
+        }
+      }
+
+      // Fallback to keyword matching with priority
+      if (reply.includes('Not sure')) {
+        for (const response of responseMap) {
+          if (matchKeywords(normalizedMessage, response.keywords)) {
+            reply = response.reply;
+            break;
+          }
+        }
+      }
+
+      // Add bot message
+      const botMsg = document.createElement('div');
+      botMsg.className = 'message bot';
+      botMsg.textContent = reply;
+      chatBody.appendChild(botMsg);
+
+      // Scroll to bottom
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  </script>
 </body>
 </html>
