@@ -3125,9 +3125,9 @@
     }
 
     function closePopup() {
-      const popup = document.getElementById('thankYouPopup');
+      const popup = document.getElementById("thankYouPopup");
       if (popup) {
-        popup.style.display = 'none';
+        popup.style.display = "none";
         // Refresh the page to reset the form
         window.location.reload();
       }
@@ -3261,7 +3261,9 @@
   <script>
     // Chatbot button handler
     document.getElementById('chatbotButton').addEventListener('click', function () {
-      window.open('/chatbot/index.html', 'Web3Chatbot', 'width=700,height=550,left=100,top=100,menubar=no,toolbar=no,location=no,status=no');
+      // Use relative path that works both locally and on GitHub Pages
+      const chatbotPath = 'chatbot/index.html';
+      window.open(chatbotPath, 'Web3Chatbot', 'width=700,height=550,left=100,top=100,menubar=no,toolbar=no,location=no,status=no');
     });
   </script>
 </body>
