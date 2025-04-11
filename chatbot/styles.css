@@ -119,7 +119,7 @@ body {
     .chat-container {
       max-width: 100%;
       max-height: 100vh;
-      height: 100%;
+      height: 100vh; /* Fullscreen */
       position: fixed;
       top: 0;
       left: 0;
@@ -128,8 +128,18 @@ body {
       z-index: 1000;
     }
 
+    .chat-body {
+      padding-bottom: 100px; /* Space for footer + keyboard */
+    }
+
     .chat-footer {
       padding: 10px;
+      position: fixed; /* Stick to bottom */
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      z-index: 1001;
     }
 
     .chat-footer input {

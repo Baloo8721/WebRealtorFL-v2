@@ -49,25 +49,18 @@
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatBody = document.getElementById('chatBody');
+    const chatContainer = document.querySelector('.chat-container');
 
-    // Initialize input field
-    chatInput.addEventListener('focus', () => {
-      chatInput.style.height = 'auto';
-      chatInput.style.height = chatInput.scrollHeight + 'px';
-    });
-
-    // Add touch event support
+    // Handle send action
     function handleSend(e) {
       e.preventDefault();
       sendMessage();
       chatInput.focus(); // Keep focus after sending
     }
 
-    // Add event listeners for both desktop and mobile
     sendBtn.addEventListener('click', handleSend);
     sendBtn.addEventListener('touchend', handleSend);
-    
-    // Handle both keypress and touch events for input
+
     chatInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -76,28 +69,18 @@
       }
     });
 
-    // Handle touch events for input
-    chatInput.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      this.focus();
+    // Mobile focus handling
+    chatInput.addEventListener('focus', function () {
+      setTimeout(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+        chatInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 300); // Delay for keyboard animation
     });
 
-    chatInput.addEventListener('touchend', function(e) {
-      if (e.target.value && e.target.value.trim()) {
-        sendMessage();
-        this.focus(); // Keep focus after sending
-      }
-    });
-
-    // Handle input focus
-    chatInput.addEventListener('focus', function() {
-      this.style.height = 'auto';
-      this.style.height = this.scrollHeight + 'px';
-    });
-
-    // Handle input blur
-    chatInput.addEventListener('blur', function() {
-      this.style.height = 'auto';
+    chatInput.addEventListener('blur', function () {
+      setTimeout(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 200); // Delay for keyboard dismissal
     });
 
     function sendMessage() {
@@ -112,13 +95,15 @@
 
       // Clear input
       chatInput.value = '';
-      chatInput.focus(); // Keep focus after clearing
 
       // Get bot response
       getBotResponse(message);
 
-      // Scroll to bottom
-      chatBody.scrollTop = chatBody.scrollHeight;
+      // Scroll to bottom smoothly
+      setTimeout(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+        chatContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 100); // Delay to ensure message renders
     }
 
     // Strict keyword matching
