@@ -50,9 +50,28 @@
     const sendBtn = document.getElementById('sendBtn');
     const chatBody = document.getElementById('chatBody');
 
-    sendBtn.addEventListener('click', sendMessage);
+    // Add touch event support
+    function handleSend(e) {
+      e.preventDefault();
+      sendMessage();
+    }
+
+    // Add event listeners for both desktop and mobile
+    sendBtn.addEventListener('click', handleSend);
+    sendBtn.addEventListener('touchend', handleSend);
+    
     chatInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') sendMessage();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Add touch event for Enter key on mobile
+    chatInput.addEventListener('touchend', function(e) {
+      if (e.target.value && e.target.value.trim()) {
+        sendMessage();
+      }
     });
 
     function sendMessage() {
