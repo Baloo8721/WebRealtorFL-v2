@@ -50,28 +50,54 @@
     const sendBtn = document.getElementById('sendBtn');
     const chatBody = document.getElementById('chatBody');
 
+    // Initialize input field
+    chatInput.addEventListener('focus', () => {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = chatInput.scrollHeight + 'px';
+    });
+
     // Add touch event support
     function handleSend(e) {
       e.preventDefault();
       sendMessage();
+      chatInput.focus(); // Keep focus after sending
     }
 
     // Add event listeners for both desktop and mobile
     sendBtn.addEventListener('click', handleSend);
     sendBtn.addEventListener('touchend', handleSend);
     
+    // Handle both keypress and touch events for input
     chatInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         sendMessage();
+        chatInput.focus(); // Keep focus after sending
       }
     });
 
-    // Add touch event for Enter key on mobile
+    // Handle touch events for input
+    chatInput.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      this.focus();
+    });
+
     chatInput.addEventListener('touchend', function(e) {
       if (e.target.value && e.target.value.trim()) {
         sendMessage();
+        this.focus(); // Keep focus after sending
       }
+    });
+
+    // Handle input focus
+    chatInput.addEventListener('focus', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+
+    // Handle input blur
+    chatInput.addEventListener('blur', function() {
+      this.style.height = 'auto';
     });
 
     function sendMessage() {
@@ -86,6 +112,7 @@
 
       // Clear input
       chatInput.value = '';
+      chatInput.focus(); // Keep focus after clearing
 
       // Get bot response
       getBotResponse(message);
