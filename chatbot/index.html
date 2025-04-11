@@ -122,6 +122,7 @@
 
       // Response mappings with priority
       const responseMap = [
+        // Original Entries
         {
           intent: 'real_estate_process',
           keywords: ['how to buy a house', 'buy a home', 'buying home', 'purchase house', 'real estate process', 'how real estate work', 'buy property', 'home buying'],
@@ -171,6 +172,141 @@
           intent: 'dao',
           keywords: ['dao', 'what is dao', 'daos real estate', 'decentralized organization'],
           reply: 'A DAO (Decentralized Autonomous Organization) is a blockchain-based group for collective decisions. In real estate, DAOs can crowdfund properties or manage rentals.'
+        },
+
+        // Residential Contract Entries
+        {
+          intent: 'earnest_money',
+          keywords: ['earnest money', 'what is earnest', 'earnest deposit'],
+          reply: 'Earnest money\'s a deposit (1-3%) showing you\'re serious—held in escrow until closing. Refundable if contingencies fail!'
+        },
+        {
+          intent: 'closing_date',
+          keywords: ['closing date', 'when is closing', 'closing time'],
+          reply: 'Closing date\'s when funds and docs are exchanged—set in the contract, extendable up to 7 days for financing delays.'
+        },
+        {
+          intent: 'escrow_agent',
+          keywords: ['escrow agent', 'who is escrow', 'escrow role'],
+          reply: 'Escrow agent holds your deposit and docs neutrally until closing—named in the contract, ensures a smooth deal!'
+        },
+        {
+          intent: 'title_insurance',
+          keywords: ['title insurance', 'what is title insurance', 'title policy'],
+          reply: 'Title insurance protects against ownership disputes—required in FL, costs ~$1,000, paid by buyer or seller.'
+        },
+        {
+          intent: 'inspection_period',
+          keywords: ['inspection period', 'how long to inspect', 'property inspection'],
+          reply: 'Inspection period\'s 15 days (or as set) to check the property—cancel if unsatisfied, per the FL contract.'
+        },
+        {
+          intent: 'radon_gas',
+          keywords: ['radon gas', 'what is radon', 'radon disclosure'],
+          reply: 'Radon\'s a radioactive gas that can build up indoors—health risk if high. Sellers disclose per FL law.'
+        },
+
+        // Florida Transaction Guide Entries
+        {
+          intent: 'pre_approval',
+          keywords: ['pre-approval', 'get pre-approved', 'pre approval'],
+          reply: 'Pre-approval\'s getting a lender\'s mortgage okay—shows sellers you\'re legit. Bring credit, income docs!'
+        },
+        {
+          intent: 'due_diligence',
+          keywords: ['due diligence', 'what is due diligence', 'property check'],
+          reply: 'Due diligence is inspecting the home, title, and appraisal—done post-offer to confirm everything\'s solid.'
+        },
+        {
+          intent: 'hoa',
+          keywords: ['hoa', 'what is hoa', 'homeowners association'],
+          reply: 'HOA\'s a group managing community rules and fees (~$200-$500/month)—review bylaws before buying!'
+        },
+        {
+          intent: 'flood_zone',
+          keywords: ['flood zone', 'what is flood zone', 'flood risk'],
+          reply: 'Flood zones are high-risk areas in FL (60% of properties)—check FEMA maps, insurance mandatory!'
+        },
+        {
+          intent: 'bidding_war',
+          keywords: ['bidding war', 'how to win bidding', 'multiple offers'],
+          reply: 'In a bidding war, submit your best offer—add an escalation clause or waive appraisal gaps to stand out!'
+        },
+
+        // Blockchain/Web3 Guide Entries
+        {
+          intent: 'blockchain',
+          keywords: ['blockchain', 'what is blockchain', 'block chain'],
+          reply: 'Blockchain\'s a secure, decentralized ledger—cuts fraud and costs in real estate with transparent records.'
+        },
+        {
+          intent: 'nft_deed',
+          keywords: ['nft deed', 'what is nft deed', 'nft title'],
+          reply: 'NFT deeds are blockchain titles—unique, fraud-proof ownership records, like a Miami condo sold in 2021!'
+        },
+        {
+          intent: 'propy',
+          keywords: ['propy', 'what is propy', 'propy platform'],
+          reply: 'Propy\'s a Web3 platform—buy/sell homes with crypto, blockchain-secured. Sold a FL home for $525k in BTC!'
+        },
+        {
+          intent: 'realt',
+          keywords: ['realt', 'what is realt', 'real t'],
+          reply: 'RealT tokenizes rental properties—buy fractions, earn crypto rent. Great for passive income!'
+        },
+        {
+          intent: 'crypto_volatility',
+          keywords: ['crypto volatility', 'crypto risk', 'price swings'],
+          reply: 'Crypto prices can swing big—use stablecoins like USDC to keep real estate deals steady!'
+        },
+
+        // Traditional & Crypto Closings Entries
+        {
+          intent: 'traditional_closing',
+          keywords: ['traditional closing', 'how closing works', 'real estate closing'],
+          reply: 'Traditional closing\'s signing docs, paying 2-5% costs, and transferring the deed—takes weeks with a title company.'
+        },
+        {
+          intent: 'crypto_closing',
+          keywords: ['crypto closing', 'how crypto closing', 'blockchain closing'],
+          reply: 'Crypto closing uses smart contracts—fast (days), funds in crypto, NFT deed transferred instantly!'
+        },
+        {
+          intent: 'closing_costs',
+          keywords: ['closing costs', 'what are closing costs', 'closing fees'],
+          reply: 'Closing costs are 2-5% of the price—title insurance, taxes, fees. Split between buyer/seller in FL!'
+        },
+        {
+          intent: 'stablecoins',
+          keywords: ['stablecoins', 'what are stablecoins', 'stable coin'],
+          reply: 'Stablecoins like USDC are crypto pegged to $1—perfect for real estate to dodge volatility!'
+        },
+
+        // Housing Market Guide Entries
+        {
+          intent: 'housing_market_history',
+          keywords: ['housing market history', 'past housing', 'market history'],
+          reply: 'Housing market\'s seen booms (1920s) and busts (2008)—30% price drops in crashes. Learn from over-leveraging!'
+        },
+        {
+          intent: 'current_trends',
+          keywords: ['current trends', 'housing trends', 'market now'],
+          reply: '2020s trends: remote work boosts suburbs, iBuying grows (5% sales), Millennials lead buying (43%).'
+        },
+        {
+          intent: 'interest_rates',
+          keywords: ['interest rates', 'what are interest rates', 'mortgage rates'],
+          reply: 'Interest rates set mortgage costs—2.65% in 2021, 6-7% in 2023. Fed controls via federal funds rate!'
+        },
+        {
+          intent: 'housing_crash',
+          keywords: ['housing crash', 'will market crash', 'crash risk'],
+          reply: 'Crash risks: overvaluation, $12T debt. 2008 saw 10M foreclosures—diversify to stay safe!'
+        },
+        {
+          intent: 'budget_tips',
+          keywords: ['budget tips', 'how to budget', 'buying budget'],
+          reply: 'Budget wisely—keep payments ≤28% of income, inspect thoroughly, watch job growth indicators!'
         }
       ];
 
