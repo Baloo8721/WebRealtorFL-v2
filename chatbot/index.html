@@ -23,12 +23,15 @@
   </div>
 
   <script>
-    // Load Transformers.js model with retry
-    let pipeline = null;
-    async function loadModel(attempt = 1, maxAttempts = 3) {
+    // Load Transformers.js models with retry
+    let embedPipeline = null;
+    let convoPipeline = null;
+
+    async function loadModels(attempt = 1, maxAttempts = 3) {
       try {
-        pipeline = await transformers.pipeline('text-classification', 'Xenova/distilbert-sst-2-int8');
-        console.log('Model loaded!');
+        embedPipeline = await transformers.pipeline('feature-extraction', 'Xenova/gte-base-en-v1.5');
+        convoPipeline = await transformers.pipeline('text-generation', 'HuggingFaceTB/SmolLM2-135M-Instruct');
+        console.log('Models loaded!');
         const botMsg = document.createElement('div');
         botMsg.className = 'message bot';
         botMsg.textContent = 'Fully loaded! Ready for your real estate or Web3 questions.';
@@ -37,13 +40,13 @@
         console.error(`Model load attempt ${attempt} failed:`, err);
         if (attempt < maxAttempts) {
           console.log(`Retrying... (${attempt + 1}/${maxAttempts})`);
-          setTimeout(() => loadModel(attempt + 1, maxAttempts), 3000);
+          setTimeout(() => loadModels(attempt + 1, maxAttempts), 3000);
         } else {
-          console.log('Model failed, using keyword fallback.');
+          console.log('Models failed, using keyword fallback.');
         }
       }
     }
-    loadModel();
+    loadModels();
 
     // Chat functionality
     const chatInput = document.getElementById('chatInput');
@@ -55,7 +58,7 @@
     function handleSend(e) {
       e.preventDefault();
       sendMessage();
-      chatInput.focus(); // Keep focus after sending
+      chatInput.focus();
     }
 
     sendBtn.addEventListener('click', handleSend);
@@ -65,50 +68,60 @@
       if (e.key === 'Enter') {
         e.preventDefault();
         sendMessage();
-        chatInput.focus(); // Keep focus after sending
+        chatInput.focus();
       }
     });
 
     // Mobile focus handling
     chatInput.addEventListener('focus', function () {
-      document.body.style.overflow = 'hidden'; // Lock page scroll
+      document.body.style.overflow = 'hidden';
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
         chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 300); // Delay for keyboard animation
+      }, 300);
     });
 
     chatInput.addEventListener('blur', function () {
-      document.body.style.overflow = ''; // Unlock page scroll
+      document.body.style.overflow = '';
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
-      }, 200); // Delay for keyboard dismissal
+      }, 200);
     });
 
     function sendMessage() {
       const message = chatInput.value.trim();
       if (!message) return;
 
-      // Add user message
       const userMsg = document.createElement('div');
       userMsg.className = 'message user';
       userMsg.textContent = message;
       chatBody.appendChild(userMsg);
 
-      // Clear input
       chatInput.value = '';
-
-      // Get bot response
       getBotResponse(message);
 
-      // Scroll to bottom smoothly
       setTimeout(() => {
         chatBody.scrollTop = chatBody.scrollHeight;
         chatContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100); // Delay to ensure message renders
+      }, 100);
     }
 
-    // Strict keyword matching
+    // Cosine similarity for embeddings
+    function cosineSimilarity(vecA, vecB) {
+      let dotProduct = 0;
+      let normA = 0;
+      let normB = 0;
+      for (let i = 0; i < vecA.length; i++) {
+        dotProduct += vecA[i] * vecB[i];
+        normA += vecA[i] * vecA[i];
+        normB += vecB[i] * vecB[i];
+      }
+      normA = Math.sqrt(normA);
+      normB = Math.sqrt(normB);
+      return normA && normB ? dotProduct / (normA * normB) : 0;
+    }
+
+    // Keyword matching for fallback
     function matchKeywords(input, keywords) {
       const cleanInput = input.toLowerCase().replace(/[^a-z0-9\s]/g, '');
       return keywords.some(keyword => {
@@ -120,238 +133,241 @@
     async function getBotResponse(message) {
       let reply = 'Not sure I got that. Try asking about buying a home, Web3, crypto, or blockchain deals!';
 
-      // Response mappings with priority
       const responseMap = [
-        // Original Entries
         {
           intent: 'real_estate_process',
           keywords: ['how to buy a house', 'buy a home', 'buying home', 'purchase house', 'real estate process', 'how real estate work', 'buy property', 'home buying'],
-          reply: 'Buying a home starts with setting a budget, finding a property (online or via agents), making an offer, securing financing (or crypto with Web3), and closing with contracts. Blockchain can streamline it with smart contracts. Want details on any step?'
+          reply: 'Buying a home starts with setting a budget, finding a property, making an offer with 1-3% earnest money, securing financing or crypto, and closing with contracts. Want more on any step?'
         },
         {
           intent: 'smart_contract',
           keywords: ['smart contract', 'smart contracts', 'blockchain contract'],
-          reply: 'Smart contracts are self-executing agreements on the blockchain. In real estate, they automate tasks like title transfers or escrow, cutting costs and boosting trust.'
+          reply: 'Smart contracts auto-execute on blockchain—like transferring titles after payment. They save time and money in real estate.'
         },
         {
           intent: 'property_search',
           keywords: ['find house', 'miami house', 'search home', 'property in', 'find property', 'look for house'],
-          reply: 'I can\'t search listings yet, but tell me your budget, location (e.g., Miami), or type (condo, house), and I\'ll guide you with Web3 or traditional steps!'
+          reply: 'No listings here yet, but share your budget or location (e.g., Miami), and I’ll guide you with Web3 or traditional tips!'
         },
         {
           intent: 'crypto_purchase',
           keywords: ['buy with bitcoin', 'bitcoin real estate', 'crypto property', 'buy house crypto', 'crypto home', 'bitcoin home'],
-          reply: 'You can buy properties with Bitcoin or other cryptos on platforms like Propy. The crypto\'s converted to USD at closing, secured by blockchain.'
+          reply: 'Buy with Bitcoin or crypto via Propy—converted to USD at closing, secured by blockchain. It’s fast and global!'
         },
         {
           intent: 'crypto_question',
           keywords: ['crypto', 'what is crypto', 'whats crypto', 'whast crypto', 'cryptocurrency', 'bitcoin', 'ethereum'],
-          reply: 'Crypto is digital money on blockchain, like Bitcoin or Ethereum. In real estate, it\'s used for payments or tokenized properties on platforms like Propy.'
+          reply: 'Crypto’s digital cash on blockchain—Bitcoin’s for value, Ethereum runs smart contracts. Great for real estate payments!'
         },
         {
           intent: 'web3_question',
           keywords: ['web3', 'what is web3', 'whats web3', 'web 3', 'blockchain internet', 'decentralized web'],
-          reply: 'Web3 is the decentralized internet powered by blockchain. In real estate, it enables crypto payments, smart contracts, and tokenized properties for secure, transparent deals.'
+          reply: 'Web3’s a decentralized web on blockchain—think crypto payments, NFT deeds, and smart contracts for real estate.'
         },
         {
           intent: 'tokenization',
           keywords: ['tokenization', 'tokenize property', 'real estate tokens', 'property tokens'],
-          reply: 'Tokenization splits real estate into digital tokens on the blockchain. You can buy fractions of properties, making investing easier and more liquid.'
+          reply: 'Tokenization turns property into blockchain tokens—buy a $100 slice of a condo, trade anytime. Super liquid!'
         },
         {
           intent: 'defi',
           keywords: ['defi', 'decentralized finance', 'crypto finance'],
-          reply: 'DeFi (decentralized finance) uses blockchain for lending, trading, or investing without banks. In real estate, it can fund projects or offer crypto-based loans.'
+          reply: 'DeFi skips banks for blockchain lending or investing—like crypto loans for real estate. No middleman!'
         },
         {
           intent: 'blockchain_real_estate',
           keywords: ['blockchain real estate', 'web3 real estate', 'crypto real estate', 'blockchain property'],
-          reply: 'Blockchain real estate uses Web3 tech—crypto payments, smart contracts, tokenization—for faster, cheaper, transparent deals vs. traditional methods.'
+          reply: 'Blockchain real estate uses crypto payments, smart contracts, and tokenization—faster, clearer deals than traditional.'
         },
         {
           intent: 'dao',
           keywords: ['dao', 'what is dao', 'daos real estate', 'decentralized organization'],
-          reply: 'A DAO (Decentralized Autonomous Organization) is a blockchain-based group for collective decisions. In real estate, DAOs can crowdfund properties or manage rentals.'
+          reply: 'A DAO’s a blockchain group pooling funds—like buying or managing properties together. Crowdfunding 2.0!'
         },
-
-        // Residential Contract Entries
         {
           intent: 'earnest_money',
           keywords: ['earnest money', 'what is earnest', 'earnest deposit'],
-          reply: 'Earnest money\'s a deposit (1-3%) showing you\'re serious—held in escrow until closing. Refundable if contingencies fail!'
+          reply: 'Earnest money’s a 1-3% deposit to show you’re serious—held in escrow, refundable if the deal falls through.'
         },
         {
           intent: 'closing_date',
           keywords: ['closing date', 'when is closing', 'closing time'],
-          reply: 'Closing date\'s when funds and docs are exchanged—set in the contract, extendable up to 7 days for financing delays.'
+          reply: 'Closing date’s when you swap funds and deeds—set in contract, can extend 7 days for loan hiccups.'
         },
         {
           intent: 'escrow_agent',
           keywords: ['escrow agent', 'who is escrow', 'escrow role'],
-          reply: 'Escrow agent holds your deposit and docs neutrally until closing—named in the contract, ensures a smooth deal!'
+          reply: 'Escrow agent holds your cash and docs safely until closing—named in the contract, keeps things fair.'
         },
         {
           intent: 'title_insurance',
           keywords: ['title insurance', 'what is title insurance', 'title policy'],
-          reply: 'Title insurance protects against ownership disputes—required in FL, costs ~$1,000, paid by buyer or seller.'
+          reply: 'Title insurance guards against ownership disputes—in FL, it’s ~$1,000, paid by buyer or seller.'
         },
         {
           intent: 'inspection_period',
           keywords: ['inspection period', 'how long to inspect', 'property inspection'],
-          reply: 'Inspection period\'s 15 days (or as set) to check the property—cancel if unsatisfied, per the FL contract.'
+          reply: 'You get 15 days (or as set) to inspect the home—bail if it’s not right, per FL rules.'
         },
         {
           intent: 'radon_gas',
           keywords: ['radon gas', 'what is radon', 'radon disclosure'],
-          reply: 'Radon\'s a radioactive gas that can build up indoors—health risk if high. Sellers disclose per FL law.'
+          reply: 'Radon’s a risky gas that can build up indoors—sellers must disclose it per FL law.'
         },
-
-        // Florida Transaction Guide Entries
         {
           intent: 'pre_approval',
           keywords: ['pre-approval', 'get pre-approved', 'pre approval'],
-          reply: 'Pre-approval\'s getting a lender\'s mortgage okay—shows sellers you\'re legit. Bring credit, income docs!'
+          reply: 'Pre-approval’s a lender’s green light for a mortgage—bring credit and income docs to shine!'
         },
         {
           intent: 'due_diligence',
           keywords: ['due diligence', 'what is due diligence', 'property check'],
-          reply: 'Due diligence is inspecting the home, title, and appraisal—done post-offer to confirm everything\'s solid.'
+          reply: 'Due diligence means checking home, title, and appraisal after your offer—make sure it’s all good.'
         },
         {
           intent: 'hoa',
           keywords: ['hoa', 'what is hoa', 'homeowners association'],
-          reply: 'HOA\'s a group managing community rules and fees (~$200-$500/month)—review bylaws before buying!'
+          reply: 'HOA runs community rules, charges $200-$500/month—check bylaws before buying to avoid surprises!'
         },
         {
           intent: 'flood_zone',
           keywords: ['flood zone', 'what is flood zone', 'flood risk'],
-          reply: 'Flood zones are high-risk areas in FL (60% of properties)—check FEMA maps, insurance mandatory!'
+          reply: 'Flood zones cover 60% of FL homes—check FEMA maps, insurance is a must!'
         },
         {
           intent: 'bidding_war',
           keywords: ['bidding war', 'how to win bidding', 'multiple offers'],
-          reply: 'In a bidding war, submit your best offer—add an escalation clause or waive appraisal gaps to stand out!'
+          reply: 'Bidding war? Go with your best offer—try an escalation clause or skip appraisal gaps to win!'
         },
-
-        // Blockchain/Web3 Guide Entries
         {
           intent: 'blockchain',
           keywords: ['blockchain', 'what is blockchain', 'block chain'],
-          reply: 'Blockchain\'s a secure, decentralized ledger—cuts fraud and costs in real estate with transparent records.'
+          reply: 'Blockchain’s a secure ledger—stops fraud, cuts costs in real estate with clear, tamper-proof records.'
         },
         {
           intent: 'nft_deed',
           keywords: ['nft deed', 'what is nft deed', 'nft title'],
-          reply: 'NFT deeds are blockchain titles—unique, fraud-proof ownership records, like a Miami condo sold in 2021!'
+          reply: 'NFT deeds are blockchain titles—unique, fraud-proof, like a Miami condo sold for $653k in 2021!'
         },
         {
           intent: 'propy',
           keywords: ['propy', 'what is propy', 'propy platform'],
-          reply: 'Propy\'s a Web3 platform—buy/sell homes with crypto, blockchain-secured. Sold a FL home for $525k in BTC!'
+          reply: 'Propy’s Web3 real estate—buy with crypto, blockchain-secured. Sold a FL home for $525k in Bitcoin!'
         },
         {
           intent: 'realt',
           keywords: ['realt', 'what is realt', 'real t'],
-          reply: 'RealT tokenizes rental properties—buy fractions, earn crypto rent. Great for passive income!'
+          reply: 'RealT tokenizes rentals—buy a fraction, earn crypto rent. Perfect for passive income!'
         },
         {
           intent: 'crypto_volatility',
           keywords: ['crypto volatility', 'crypto risk', 'price swings'],
-          reply: 'Crypto prices can swing big—use stablecoins like USDC to keep real estate deals steady!'
+          reply: 'Crypto can be a rollercoaster—use stablecoins like USDC for steady real estate deals.'
         },
-
-        // Traditional & Crypto Closings Entries
         {
           intent: 'traditional_closing',
           keywords: ['traditional closing', 'how closing works', 'real estate closing'],
-          reply: 'Traditional closing\'s signing docs, paying 2-5% costs, and transferring the deed—takes weeks with a title company.'
+          reply: 'Traditional closing means signing docs, paying 2-5% costs, and getting the deed—weeks with a title company.'
         },
         {
           intent: 'crypto_closing',
           keywords: ['crypto closing', 'how crypto closing', 'blockchain closing'],
-          reply: 'Crypto closing uses smart contracts—fast (days), funds in crypto, NFT deed transferred instantly!'
+          reply: 'Crypto closings use smart contracts—done in days, crypto funds, NFT deed zapped instantly!'
         },
         {
           intent: 'closing_costs',
           keywords: ['closing costs', 'what are closing costs', 'closing fees'],
-          reply: 'Closing costs are 2-5% of the price—title insurance, taxes, fees. Split between buyer/seller in FL!'
+          reply: 'Closing costs run 2-5%—title insurance, taxes, fees. Buyer and seller split in FL.'
         },
         {
           intent: 'stablecoins',
           keywords: ['stablecoins', 'what are stablecoins', 'stable coin'],
-          reply: 'Stablecoins like USDC are crypto pegged to $1—perfect for real estate to dodge volatility!'
+          reply: 'Stablecoins like USDC stick to $1—great for real estate, no crypto price swings!'
         },
-
-        // Housing Market Guide Entries
         {
           intent: 'housing_market_history',
           keywords: ['housing market history', 'past housing', 'market history'],
-          reply: 'Housing market\'s seen booms (1920s) and busts (2008)—30% price drops in crashes. Learn from over-leveraging!'
+          reply: 'Housing markets boom and bust—1920s soared, 2008 crashed with 30% price drops. Leverage lessons!'
         },
         {
           intent: 'current_trends',
           keywords: ['current trends', 'housing trends', 'market now'],
-          reply: '2020s trends: remote work boosts suburbs, iBuying grows (5% sales), Millennials lead buying (43%).'
+          reply: '2020s: remote work lifts suburbs, iBuying hits 5%, Millennials grab 43% of mortgages.'
         },
         {
           intent: 'interest_rates',
           keywords: ['interest rates', 'what are interest rates', 'mortgage rates'],
-          reply: 'Interest rates set mortgage costs—2.65% in 2021, 6-7% in 2023. Fed controls via federal funds rate!'
+          reply: 'Interest rates drive mortgage costs—2.65% in 2021, 6-7% in 2023. Fed pulls the strings!'
         },
         {
           intent: 'housing_crash',
           keywords: ['housing crash', 'will market crash', 'crash risk'],
-          reply: 'Crash risks: overvaluation, $12T debt. 2008 saw 10M foreclosures—diversify to stay safe!'
+          reply: 'Crash risks: overpriced homes, $12T debt. 2008 had 10M foreclosures—diversify to stay safe!'
         },
         {
           intent: 'budget_tips',
           keywords: ['budget tips', 'how to budget', 'buying budget'],
-          reply: 'Budget wisely—keep payments ≤28% of income, inspect thoroughly, watch job growth indicators!'
+          reply: 'Budget smart—payments under 28% of income, inspect everything, track job growth signals.'
         }
       ];
 
-      // Normalize input
-      const normalizedMessage = message.toLowerCase().replace(/[^a-z0-9\s]/g, '');
-
-      // Try model if loaded
-      if (pipeline) {
+      if (embedPipeline) {
         try {
-          const result = await pipeline(message);
-          console.log('Model result:', result);
-          const score = result[0].score;
-          const label = result[0].label; // POSITIVE or NEGATIVE
+          // Try embedding match first
+          const inputEmbedding = await embedPipeline(message, { pooling: 'mean', normalize: true });
+          let maxSimilarity = -1;
+          let bestReply = reply;
 
-          if (label === 'POSITIVE' && score > 0.7) {
-            // Prioritize specific intents
-            for (const response of responseMap) {
-              if (matchKeywords(normalizedMessage, response.keywords)) {
-                reply = response.reply;
-                break;
+          for (const response of responseMap) {
+            for (const keyword of response.keywords) {
+              const keywordEmbedding = await embedPipeline(keyword, { pooling: 'mean', normalize: true });
+              const similarity = cosineSimilarity(inputEmbedding.data, keywordEmbedding.data);
+              if (similarity > maxSimilarity && similarity > 0.65) { // Tighter threshold
+                maxSimilarity = similarity;
+                bestReply = response.reply;
               }
             }
           }
+
+          if (bestReply !== reply) {
+            reply = bestReply;
+          }
         } catch (err) {
-          console.error('Model inference failed:', err);
+          console.error('Embedding generation failed:', err);
         }
       }
 
-      // Fallback to keyword matching with priority
-      if (reply.includes('Not sure')) {
+      // Fall back to conversational model if no embedding match
+      if (reply.includes('Not sure') && convoPipeline) {
+        try {
+          const prompt = `You’re a friendly Web3 real estate agent. Answer about real estate (buying, closings, inspections) or Web3 (blockchain, NFTs, crypto) in a clear, concise way, like talking to a client. Question: ${message}`;
+          const result = await convoPipeline(prompt, {
+            max_new_tokens: 60,
+            do_sample: false,
+            temperature: 0.7
+          });
+          reply = result[0].generated_text.split('Question: ')[1]?.trim() || result[0].generated_text;
+          reply = reply.replace(/^You’re a friendly Web3 real estate agent.*?:/, '').trim();
+        } catch (err) {
+          console.error('Text generation failed:', err);
+        }
+      }
+
+      // Final fallback to keyword matching
+      if (reply.includes('Not sure') || reply === message) {
         for (const response of responseMap) {
-          if (matchKeywords(normalizedMessage, response.keywords)) {
+          if (matchKeywords(message, response.keywords)) {
             reply = response.reply;
             break;
           }
         }
       }
 
-      // Add bot message
       const botMsg = document.createElement('div');
       botMsg.className = 'message bot';
       botMsg.textContent = reply;
       chatBody.appendChild(botMsg);
 
-      // Scroll to bottom
       chatBody.scrollTop = chatBody.scrollHeight;
     }
   </script>
