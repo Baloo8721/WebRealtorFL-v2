@@ -43,13 +43,12 @@ with open(train_file, "w") as f:
     for line in train_texts:
         f.write(line + "\n")
 
-# 2. Load model with CPU offloading
+# 2. Load model
 try:
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         trust_remote_code=True,
-        device_map="mps",
-        torch_dtype=torch.float16
+        device_map="mps" if torch.backends.mps.is_available() else "cpu"
     )
 except Exception as e:
     print(f"Error loading model: {e}")
@@ -69,19 +68,18 @@ except Exception as e:
     print(f"Error preparing dataset: {e}")
     exit(1)
 
-# 4. Set training arguments with memory optimization
+# 4. Set training arguments
 training_args = TrainingArguments(
     output_dir=output_dir,
     overwrite_output_dir=True,
     num_train_epochs=3,
     per_device_train_batch_size=1,
-    gradient_accumulation_steps=2,  # Accumulate gradients to reduce memory
+    gradient_accumulation_steps=2,
     learning_rate=2e-5,
     save_steps=500,
     save_total_limit=1,
     prediction_loss_only=True,
-    logging_steps=50,
-    fp16=True,  # Enable mixed precision
+    logging_steps=50
 )
 
 # 5. Train
@@ -114,7 +112,7 @@ inputs = [
 ]
 for prompt in inputs:
     try:
-        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids.to("mps")
+        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids.to(model.device)
         output = model.generate(input_ids, max_length=80, do_sample=True, top_p=0.95)
         print(f"Prompt: {prompt}")
         print(f"Response: {tokenizer.decode(output[0], skip_special_tokens=True)}")
