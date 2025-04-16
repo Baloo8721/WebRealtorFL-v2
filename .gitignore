@@ -1,2 +1,5 @@
 chatbot/model/*.bin
 chatbot/model/offload/
+chatbot/model/*.safetensors
+chatbot/model/cached_lm_*
+chatbot/model/*.lock
