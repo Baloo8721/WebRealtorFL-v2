@@ -3,3 +3,7 @@ chatbot/model/offload/
 chatbot/model/*.safetensors
 chatbot/model/cached_lm_*
 chatbot/model/*.lock
+chatbot/model/checkpoint-*/**/*.safetensors
+chatbot/model/checkpoint-*/**/*.pt
+chatbot/model/checkpoint-*/**/*.bin
+chatbot/model/checkpoint-*/**/*.pth
