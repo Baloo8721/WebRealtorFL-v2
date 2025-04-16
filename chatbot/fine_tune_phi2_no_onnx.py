@@ -5,7 +5,7 @@ import torch
 
 # Paths
 dataset_path = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/data/real_estate_web3.json"
-model_name = "Xenova/phi-2"
+model_name = "microsoft/phi-2"
 output_dir = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/model"
 
 # Ensure output directory exists
@@ -33,8 +33,8 @@ with open(train_file, "w") as f:
 
 # 2. Load tokenizer and model
 try:
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
 except Exception as e:
     print(f"Error loading model/tokenizer: {e}")
     exit(1)
