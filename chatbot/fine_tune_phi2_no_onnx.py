@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments,
 import torch
 
 # Paths
-dataset_path = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/data/real_estate_web3.json"
+dataset_path = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/data/real_estate_web3_small.json"  # Use smaller dataset for testing
 model_name = "microsoft/phi-2"
 output_dir = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/model"
 
@@ -19,11 +19,20 @@ except FileNotFoundError:
     print(f"Error: Dataset not found at {dataset_path}")
     exit(1)
 
-# Convert Q&A pairs to prompt/response format
-def make_prompt(pair):
-    return f"User: {pair['user']}\nBot: {pair['bot']}"
+# Convert Q&A pairs to prompt/response format and truncate
+def make_prompt(pair, tokenizer, max_length=2048):
+    prompt = f"User: {pair['user']}\nBot: {pair['bot']}"
+    tokens = tokenizer(prompt, truncation=True, max_length=max_length, return_tensors="pt")
+    return tokenizer.decode(tokens.input_ids[0], skip_special_tokens=True)
 
-train_texts = [make_prompt(pair) for pair in data]
+# Load tokenizer early for truncation
+try:
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+except Exception as e:
+    print(f"Error loading tokenizer: {e}")
+    exit(1)
+
+train_texts = [make_prompt(pair, tokenizer) for pair in data]
 
 # Save as a text file for TextDataset
 train_file = os.path.join(output_dir, "train.txt")
@@ -31,12 +40,11 @@ with open(train_file, "w") as f:
     for line in train_texts:
         f.write(line + "\n")
 
-# 2. Load tokenizer and model
+# 2. Load model
 try:
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
 except Exception as e:
-    print(f"Error loading model/tokenizer: {e}")
+    print(f"Error loading model: {e}")
     exit(1)
 
 # 3. Prepare dataset and data collator
@@ -60,10 +68,10 @@ training_args = TrainingArguments(
     num_train_epochs=3,
     per_device_train_batch_size=1,  # Reduced for ARM Macs
     learning_rate=2e-5,
-    save_steps=1000,
+    save_steps=500,  # Save more frequently for smaller dataset
     save_total_limit=1,
     prediction_loss_only=True,
-    logging_steps=100
+    logging_steps=50   # Log more often for monitoring
 )
 
 # 5. Train
