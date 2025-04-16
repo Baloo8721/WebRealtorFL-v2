@@ -1,156 +1,284 @@
 body {
-    margin: 0;
-    padding: 0;
-    background: #0f172a; /* Dark slate */
-    font-family: 'Inter', 'Arial', sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: #1a1a1a;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 400px;
+  height: 80vh;
+  max-height: 600px;
+  background: #252525;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: linear-gradient(135deg, #10b981, #06d6a0);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#clear-btn, #close-btn, #referral-link {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+#clear-btn {
+  font-size: 16px;
+}
+
+#referral-link {
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+#clear-btn:hover, #close-btn:hover, #referral-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.chat-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  background: #2a2a2a;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 85%;
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message.user {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  margin-left: auto;
+  color: #ffffff;
+  border-bottom-right-radius: 2px;
+}
+
+.message.bot {
+  background: rgba(255, 255, 255, 0.1);
+  margin-right: auto;
+  color: #e5e7eb;
+  border-bottom-left-radius: 2px;
+}
+
+.message.bot.typing {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 85%;
+  font-style: italic;
+  opacity: 0.7;
+  animation: pulse 1s infinite;
+}
+
+.suggestion {
+  color: #10b981;
+  font-style: italic;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  text-decoration: underline;
+  text-decoration-style: double;
+}
+
+.quick-replies {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quick-replies button {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.quick-replies button:hover {
+  background: #059669;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid #10b981;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.chat-footer {
+  display: flex;
+  padding: 12px;
+  background: #252525;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  bottom: 0;
+}
+
+#chatInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: #333333;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  margin-right: 8px;
+  transition: border-color 0.2s;
+}
+
+#chatInput:focus {
+  border-color: #10b981;
+}
+
+#sendBtn {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#sendBtn:hover {
+  background: #059669;
+}
+
+.mortgage-calculator {
+  padding: 16px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  margin: 12px;
+}
+
+.mortgage-calculator h3 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.mortgage-calculator input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: #333333;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.mortgage-calculator button {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mortgage-calculator button:hover {
+  background: #059669;
+}
+
+#welcomeMsg {
+  display: none;
+}
+
+@media (max-width: 400px) {
   .chat-container {
-    width: 100%;
-    max-width: 700px;
-    height: 100%;
-    max-height: 550px;
-    background: #1e293b; /* Card background */
+    height: 100vh;
+    max-height: none;
     border-radius: 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
   }
-  
-  .chat-header {
-    background: linear-gradient(135deg, #1e3a8a, #10b981); /* Blue to emerald gradient */
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+
   .chat-header h2 {
-    color: #e2e8f0; /* Light text */
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  #close-btn {
-    background: none;
-    border: none;
-    color: #e2e8f0;
-    font-size: 1.8rem;
-    cursor: pointer;
-    opacity: 0.8;
-  }
-  
-  #close-btn:hover {
-    opacity: 1;
-  }
-  
-  .chat-body {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    color: #e2e8f0;
-  }
-  
-  .message.bot {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 16px;
-    border-radius: 10px;
-    max-width: 85%;
-    font-size: 0.95rem;
-  }
-  
-  .message.user {
-    background: linear-gradient(135deg, #1e3a8a, #10b981); /* Matches header gradient */
-    color: white;
-    margin-left: auto;
-    border-radius: 10px;
-    padding: 12px 16px;
-    max-width: 85%;
-    font-size: 0.95rem;
-  }
-  
-  .chat-footer {
-    padding: 15px 20px;
-    background: #1e293b;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    gap: 10px;
-  }
-  
-  .chat-footer input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #e2e8f0;
-    font-size: 1rem;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    font-size: 16px;
   }
 
-  .chat-footer input:focus {
-    border-color: #1e3a8a;
-    box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
-    outline: none;
+  .message {
+    font-size: 13px;
   }
 
-  .chat-footer button {
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #1e3a8a, #10b981);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+  #chatInput {
+    font-size: 13px;
   }
 
-  @media screen and (max-width: 768px) {
-    .chat-container {
-      max-width: 100%;
-      max-height: 100vh;
-      height: 100vh; /* Fullscreen */
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1000;
-      background: #1e293b; /* Match chat background */
-    }
-
-    .chat-body {
-      padding-bottom: 60px; /* Reduced to minimize gap */
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    }
-
-    .chat-footer {
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #1e293b;
-      z-index: 1001;
-    }
-
-    .chat-footer input {
-      font-size: 1.1rem;
-      padding: 14px;
-    }
-
-    .chat-footer button {
-      padding: 12px 16px;
-      font-size: 1rem;
-    }
+  #sendBtn {
+    padding: 8px 12px;
+    font-size: 13px;
   }
+
+  .quick-replies button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .mortgage-calculator h3 {
+    font-size: 14px;
+  }
+}
