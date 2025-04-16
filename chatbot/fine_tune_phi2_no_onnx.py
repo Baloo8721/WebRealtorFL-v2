@@ -3,8 +3,11 @@ import os
 from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments, Trainer, TextDataset, DataCollatorForLanguageModeling
 import torch
 
+# Suppress tokenizer parallelism warning
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 # Paths
-dataset_path = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/data/real_estate_web3_small.json"  # Use smaller dataset for testing
+dataset_path = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/data/real_estate_web3_small.json"
 model_name = "microsoft/phi-2"
 output_dir = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/model"
 
@@ -40,9 +43,14 @@ with open(train_file, "w") as f:
     for line in train_texts:
         f.write(line + "\n")
 
-# 2. Load model
+# 2. Load model with CPU offloading
 try:
-    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        trust_remote_code=True,
+        device_map="mps",
+        torch_dtype=torch.float16
+    )
 except Exception as e:
     print(f"Error loading model: {e}")
     exit(1)
@@ -61,17 +69,19 @@ except Exception as e:
     print(f"Error preparing dataset: {e}")
     exit(1)
 
-# 4. Set training arguments
+# 4. Set training arguments with memory optimization
 training_args = TrainingArguments(
     output_dir=output_dir,
     overwrite_output_dir=True,
     num_train_epochs=3,
-    per_device_train_batch_size=1,  # Reduced for ARM Macs
+    per_device_train_batch_size=1,
+    gradient_accumulation_steps=2,  # Accumulate gradients to reduce memory
     learning_rate=2e-5,
-    save_steps=500,  # Save more frequently for smaller dataset
+    save_steps=500,
     save_total_limit=1,
     prediction_loss_only=True,
-    logging_steps=50   # Log more often for monitoring
+    logging_steps=50,
+    fp16=True,  # Enable mixed precision
 )
 
 # 5. Train
@@ -87,7 +97,7 @@ except Exception as e:
     print(f"Error during training: {e}")
     exit(1)
 
-# 6. Save the model (no ONNX export)
+# 6. Save the model
 try:
     model.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
@@ -104,7 +114,7 @@ inputs = [
 ]
 for prompt in inputs:
     try:
-        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids
+        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids.to("mps")
         output = model.generate(input_ids, max_length=80, do_sample=True, top_p=0.95)
         print(f"Prompt: {prompt}")
         print(f"Response: {tokenizer.decode(output[0], skip_special_tokens=True)}")
