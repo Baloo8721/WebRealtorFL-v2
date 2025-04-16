@@ -2,6 +2,7 @@ import json
 import os
 from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments, Trainer, TextDataset, DataCollatorForLanguageModeling
 import torch
+from accelerate import Accelerator
 
 # Suppress tokenizer parallelism warning
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -13,6 +14,9 @@ output_dir = "/Users/tylerbelisle/WebRealtorFL-v2/chatbot/model"
 
 # Ensure output directory exists
 os.makedirs(output_dir, exist_ok=True)
+
+# Initialize Accelerator for offloading
+accelerator = Accelerator()
 
 # 1. Load and preprocess dataset
 try:
@@ -28,7 +32,7 @@ def make_prompt(pair, tokenizer, max_length=2048):
     tokens = tokenizer(prompt, truncation=True, max_length=max_length, return_tensors="pt")
     return tokenizer.decode(tokens.input_ids[0], skip_special_tokens=True)
 
-# Load tokenizer early for truncation
+# Load tokenizer
 try:
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 except Exception as e:
@@ -43,16 +47,22 @@ with open(train_file, "w") as f:
     for line in train_texts:
         f.write(line + "\n")
 
-# 2. Load model
+# 2. Load model with offloading
 try:
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         trust_remote_code=True,
-        device_map="mps" if torch.backends.mps.is_available() else "cpu"
+        device_map="auto",
+        offload_folder=os.path.join(output_dir, "offload"),
+        torch_dtype=torch.bfloat16,
+        low_cpu_mem_usage=True
     )
 except Exception as e:
     print(f"Error loading model: {e}")
     exit(1)
+
+# Prepare model with Accelerator
+model = accelerator.prepare(model)
 
 # 3. Prepare dataset and data collator
 try:
@@ -74,7 +84,7 @@ training_args = TrainingArguments(
     overwrite_output_dir=True,
     num_train_epochs=3,
     per_device_train_batch_size=1,
-    gradient_accumulation_steps=2,
+    gradient_accumulation_steps=4,  # Increased to reduce memory
     learning_rate=2e-5,
     save_steps=500,
     save_total_limit=1,
@@ -112,7 +122,7 @@ inputs = [
 ]
 for prompt in inputs:
     try:
-        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids.to(model.device)
+        input_ids = tokenizer(f"User: {prompt}\nBot:", return_tensors="pt").input_ids.to(accelerator.device)
         output = model.generate(input_ids, max_length=80, do_sample=True, top_p=0.95)
         print(f"Prompt: {prompt}")
         print(f"Response: {tokenizer.decode(output[0], skip_special_tokens=True)}")
