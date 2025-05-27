@@ -32,6 +32,9 @@
       border-radius: 0.25rem;
       cursor: pointer;
       transition: background 0.2s;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
     .checkbox-toggle:checked + .checkbox-label {
       background: #26c6da;
@@ -49,6 +52,37 @@
       color: #e0e6ed;
       margin-top: 2px;
       display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .sub-label {
+        font-size: 0.7em;
+        line-height: 1.2;
+        display: block;
+        margin-top: 3px;
+      }
+      
+      .full-width-mobile {
+        flex-basis: auto !important;
+        margin-top: 0 !important;
+      }
+      
+      .full-width-mobile .checkbox-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        width: auto;
+        margin: 0.25rem;
+        min-height: 2.5rem;
+      }
+      
+      .full-width-mobile .sub-label {
+        font-size: 0.65em;
+        line-height: 1.1;
+        margin-top: 2px;
+      }
     }
     
     .checkbox-label[title]:hover::after {
@@ -99,9 +133,24 @@
       }
       
       .checkbox-group > div label {
-        white-space: nowrap;
         font-size: 0.9em;
         padding: 6px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      /* Special handling for labels with sub-labels */
+      .checkbox-group > div:nth-child(n+9) {
+        flex-basis: 100%;
+        margin-top: 5px;
+      }
+      
+      .checkbox-group > div:nth-child(n+9) label {
+        white-space: normal;
+        width: 100%;
+        padding: 8px 10px;
       }
       
       #specialties-section {
@@ -1351,29 +1400,29 @@
               <label for="specialty-probate-divorce" class="checkbox-label" title="Navigate estate settlements or divorce property sales">⚖️ Probate & Divorce</label>
             </div>
             
-            <div>
+            <div class="full-width-mobile">
               <input type="checkbox" id="specialty-management-dev" name="specialty" value="Management & Development" class="checkbox-toggle">
               <label for="specialty-management-dev" class="checkbox-label" title="Manage rentals or develop planned communities and rural properties">🏠👜 Property Management / PUD</label>
             </div>
             
             <!-- Items with sub-labels (full width on mobile) -->
-            <div>
+            <div class="full-width-mobile">
               <input type="checkbox" id="specialty-investment" name="specialty" value="Investment Properties" class="checkbox-toggle">
               <label for="specialty-investment" class="checkbox-label" title="Invest in rental properties, flips, or landlord opportunities">💰 Investment Properties
                 <span class="sub-label">Rentals, Flips, Landlording</span>
               </label>
             </div>
             
-            <div>
+            <div class="full-width-mobile">
               <input type="checkbox" id="specialty-distressed" name="specialty" value="Distressed Properties" class="checkbox-toggle">
               <label for="specialty-distressed" class="checkbox-label" title="Find deals on foreclosed homes, short sales, or bank-owned properties">🏦 Distressed Properties
                 <span class="sub-label">Foreclosure, Short Sale, REO</span>
               </label>
             </div>
             
-            <div>
+            <div class="full-width-mobile">
               <input type="checkbox" id="specialty-lifestyle" name="specialty" value="Lifestyle & Specialty Homes" class="checkbox-toggle">
-              <label for="specialty-lifestyle" class="checkbox-label" title="Discover vacation homes, historic properties, or eco-conscious living">🌳🏖️🏛️ Vacation/Second Home
+              <label for="specialty-lifestyle" class="checkbox-label" title="Discover vacation homes, historic properties, or eco-conscious living">🌳🏝️🗼️ Vacation/Second Home
                 <span class="sub-label">Historic, Eco-Friendly</span>
               </label>
             </div>
