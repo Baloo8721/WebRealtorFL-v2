@@ -72,6 +72,8 @@
       flex-wrap: wrap;
       gap: 8px;
       justify-content: flex-start;
+      max-width: 100%;
+      overflow-x: hidden;
     }
     
     .checkbox-group > div {
@@ -81,26 +83,30 @@
       text-align: left;
     }
     
-    .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
+    /* Additional checkbox group styling */
     
     /* Ensure top row stays together on mobile */
     @media (max-width: 768px) {
-      .checkbox-group > div:nth-child(1),
-      .checkbox-group > div:nth-child(2),
-      .checkbox-group > div:nth-child(3) {
-        flex-shrink: 1;
-        min-width: 0;
+      .checkbox-group {
+        justify-content: center;
+        padding: 0 5px;
       }
       
-      .checkbox-group > div:nth-child(1) label,
-      .checkbox-group > div:nth-child(2) label,
-      .checkbox-group > div:nth-child(3) label {
+      .checkbox-group > div {
+        flex-shrink: 1;
+        min-width: 0;
+        margin-right: 4px;
+      }
+      
+      .checkbox-group > div label {
         white-space: nowrap;
         font-size: 0.9em;
+        padding: 6px 10px;
+      }
+      
+      #specialties-section {
+        overflow-x: hidden;
+        max-width: 100%;
       }
     }
     
