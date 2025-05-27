@@ -1,0 +1,4 @@
+Saved 3 prompts to /Users/tylerbelisle/WebRealtorFL-v2/chatbot/model/train.txt
+Map:   0%|          | 0/3 [00:00<?, ? examples/s]Map: 100%|██████████| 3/3 [00:00<00:00, 233.71 examples/s]
+Dataset size: 3 samples
+  0%|          | 0/3 [00:00<?, ?it/s]
