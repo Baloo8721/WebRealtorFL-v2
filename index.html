@@ -119,17 +119,48 @@
     
     /* Additional checkbox group styling */
     
-    /* Ensure top row stays together on mobile */
+    /* Mobile layout for specialty checkboxes */
     @media (max-width: 768px) {
       .checkbox-group {
         justify-content: center;
         padding: 0 5px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-gap: 5px;
       }
       
-      .checkbox-group > div {
-        flex-shrink: 1;
-        min-width: 0;
-        margin-right: 4px;
+      /* First row - 3 items */
+      .checkbox-group > div:nth-child(1),
+      .checkbox-group > div:nth-child(2),
+      .checkbox-group > div:nth-child(3) {
+        grid-row: 1;
+      }
+      
+      /* Second row - 3 items */
+      .checkbox-group > div:nth-child(4),
+      .checkbox-group > div:nth-child(5),
+      .checkbox-group > div:nth-child(6) {
+        grid-row: 2;
+      }
+      
+      /* Third row - 2 items */
+      .checkbox-group > div:nth-child(7),
+      .checkbox-group > div:nth-child(8) {
+        grid-row: 3;
+        grid-column: span 1.5;
+      }
+      
+      /* Property Management - full width */
+      .checkbox-group > div:nth-child(9) {
+        grid-row: 4;
+        grid-column: 1 / span 3;
+      }
+      
+      /* Items with sub-labels - full width */
+      .checkbox-group > div:nth-child(10),
+      .checkbox-group > div:nth-child(11),
+      .checkbox-group > div:nth-child(12) {
+        grid-column: 1 / span 3;
       }
       
       .checkbox-group > div label {
@@ -139,18 +170,7 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-      }
-      
-      /* Special handling for labels with sub-labels */
-      .checkbox-group > div:nth-child(n+9) {
-        flex-basis: 100%;
-        margin-top: 5px;
-      }
-      
-      .checkbox-group > div:nth-child(n+9) label {
         white-space: normal;
-        width: 100%;
-        padding: 8px 10px;
       }
       
       #specialties-section {
@@ -1434,7 +1454,7 @@
               <span style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: white; background: linear-gradient(90deg, #26c6da, #64b5f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding: 0 15px; background-color: rgba(26, 32, 44, 0.5); position: relative; letter-spacing: 1px;">MORTGAGE PREAPPROVAL</span>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2" style="margin-bottom: 30px;">
+          <div class="flex flex-wrap gap-2" style="margin-bottom: 30px; display: flex; justify-content: center;">
             <input type="radio" id="preapproval-no" name="preapproval" value="No" class="checkbox-toggle">
             <label for="preapproval-no" class="checkbox-label">❌ No</label>
             
