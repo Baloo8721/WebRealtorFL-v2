@@ -296,7 +296,7 @@
     }
 
     h1 {
-      font-size: 2.25em;
+      font-size: 2.8em;
       color: #26c6da;
       margin-bottom: 8px;
       font-weight: 500;
@@ -322,6 +322,7 @@
       max-width: 600px;
       position: relative;
       z-index: 2;
+      border: 1px solid rgba(38, 198, 218, 0.15);
     }
 
     form input,
@@ -351,6 +352,15 @@
     form textarea::placeholder {
       color: #d0d0d0;
       font-weight: 300;
+    }
+    
+    /* Style for select placeholder text */
+    .placeholder-select {
+      color: #d0d0d0;
+    }
+    
+    .placeholder-select option:not(:first-child) {
+      color: white;
     }
 
     form textarea {
@@ -979,7 +989,7 @@
   </div>
 
   <div class="container">
-    <h1 data-lang="title">Unlock Your Florida Property</h1>
+    <h1 data-lang="title" style="font-size: 1.6rem; line-height: 1.2;">Unlock Your Florida Property</h1>
     <p class="subtitle" data-lang="subtitle">Free, Fast Agent Matches Powered by Licensed <span class="web3-bold">Experts</span>, <span class="web3-bold">A.I</span> & <span class="web3-bold">Web3</span></p>
     <div class="form-box">
       <form id="referralForm" onsubmit="submitToSupabase(event)">
@@ -998,7 +1008,7 @@
         </div>
         
         <div id="budget-form-step" class="form-step" style="margin-top: 20px; padding: 15px; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5); position: relative;">
-          <div class="text-sm text-gray-400 mb-2">Location (From → To)</div>
+          <div class="text-sm text-white mb-2">Location (From → To)</div>
           <div class="flex flex-row" style="display: flex !important; flex-direction: row !important; justify-content: space-between;">
             <div style="width: 47%; position: relative;">
               <input type="text" id="currentLocation" name="currentLocation" class="w-full p-2 border rounded bg-gray-700 text-white" placeholder="Current Home" required autocomplete="off">
@@ -1017,8 +1027,8 @@
         </div>
         
         <div class="form-step" style="margin-bottom: 8px;">
-          <select id="clientType" name="clientType" class="w-full p-2 border rounded bg-gray-700 text-white" required>
-            <option value="" disabled selected>Client Type</option>
+          <select id="clientType" name="clientType" class="w-full p-2 border rounded bg-gray-700 placeholder-select" required>
+            <option value="" disabled selected style="color: #d0d0d0; font-weight: 300;">Client Type</option>
             <option value="Buyer">🏠 Buyer</option>
             <option value="Seller">📈 Seller</option>
             <option value="Investor">💰 Investor</option>
@@ -1027,8 +1037,8 @@
         </div>
         
         <div class="form-step" style="margin-bottom: 8px;">
-          <select id="propertyType" name="propertyType" class="w-full p-2 border rounded bg-gray-700 text-white" required>
-            <option value="" disabled selected>Property Type</option>
+          <select id="propertyType" name="propertyType" class="w-full p-2 border rounded bg-gray-700 placeholder-select" required>
+            <option value="" disabled selected style="color: #d0d0d0; font-weight: 300;">Property Type</option>
             <option value="Single-family">🏠 Single-family</option>
             <option value="Condo">🏢 Condo</option>
             <option value="Townhouse">🏡 Townhouse</option>
@@ -1044,7 +1054,7 @@
         </div>
         
         <div id="budget-form-step" class="form-step" style="margin-top: 20px; padding: 15px; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5); position: relative;">
-          <div class="text-sm text-gray-400 mb-3">Budget/Price ($)</div>
+          <div class="text-sm text-white mb-3">Budget/Price ($)</div>
           <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap;">
             <!-- Left side: Slider and output -->
             <div style="flex: 1 1 300px; min-width: 250px;">
@@ -1505,6 +1515,112 @@
         <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
     </div>
+    
+    <!-- Tool Buttons Section -->
+    <div style="margin: 20px auto; max-width: 600px;">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Calculator Button -->
+        <div class="tool-button-wrapper" style="display: flex; align-items: center; margin-bottom: 16px; position: relative; border-radius: 10px; background: rgba(30, 40, 60, 0.8); padding: 8px; border: 1px solid rgba(38, 198, 218, 0.15); transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px);">
+          <div class="tool-button" style="width: 65px; height: 65px; min-width: 65px; background-color: rgba(30, 40, 60, 0.8); border-radius: 8px; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; cursor: pointer; margin-right: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1); position: relative; overflow: hidden;">
+            <div class="button-glow" style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(38, 198, 218, 0.3) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s ease;"></div>
+            <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="text-decoration: none; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; z-index: 2; filter: drop-shadow(0 0 5px rgba(38, 198, 218, 0.5));">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="2" class="tool-icon" style="transition: all 0.3s ease;">
+                <rect x="4" y="2" width="16" height="20" rx="2" fill="rgba(38, 198, 218, 0.1)" stroke="#26c6da"/>
+                <rect x="7" y="5" width="10" height="3" rx="1" fill="#26c6da" opacity="0.7"/>
+                <circle cx="8" cy="12" r="1" fill="#26c6da"/>
+                <circle cx="12" cy="12" r="1" fill="#26c6da"/>
+                <circle cx="16" cy="12" r="1" fill="#26c6da"/>
+                <circle cx="8" cy="16" r="1" fill="#26c6da"/>
+                <circle cx="12" cy="16" r="1" fill="#26c6da"/>
+                <circle cx="16" cy="16" r="1" fill="#26c6da"/>
+              </svg>
+            </a>
+          </div>
+          <div style="flex-grow: 1;">
+            <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="text-decoration: none;">
+              <div style="font-size: 18px; color: #26c6da; font-weight: 500; margin-bottom: 4px;">Real Estate | Crypto Calculator</div>
+              <div style="font-size: 14px; color: #a0aec0;">Advanced calculations for buyers, sellers & investors</div>
+            </a>
+          </div>
+          <div class="click-arrow" style="position: absolute; right: 15px; bottom: 10px; opacity: 0.7; transition: all 0.3s ease;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Spatial.io Virtual Office Button -->
+        <div class="tool-button-wrapper" style="display: flex; align-items: center; position: relative; border-radius: 10px; background: rgba(30, 40, 60, 0.8); padding: 8px; border: 1px solid rgba(38, 198, 218, 0.15); transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px);">
+          <div class="tool-button" style="width: 65px; height: 65px; min-width: 65px; background-color: rgba(30, 40, 60, 0.8); border-radius: 8px; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; cursor: pointer; margin-right: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1); position: relative; overflow: hidden;">
+            <div class="button-glow" style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(38, 198, 218, 0.3) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s ease;"></div>
+            <a href="https://spatial.io" target="_blank" style="text-decoration: none; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; z-index: 2; filter: drop-shadow(0 0 5px rgba(38, 198, 218, 0.5));">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="2" class="tool-icon" style="transition: all 0.3s ease;">
+                <path d="M3 12l9-9 9 9" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
+                <path d="M5 10v10h5v-6h4v6h5v-10" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
+                <circle cx="12" cy="7" r="2" fill="#26c6da" opacity="0.7"/>
+              </svg>
+            </a>
+          </div>
+          <div style="flex-grow: 1;">
+            <a href="https://spatial.io" target="_blank" style="text-decoration: none;">
+              <div style="font-size: 18px; color: #26c6da; font-weight: 500; margin-bottom: 4px;">Virtual Metaverse Office</div>
+              <div style="font-size: 14px; color: #a0aec0;">Tour our 3D office space in Spatial.io</div>
+            </a>
+          </div>
+          <div class="click-arrow" style="position: absolute; right: 15px; bottom: 10px; opacity: 0.7; transition: all 0.3s ease;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      .tool-button-wrapper {
+        width: 540px !important;
+        max-width: 90% !important;
+      }
+      
+      .tool-button-wrapper:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(145deg, rgba(38, 198, 218, 0.1), rgba(100, 181, 246, 0.15));
+        border-color: rgba(38, 198, 218, 0.3);
+      }
+      
+      .tool-button-wrapper:hover .tool-button {
+        background-color: rgba(30, 40, 60, 1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+      }
+      
+      .tool-button-wrapper:hover .button-glow {
+        opacity: 1;
+      }
+      
+      .tool-button-wrapper:hover .tool-icon {
+        transform: scale(1.1);
+      }
+      
+      .tool-button-wrapper:hover .click-arrow {
+        transform: translateX(5px);
+        opacity: 1;
+      }
+      
+      .tool-button-wrapper:active {
+        transform: translateY(0px);
+      }
+    </style>
+    
+    <style>
+      .calc-button-large:hover {
+        background-color: rgba(38, 198, 218, 0.2);
+        transform: scale(1.05);
+        box-shadow: 0 0 12px rgba(38, 198, 218, 0.4);
+      }
+    </style>
     <!-- Services/Affiliates Section (Propy only) -->
     <div class="services-affiliates" style="margin: 30px auto; max-width: 600px; color: #e0e6ed; font-size: 0.95em;">
       <div style="max-width: 600px; display: flex; justify-content: center;">
@@ -1758,6 +1874,31 @@
         });
       }
     }
+    
+    // Handle select placeholder color
+    function initSelectPlaceholders() {
+      const selectElements = document.querySelectorAll('.placeholder-select');
+      selectElements.forEach(select => {
+        // Set initial color based on whether a value is selected
+        if (select.value === '') {
+          select.style.color = '#d0d0d0';
+        } else {
+          select.style.color = 'white';
+        }
+        
+        // Update color when selection changes
+        select.addEventListener('change', function() {
+          if (this.value === '') {
+            this.style.color = '#d0d0d0';
+          } else {
+            this.style.color = 'white';
+          }
+        });
+      });
+    }
+    
+    // Call the function to initialize
+    initSelectPlaceholders();
     
     // Event listeners
     window.addEventListener('scroll', throttle(updateParallax, 16));
