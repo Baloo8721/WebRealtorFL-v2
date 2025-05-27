@@ -1044,7 +1044,7 @@
         </div>
         
         <div id="budget-form-step" class="form-step" style="margin-top: 20px; padding: 15px; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5); position: relative;">
-          <div class="text-sm text-gray-400 mb-3">Budget/Price Range ($)</div>
+          <div class="text-sm text-gray-400 mb-3">Budget/Price ($)</div>
           <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap;">
             <!-- Left side: Slider and output -->
             <div style="flex: 1 1 300px; min-width: 250px;">
@@ -1121,14 +1121,14 @@
           // Initialize the budget chart
           let budgetChart;
           
-          // Add calculator button to the correct budget form step div (the one with Budget/Price Range)
+          // Add calculator button to the correct budget form step div (the one with Budget/Price)
           document.addEventListener('DOMContentLoaded', function() {
-            // Find the div that contains 'Budget/Price Range'
+            // Find the div that contains 'Budget/Price'
             const formSteps = document.querySelectorAll('.form-step');
             let budgetFormStep = null;
             
             for (const step of formSteps) {
-              if (step.textContent.includes('Budget/Price Range')) {
+              if (step.textContent.includes('Budget/Price')) {
                 budgetFormStep = step;
                 break;
               }
@@ -1160,7 +1160,7 @@
               openLink.style.fontWeight = '400';
               openLink.style.transition = 'all 0.2s ease';
               openLink.textContent = 'Open';
-              openLink.style.marginRight = '5px';
+              openLink.style.marginRight = '2px';
               openLink.addEventListener('mouseover', function() {
                 this.style.color = '#64b5f6';
               });
