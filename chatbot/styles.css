@@ -245,6 +245,16 @@ body {
   background: #059669;
 }
 
+.tool-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.tool-title, .tool-description {
+  width: 100%;
+}
+
 #welcomeMsg {
   display: none;
 }
