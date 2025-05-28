@@ -2207,11 +2207,34 @@
       // Initialize mortgage preapproval functionality
       initMortgagePreapproval();
       
-      // Show/hide conditional fields based on client type
-      clientType.addEventListener('change', () => {
-        needToSellContainer.style.display = clientType.value === 'Buyer' ? 'block' : 'none';
-        needToBuyContainer.style.display = clientType.value === 'Seller' ? 'block' : 'none';
-        needToSellRentContainer.style.display = clientType.value === 'Renter' ? 'block' : 'none';
+      // Function to update toggle visibility based on selected client types
+      function updateClientTypeToggles() {
+        const selectedOptions = Array.from(clientType.selectedOptions).map(opt => opt.value);
+        
+        // Show/hide toggles based on selected client types
+        needToSellContainer.style.display = selectedOptions.includes('Buyer') ? 'block' : 'none';
+        needToBuyContainer.style.display = selectedOptions.includes('Seller') ? 'block' : 'none';
+        needToSellRentContainer.style.display = selectedOptions.includes('Renter') ? 'block' : 'none';
+        
+        // If no client type is selected, hide all toggles
+        if (selectedOptions.length === 0) {
+          needToSellContainer.style.display = 'none';
+          needToBuyContainer.style.display = 'none';
+          needToSellRentContainer.style.display = 'none';
+        }
+      }
+      
+      // Initialize toggles on page load
+      updateClientTypeToggles();
+      
+      // Listen for changes on the client type select
+      clientType.addEventListener('change', updateClientTypeToggles);
+      
+      // Also listen for custom events from the custom select
+      document.addEventListener('customSelectChange', function(e) {
+        if (e.detail && e.detail.selectId === 'clientType') {
+          updateClientTypeToggles();
+        }
       });
     });
 
