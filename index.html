@@ -1378,7 +1378,7 @@
         
         <div class="content-section" style="background: rgba(38, 198, 218, 0.05); border-color: rgba(38, 198, 218, 0.1);">
           <h3><span class="section-icon">📚</span> Want to Learn More?</h3>
-          <p>If you would like to learn more about real estate, cryptocurrency, DeFi, NFTs, and other blockchain technologies, please visit our upcoming comprehensive Blockchain 101 learning site. It will provide more in-depth information beyond this 3-minute introduction.</p>
+          <p>If you would like to learn more about real estate, cryptocurrency, DeFi, NFTs, and other blockchain technologies, please visit our upcoming comprehensive Blockchain 101 learning site. It will provide in-depth information about Web3 technologies and their applications in real estate.</p>
           <div style="text-align: center; margin-top: 15px;">
             <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #26c6da, #64ffda); color: #0f172a; text-decoration: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s ease;">
               <span style="display: flex; align-items: center; gap: 8px;">
@@ -1514,6 +1514,19 @@
       <div class="content-section">
         <h3><span class="section-icon">🔮</span> The Future of Money</h3>
         <p>Cryptocurrency and blockchain technology represent a fundamental shift in how we think about money, ownership, and trust. As adoption grows, we're likely to see integration with traditional financial systems, government-issued digital currencies, and blockchain becoming as commonplace as the internet.</p>
+      </div>
+      
+      <div class="content-section" style="background: linear-gradient(135deg, rgba(247, 147, 26, 0.05), rgba(130, 71, 229, 0.05));">
+        <h3><span class="section-icon">🌐</span> Understanding Web3</h3>
+        <p>Web3 represents the next evolution of the internet, built on decentralized technologies like blockchain. Unlike Web2 (the current internet dominated by centralized platforms), Web3 aims to give users control over their data, digital identity, and online assets.</p>
+        
+        <p>Key components of Web3 include:</p>
+        <ul class="benefits-list">
+          <li><strong>Decentralization:</strong> Removing central authorities and intermediaries</li>
+          <li><strong>Blockchain & Cryptocurrency:</strong> The foundation for trustless transactions and ownership</li>
+          <li><strong>Smart Contracts:</strong> Self-executing agreements that enable decentralized applications (dApps)</li>
+          <li><strong>Digital Ownership:</strong> True ownership of digital assets through NFTs and tokens</li>
+        </ul>
       </div>
       
       <div class="content-section disclaimer-section">
@@ -2781,10 +2794,7 @@
 
   <!-- Chatbot Button -->
   <button class="chatbot-button" id="chatbotButton" aria-label="Open chat assistant">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z" />
-      <path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z" />
-    </svg>
+    <i class="fas fa-robot"></i>
   </button>
 
   <script>
@@ -2793,9 +2803,8 @@
       const chatButton = document.getElementById('chatbotButton');
       if (chatButton) {
         chatButton.addEventListener('click', function() {
-          // Toggle chat interface here
-          alert('Chat interface will open here. This is a placeholder for the chat functionality.');
-          // You can replace the alert with your actual chat interface toggle code
+          // Open chatbot in a new tab
+          window.open('/chatbot/index.html', '_blank', 'width=500,height=700');
         });
       }
     });
