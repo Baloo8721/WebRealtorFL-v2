@@ -1,21 +1,180 @@
-.tool-button-wrapper {
-  background: rgba(26, 32, 44, 0.5);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.tool-content {
+.tool-square-invisible {
+  width: 60px;
+  height: 60px;
+  background: #f3f4f6 !important;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
 }
 
-.tool-title, .tool-description {
+/* Tool Button Grid Layout */
+.tool-button-wrapper {
+  width: 100%;
+  height: 180px;
+  min-height: 180px;
+  margin: 0;
+  position: relative;
+  border-radius: 12px;
+  background: rgba(30, 40, 60, 0.2);
+  border: 1px solid rgba(38, 198, 218, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.tool-button-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #26c6da, #64b5f6);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.tool-button-wrapper:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  border-color: rgba(38, 198, 218, 0.4);
+}
+
+.tool-button-wrapper:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+/* Tool Button Container */
+.tool-button {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  background: linear-gradient(135deg, rgba(30, 40, 60, 0.9), rgba(20, 25, 40, 0.9));
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 auto 15px auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 600px) {
+  .tool-buttons-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+  
+  .tool-square-invisible {
+    width: 60px;
+    height: 60px;
+    background: #f3f4f6 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tool-button-wrapper {
+    width: 100%;
+    height: 120px;
+    min-height: 120px;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .tool-button {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    margin-bottom: 10px;
+  }
+}
+
+
+.tool-content, .tool-link.tool-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  gap: 6px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 100%;
+}
+
+.tool-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.tool-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.tool-icon {
+  font-size: 32px !important;
+  color: #26c6da !important;
+  margin-bottom: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.tool-title {
+  font-family: 'Orbitron', 'Inter', Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 5px 0 4px 0;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+}
+
+.tool-description {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
   width: 100%;
 }
