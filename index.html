@@ -633,33 +633,91 @@
     }
 
     .popup {
-      background: rgba(30, 40, 60, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
+      background: rgba(20, 25, 35, 0.85);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1000;
       display: none;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
     }
-
-    .popup button {
+    
+    .popup-content {
+      background: #1a1f2e;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      transform: translateY(20px);
+      animation: slideUp 0.4s ease-out forwards;
+      animation-delay: 0.1s;
+      opacity: 0;
+    }
+    
+    .popup-icon {
+      font-size: 48px;
+      color: #26c6da;
+      margin-bottom: 20px;
+    }
+    
+    .popup-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      margin: 0 0 15px 0;
+      color: #fff;
+    }
+    
+    .popup-message {
+      color: #a0aec0;
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 30px 0;
+    }
+    
+    .popup-button {
       background: linear-gradient(to right, #26c6da, #0288d1);
       border: none;
-      padding: 10px 20px;
       border-radius: 6px;
-      cursor: pointer;
-      color: #fff;
+      padding: 12px 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
       font-weight: 500;
-      transition: background 0.3s ease;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-
-    .popup button:hover {
+    
+    .popup-button:hover {
       background: linear-gradient(to right, #0288d1, #01579b);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(38, 198, 218, 0.3);
+    }
+    
+    .popup-button span {
+      position: relative;
+      z-index: 1;
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .section {
@@ -1033,60 +1091,194 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(10, 15, 25, 0.85);
-      z-index: 2000;
+      background-color: rgba(0, 0, 0, 0.8);
       display: none;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overflow-y: auto;
+      padding: 40px 0;
+    }
+
+    .crypto-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     
     .about-popup {
-      width: 90%;
-      max-width: 500px;
-      background: linear-gradient(135deg, rgba(30, 40, 60, 0.95), rgba(20, 25, 40, 0.95));
-      border-radius: 12px;
-      border: 1px solid rgba(38, 198, 218, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
       position: relative;
+      background: linear-gradient(135deg, rgba(25, 35, 55, 0.97), rgba(15, 25, 40, 0.97));
+      color: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 650px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      z-index: 1001;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
     }
     
-    .about-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid rgba(38, 198, 218, 0.2);
+    .crypto-popup {
+      max-width: 700px; /* Slightly wider for educational content */
+    }
+    
+    .read-time {
+      color: #a0aec0;
+      font-size: 14px;
+      margin-top: -5px;
+      margin-bottom: 20px;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    /* About Popup Styling */
+    .popup-header {
+      text-align: center;
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 20px;
+    }
+    
+    .about-popup h2 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #26c6da, #64ffda);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+    
+    .content-section {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .content-section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .intro-section {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    
+    .section-icon {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+    
+    .about-popup h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #26c6da;
+      font-size: 20px;
+      display: flex;
       align-items: center;
     }
     
-    .about-header h3 {
-      margin: 0;
-      color: #26c6da;
-      font-size: 18px;
-      font-weight: 500;
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
     
-    .close-about {
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .step-number {
+      background: linear-gradient(135deg, #26c6da, #64ffda);
+      color: #0f172a;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    
+    .benefits-list {
+      padding-left: 20px;
+      margin-top: 15px;
+    }
+    
+    .benefits-list li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 5px;
+    }
+    
+    .benefits-list li::before {
+      content: '•';
+      color: #26c6da;
+      font-size: 18px;
+      position: absolute;
+      left: -15px;
+    }
+    
+    .disclaimer-section {
+      background: rgba(38, 198, 218, 0.05);
+      border-color: rgba(38, 198, 218, 0.1);
+    }
+    
+    .disclaimer {
+      font-size: 14px;
+      color: #a0aec0;
+      font-style: italic;
+      margin: 0;
+    }
+    
+    .close-button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
       background: none;
       border: none;
-      color: #ffffff;
-      font-size: 24px;
+      color: #a0aec0;
+      font-size: 28px;
       cursor: pointer;
       padding: 0;
       line-height: 1;
-      opacity: 0.7;
-      transition: opacity 0.2s ease;
+      transition: color 0.2s ease;
+      z-index: 1002;
     }
     
-    .close-about:hover {
-      opacity: 1;
+    .close-button:hover {
+      color: #e2e8f0;
     }
-    
+
     .about-content {
-      padding: 20px;
-      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.6;
     }
     
     .about-content p {
@@ -1128,18 +1320,162 @@
   <!-- About Popup Overlay -->
   <div id="about-overlay" class="about-overlay">
     <div class="about-popup">
-      <div class="about-header">
-        <h3>About Web3RealtorFL</h3>
-        <button id="close-about" class="close-about">&times;</button>
+      <button id="close-about" class="close-button">&times;</button>
+      <div class="popup-header" style="position: relative; z-index: 1;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="1.5" style="width: 40px; height: 40px; margin-bottom: 15px;">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
+          <path d="M2 17l10 5 10-5" stroke="#26c6da" stroke-linecap="round"/>
+          <path d="M2 12l10 5 10-5" stroke="#26c6da" stroke-linecap="round"/>
+        </svg>
+        <h2>About Web3RealtorFL</h2>
       </div>
       <div class="about-content">
-        <p>Welcome to Web3RealtorFL - your Florida property match powered by licensed experts, A.I, and Web3 technology.</p>
-        <p>This platform connects you with specialized real estate agents across Florida who match your unique needs.</p>
-        <p>Our free matching service is enhanced with blockchain technology for secure, transparent transactions.</p>
-        <p>Use our tools to calculate property costs, explore financing options, and find your perfect Florida property.</p>
+        <div class="content-section intro-section">
+          <p>Web3RealtorFL connects you with expert real estate agents specializing in your unique needs across Florida. Our platform leverages both human expertise and cutting-edge technology to find your perfect agent match.</p>
+        </div>
+        
+        <div class="content-section">
+          <h3><span class="section-icon">🚀</span> Our Mission</h3>
+          <p>To revolutionize real estate agent matching by combining professional human expertise with advanced Web3 technology, ensuring every client finds their ideal agent partner.</p>
+        </div>
+        
+        <div class="content-section">
+          <h3><span class="section-icon">🔄</span> How It Works</h3>
+          <div class="steps-container">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <p>Fill out our simple form with your real estate needs</p>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <p>Our system matches you with specialized agents</p>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <p>Connect with your matched agents within 24 hours</p>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <p>Choose the best fit for your real estate journey</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="content-section">
+          <h3><span class="section-icon">✅</span> Why Choose Us</h3>
+          <ul class="benefits-list">
+            <li>Free, no-obligation service</li>
+            <li>Specialized agent matching based on your unique needs</li>
+            <li>Web3 technology for secure, transparent transactions</li>
+            <li>Expert human oversight of all matches</li>
+            <li>Extensive network of qualified Florida agents</li>
+          </ul>
+        </div>
+        
+        <div class="content-section disclaimer-section">
+          <p class="disclaimer">Web3RealtorFL is a free service for home buyers and sellers. Our partner agents pay a referral fee only when a transaction closes successfully.</p>
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+          <button class="select-done" id="about-done">Done</button>
+        </div>
       </div>
     </div>
   </div>
+  
+  <!-- Learn Crypto Popup Overlay -->
+  <div id="crypto-overlay" class="about-overlay">
+    <div class="about-popup crypto-popup">
+      <button id="close-crypto" class="close-button">&times;</button>
+      <div class="popup-header">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f7931a" stroke-width="1.5" style="width: 40px; height: 40px; margin-bottom: 15px;">
+          <circle cx="12" cy="12" r="9" stroke="#f7931a" fill="rgba(247, 147, 26, 0.1)"/>
+          <path d="M9.5 10h4.5a2 2 0 0 0 0-4h-2v2h-2.5" stroke="#f7931a" stroke-linecap="round"/>
+          <path d="M9.5 14h5a2 2 0 0 0 0-4h-5" stroke="#f7931a" stroke-linecap="round"/>
+          <line x1="12" y1="6" x2="12" y2="18" stroke="#f7931a" stroke-linecap="round"/>
+        </svg>
+        <h2>Understanding Cryptocurrency & Blockchain</h2>
+      </div>
+      <p class="read-time"><i class="far fa-clock"></i> 3 minute read</p>
+      <div class="about-content">
+      <div class="content-section intro-section">
+        <h3><span class="section-icon">💰</span> What is Cryptocurrency?</h3>
+        <p>Cryptocurrency is digital money that uses encryption to secure transactions and control the creation of new units. Unlike traditional currency, it operates independently of central banks and governments.</p>
+        
+        <p>The most well-known cryptocurrency is Bitcoin (₿), created in 2009 by an anonymous person or group using the pseudonym Satoshi Nakamoto. Today, thousands of cryptocurrencies exist, each with different features and purposes.</p>
+      </div>
+      
+      <div class="content-section">
+        <h3><span class="section-icon">🔗</span> How Blockchain Works</h3>
+        <p>Blockchain is the technology that powers cryptocurrencies. Think of it as a digital ledger that records all transactions across a network of computers. Once information is recorded, it cannot be altered without changing all subsequent blocks, making it highly secure.</p>
+        
+        <p>Key blockchain features:</p>
+        <ul class="benefits-list">
+          <li><strong>Decentralized:</strong> No single entity controls it</li>
+          <li><strong>Transparent:</strong> Anyone can view the entire transaction history</li>
+          <li><strong>Immutable:</strong> Once recorded, data cannot be changed</li>
+          <li><strong>Secure:</strong> Uses advanced cryptography to protect information</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3><span class="section-icon">₿</span> Cryptocurrency Units</h3>
+        <p>Bitcoin can be divided into smaller units:</p>
+        <ul class="benefits-list">
+          <li>1 Bitcoin (₿) = 100,000,000 Satoshis</li>
+          <li>Satoshi is the smallest unit, named after Bitcoin's creator</li>
+          <li>Other cryptocurrencies have their own units (Ether for Ethereum, etc.)</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3><span class="section-icon">🌐</span> Real-World Applications</h3>
+        <p>Beyond digital currency, blockchain technology is being used for:</p>
+        <ul class="benefits-list">
+          <li><strong>Real Estate:</strong> Property records and transactions</li>
+          <li><strong>Healthcare:</strong> Secure medical record sharing</li>
+          <li><strong>Supply Chain:</strong> Tracking products from origin to consumer</li>
+          <li><strong>Digital Identity:</strong> Secure, self-sovereign identity management</li>
+          <li><strong>NFTs:</strong> Digital ownership of art, music, and collectibles</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3><span class="section-icon">🚀</span> Getting Started</h3>
+        <p>To begin using cryptocurrency:</p>
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <p>Create a digital wallet (software, mobile app, or hardware device)</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <p>Purchase cryptocurrency through an exchange</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <p>Secure your private keys (never share these with anyone)</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">4</div>
+            <p>Start with small amounts until you're comfortable</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="content-section">
+        <h3><span class="section-icon">🔮</span> The Future of Money</h3>
+        <p>Cryptocurrency and blockchain technology represent a fundamental shift in how we think about money, ownership, and trust. As adoption grows, we're likely to see integration with traditional financial systems, government-issued digital currencies, and blockchain becoming as commonplace as the internet.</p>
+      </div>
+      
+      <div class="content-section disclaimer-section">
+        <p class="disclaimer">This information is educational only and not financial advice. Cryptocurrency investments involve risk. Do your own research before investing.</p>
+      </div>
+      <div style="text-align: right; margin-top: 20px;">
+        <button class="select-done" id="crypto-done">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
   
   <div class="language-selector">
     <span onclick="changeLanguage('en')">English</span> |
@@ -1172,6 +1508,9 @@
           </span>
           <span onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
             <i class="fas fa-info-circle" style="margin-right: 8px;"></i>About
+          </span>
+          <span onclick="document.getElementById('crypto-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('crypto-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
+            <i class="fas fa-bitcoin-sign" style="margin-right: 8px;"></i>Learn Crypto
           </span>
         </div>
       </div>
@@ -1257,7 +1596,8 @@
               <div style="display: flex; justify-content: space-between; margin-top: 8px;" data-component-name="<div />">
                 <span style="font-size: 12px; color: #26c6da;">$100k</span>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <output id="budget-output" for="budget" style="font-size: 18px; font-weight: 600; color: #ffffff; text-shadow: 0 0 10px rgba(38, 198, 218, 0.5);" data-component-name="<output />">$300,000</output>
+                  <output id="budget-output" for="budget" style="font-size: 18px; font-weight: 600; color: #ffffff; text-shadow: 0 0 10px rgba(38, 198, 218, 0.5); cursor: pointer;" onclick="enableDirectBudgetInput()" data-component-name="<output />">$300,000</output>
+                  <input type="text" id="budget-direct-input" style="display: none; font-size: 18px; font-weight: 600; color: #ffffff; background: transparent; border: none; border-bottom: 1px solid #26c6da; width: 120px; text-align: center; outline: none;" onblur="applyDirectBudgetInput()" onkeydown="handleBudgetInputKeydown(event)" />
                   <a id="btc-equivalent" href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="font-size: 18px; color: #f7931a; font-weight: 600; text-decoration: none; position: relative;" title="Open Crypto Calculator" onmouseover="showBTCTooltip(true)" onmouseout="showBTCTooltip(false)">
                     <span id="btc-amount"></span>
                     <span id="btc-tooltip" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; margin-bottom: 5px;">
@@ -1278,6 +1618,12 @@
                   <div style="display: flex; align-items: center; justify-content: center; width: 100%;" data-component-name="<div />">
                     <span id="type-hint" style="font-size: 12px; color: #a0aec0; margin-right: 5px; opacity: 0.7; cursor: pointer; transition: opacity 0.2s;" title="Click to edit">✏️</span>
                     <div id="monthly-payment" style="font-size: 20px; font-weight: 600; color: #26c6da; text-align: center;">$2,532</div>
+                    <a id="sats-equivalent" href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="font-size: 11px; color: #f7931a; font-weight: 600; text-decoration: none; position: relative; margin-left: 8px;" title="Open Crypto Calculator" onmouseover="showSatsTooltip(true)" onmouseout="showSatsTooltip(false)">
+                      <span id="sats-amount"></span>
+                      <span id="sats-tooltip" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; margin-bottom: 5px;">
+                        Open Crypto Calculator
+                      </span>
+                    </a>
                   </div>
                 </div>
                 <div id="payment-breakdown" style="margin-top: 0px; font-size: 11px; color: #a0aec0; line-height: 1.3;">
@@ -1650,6 +1996,10 @@
                   paymentElement.textContent = '$' + monthlyPayment.toLocaleString();
                   // Update the visualization with the new home price
                   updateBudgetVisualization(homePrice, true); // Pass true to prevent recursive update
+                  // Update the BTC equivalent amount
+                  updateBTCEquivalent(homePrice);
+                  // Update the Satoshi equivalent for the monthly payment
+                  updateSatsEquivalent();
                   return; // Exit early to prevent restoring original payment
                 }
               }
@@ -1679,6 +2029,70 @@
           }
 
           // Function to update budget visualization
+          // Enable direct budget input when clicking on the budget output
+          function enableDirectBudgetInput() {
+            const budgetOutput = document.getElementById('budget-output');
+            const directInput = document.getElementById('budget-direct-input');
+            
+            // Hide the output and show the input
+            budgetOutput.style.display = 'none';
+            directInput.style.display = 'inline-block';
+            
+            // Set the input value to the current budget (without $ and commas)
+            const currentValue = budgetOutput.textContent.replace(/[^0-9]/g, '');
+            directInput.value = currentValue;
+            
+            // Focus the input and select all text
+            directInput.focus();
+            directInput.select();
+          }
+          
+          // Handle Enter key in the direct budget input
+          function handleBudgetInputKeydown(event) {
+            if (event.key === 'Enter') {
+              applyDirectBudgetInput();
+            } else if (event.key === 'Escape') {
+              // Cancel editing on Escape key
+              const budgetOutput = document.getElementById('budget-output');
+              const directInput = document.getElementById('budget-direct-input');
+              
+              directInput.style.display = 'none';
+              budgetOutput.style.display = 'inline-block';
+            }
+          }
+          
+          // Apply the direct budget input value
+          function applyDirectBudgetInput() {
+            const directInput = document.getElementById('budget-direct-input');
+            const budgetOutput = document.getElementById('budget-output');
+            const budgetSlider = document.getElementById('budget');
+            
+            // Get the input value and validate it
+            let inputValue = directInput.value.replace(/[^0-9]/g, '');
+            
+            // Ensure the value is within the slider's range
+            let numericValue = parseInt(inputValue);
+            
+            if (isNaN(numericValue) || numericValue < 100000) {
+              numericValue = 100000; // Minimum value
+            } else if (numericValue > 3000000) {
+              numericValue = 3000000; // Maximum value
+            }
+            
+            // Update the slider value
+            budgetSlider.value = numericValue;
+            
+            // Hide the input and show the output
+            directInput.style.display = 'none';
+            budgetOutput.style.display = 'inline-block';
+            
+            // Update the visualization with the new value
+            updateBudgetVisualization(numericValue);
+            
+            // Update the BTC equivalent amount
+            updateBTCEquivalent(numericValue);
+          }
+          
           function updateBudgetVisualization(value, skipPaymentUpdate = false) {
             // Format the output with commas
             const formattedValue = parseInt(value).toLocaleString();
@@ -1707,6 +2121,8 @@
             // Only update the payment display if not explicitly told to skip it
             if (!skipPaymentUpdate) {
               document.getElementById('monthly-payment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
+              // Update the Satoshi equivalent for the monthly payment
+              updateSatsEquivalent();
             }
             
             document.getElementById('pi-amount').textContent = '$' + Math.round(principalAndInterest).toLocaleString();
@@ -1885,29 +2301,50 @@
     
     <!-- Tool Buttons Section -->
     <div style="margin: 20px auto; max-width: 600px; padding: 0 15px;">
-      <div class="tool-buttons-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); justify-content: center; gap: 20px;">
+      <div class="tool-buttons-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-content: center; gap: 20px; align-items: start; min-width: 0;">
         <!-- Calculator Button -->
           <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" class="tool-link">
             <div class="tool-button">
               <div class="button-glow"></div>
-              <i class="fas fa-calculator tool-icon" style="font-size: 34px; color: #26c6da;"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="1.5" class="tool-icon" style="width: 34px; height: 34px; margin-top: 0; margin-bottom: 0;">
+                <rect x="4" y="3" width="16" height="18" rx="2" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
+                <line x1="8" y1="7" x2="16" y2="7" stroke="#26c6da" stroke-linecap="round"/>
+                <line x1="8" y1="11" x2="10" y2="11" stroke="#26c6da" stroke-linecap="round"/>
+                <line x1="14" y1="11" x2="16" y2="11" stroke="#26c6da" stroke-linecap="round"/>
+                <line x1="8" y1="15" x2="10" y2="15" stroke="#26c6da" stroke-linecap="round"/>
+                <line x1="14" y1="15" x2="16" y2="15" stroke="#26c6da" stroke-linecap="round"/>
+              </svg>
             </div>
             <div class="tool-title">Real Estate | Crypto</div>
             <div class="tool-description">Free Calculator for Clients, Agents & Investors</div>
           </a>
         
         <!-- Spatial.io Virtual Office Button -->
-          <a href="https://spatial.io" target="_blank" class="tool-link">
-            <div class="tool-button">
+          <a href="https://spatial.io" target="_blank" class="tool-link" style="padding-top: 0;">
+            <div class="tool-button" style="margin-top: 0;">
               <div class="button-glow"></div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="2" class="tool-icon">
-                <path d="M3 12l9-9 9 9" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
-                <path d="M5 10v10h5v-6h4v6h5v-10" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
-                <circle cx="12" cy="7" r="2" fill="#26c6da" opacity="0.7"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="1.5" class="tool-icon" style="width: 34px; height: 34px; margin-top: 0; margin-bottom: 0;">
+                <path d="M12 3L4 7v10l8 4 8-4V7l-8-4z" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
+                <path d="M12 3v8l8 4" stroke="#26c6da" stroke-linecap="round"/>
+                <path d="M12 11l-8 4" stroke="#26c6da" stroke-linecap="round"/>
+                <path d="M4 7l8 4 8-4" stroke="#26c6da" stroke-linecap="round"/>
+                <circle cx="12" cy="3" r="1" fill="#26c6da" opacity="0.8"/>
+                <circle cx="4" cy="7" r="1" fill="#26c6da" opacity="0.8"/>
+                <circle cx="20" cy="7" r="1" fill="#26c6da" opacity="0.8"/>
               </svg>
             </div>
             <div class="tool-title">3D Virtual Office</div>
             <div class="tool-description">Explore our immersive metaverse workspace</div>
+          </a>
+          
+        <!-- Bitcoin Education Button -->
+          <a href="javascript:void(0)" onclick="document.getElementById('crypto-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('crypto-overlay').style.opacity = '1'; }, 10);" class="tool-link">
+            <div class="tool-button">
+              <div class="button-glow"></div>
+              <i class="fab fa-bitcoin tool-icon" style="font-size: 34px; color: #f7931a; margin-top: 0; margin-bottom: 0;"></i>
+            </div>
+            <div class="tool-title">Learn Crypto</div>
+            <div class="tool-description">3-minute guide to Bitcoin, Blockchain & Web3</div>
           </a>
       </div>
     </div>
@@ -2091,24 +2528,48 @@
       
       /* Responsive Adjustments */
       @media (max-width: 768px) {
-        .tool-button-wrapper {
-          max-width: 100%;
-          margin: 0 0 20px 0;
-          flex: 1 1 100%;
+        .tool-buttons-grid {
+          display: grid !important;
+          grid-template-columns: repeat(3, 1fr) !important;
+          gap: 10px !important;
+          width: 100%;
+          overflow-x: hidden;
         }
+        
+        .tool-link {
+          width: 100%;
+          min-width: 0;
+          overflow: hidden;
+        }
+        
         .tool-button {
-          width: 70px;
-          height: 70px;
-          min-width: 70px;
-          margin-right: 14px;
+          width: 60px;
+          height: 60px;
+          min-width: 60px;
+          margin: 0 auto;
         }
         
         .tool-button .tool-icon {
-          width: 39px;
-          height: 39px;
+          width: 30px;
+          height: 30px;
+          font-size: 30px !important;
         }
         
         .tool-title {
+          font-size: 12px;
+          white-space: normal;
+          text-align: center;
+          margin-top: 8px;
+        }
+        
+        .tool-description {
+          font-size: 10px;
+          white-space: normal;
+          text-align: center;
+        }
+        
+        /* Additional mobile styles */
+        .tool-button-wrapper {
           font-size: 15px;
         }
         
@@ -2188,10 +2649,18 @@
       - Bridging Real Estate & Blockchain</a>
   </footer>
 
-  <!-- Popup -->
+  <!-- Thank You Popup -->
   <div id="thankYouPopup" class="popup">
-    <p data-lang="thank_you">Thank you for submitting! An agent will contact you soon.</p>
-    <button onclick="closePopup()">OK</button>
+    <div class="popup-content">
+      <div class="popup-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3 class="popup-title">Success!</h3>
+      <p class="popup-message" data-lang="thank_you">Thank you for submitting! An expert agent will contact you shortly.</p>
+      <button class="popup-button" onclick="closePopup()">
+        <span>Continue</span>
+      </button>
+    </div>
   </div>
 
   <!-- Hidden iframe for form submission -->
@@ -2257,17 +2726,8 @@
       const specialties = Array.from(form.querySelectorAll('input[name="specialty"]:checked')).map(input => input.value);
       
       // Map combined specialties to individual components
-      const mappedSpecialties = specialties.reduce((acc, specialty) => {
-        if (specialtyMap[specialty]) {
-          acc.push(...specialtyMap[specialty]);
-        } else {
-          acc.push(specialty);
-        }
-        return acc;
-      }, []);
       
-      // Get form values for special conditions
-      // Create data object from form
+      // Create data object for submission
       const data = {
         name: formData.get('name'),
         email: formData.get('email'),
@@ -2282,21 +2742,19 @@
         need_to_buy: document.getElementById('needToBuy')?.checked || false,
         need_to_sell_rent: document.getElementById('needToSellRent')?.checked || false,
         mortgage_preapproval: document.querySelector('input[name="preapproval"]:checked')?.value || 'No',
-        preapproval_amount: document.getElementById('preapproval-yes').checked ? document.getElementById('preapproval-amount').value : null,
-        specialty: mappedSpecialties,
+        preapproval_amount: document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : null,
+        specialties: specialties.join(', '),
         notes: formData.get('notes'),
         referral_source: formData.get('referralSource'),
         status: 'New',
         created_at: new Date().toISOString()
       };
       
+      console.log('Form data:', data);
+      
       try {
-        // This is where you would make the actual API call to Supabase
-        // For now, we'll just log the data and show success message
-        console.log('Form data to be sent to Supabase:', data);
-        
-        // TODO: Replace with actual Supabase API call
-        // const response = await fetch('YOUR_SUPABASE_API_ENDPOINT', {
+        // Uncomment and update this section when ready to send to Supabase
+        // const response = await fetch('YOUR_SUPABASE_URL/rest/v1/referrals', {
         //   method: 'POST',
         //   headers: {
         //     'Content-Type': 'application/json',
@@ -2309,8 +2767,9 @@
         //   throw new Error('Failed to submit form');
         // }
         
-        // Show success message
-        document.getElementById('thankYouPopup').style.display = 'flex';
+        // Show success message with animation
+        const popup = document.getElementById('thankYouPopup');
+        popup.style.display = 'flex';
         form.reset();
         
         // Reset conditional fields
@@ -2322,8 +2781,32 @@
         document.getElementById('needToSellRent').checked = false;
       } catch (error) {
         console.error('Error submitting form:', error);
-        alert('There was an error submitting your form. Please try again.');
+        alert('There was an error submitting the form. Please try again.');
       }
+    }
+    
+    // Function to close the thank you popup
+    function closePopup() {
+      const popup = document.getElementById('thankYouPopup');
+      const popupContent = popup.querySelector('.popup-content');
+      
+      // Add fade-out animation
+      popupContent.style.opacity = '0';
+      popupContent.style.transform = 'translateY(20px)';
+      
+      // Fade out the background
+      setTimeout(() => {
+        popup.style.opacity = '0';
+      }, 100);
+      
+      // Hide the popup after animation completes
+      setTimeout(() => {
+        popup.style.display = 'none';
+        // Reset for next time
+        popupContent.style.opacity = '';
+        popupContent.style.transform = '';
+        popup.style.opacity = '';
+      }, 400);
     }
     
     // Initialize form functionality when DOM is loaded
@@ -2452,11 +2935,13 @@
     // Call the function to initialize
     initSelectPlaceholders();
     
-    // About Button Functionality
+    // About and Crypto Popup Functionality
     document.addEventListener('DOMContentLoaded', function() {
       const aboutButton = document.getElementById('about-button');
       const aboutOverlay = document.getElementById('about-overlay');
       const closeAbout = document.getElementById('close-about');
+      const cryptoOverlay = document.getElementById('crypto-overlay');
+      const closeCrypto = document.getElementById('close-crypto');
       
       // Open about overlay
       aboutButton.addEventListener('click', function() {
@@ -2475,12 +2960,48 @@
         }, 300);
       });
       
+      // Done button for about overlay
+      const aboutDone = document.getElementById('about-done');
+      aboutDone.addEventListener('click', function() {
+        aboutOverlay.style.opacity = '0';
+        setTimeout(function() {
+          aboutOverlay.style.display = 'none';
+        }, 300);
+      });
+      
       // Close overlay when clicking outside the popup
       aboutOverlay.addEventListener('click', function(e) {
         if (e.target === aboutOverlay) {
           aboutOverlay.style.opacity = '0';
           setTimeout(function() {
             aboutOverlay.style.display = 'none';
+          }, 300);
+        }
+      });
+      
+      // Close crypto overlay
+      closeCrypto.addEventListener('click', function() {
+        cryptoOverlay.style.opacity = '0';
+        setTimeout(function() {
+          cryptoOverlay.style.display = 'none';
+        }, 300);
+      });
+      
+      // Done button for crypto overlay
+      const cryptoDone = document.getElementById('crypto-done');
+      cryptoDone.addEventListener('click', function() {
+        cryptoOverlay.style.opacity = '0';
+        setTimeout(function() {
+          cryptoOverlay.style.display = 'none';
+        }, 300);
+      });
+      
+      // Close crypto overlay when clicking outside the popup
+      cryptoOverlay.addEventListener('click', function(e) {
+        if (e.target === cryptoOverlay) {
+          cryptoOverlay.style.opacity = '0';
+          setTimeout(function() {
+            cryptoOverlay.style.display = 'none';
           }, 300);
         }
       });
@@ -5102,6 +5623,38 @@
     const btcAmount = document.getElementById('btc-amount');
     if (btcAmount) {
       btcAmount.textContent = `₿${btcDisplay}`;
+    }
+    
+    // Also update the monthly payment in Satoshis
+    updateSatsEquivalent();
+  }
+  
+  // Function to update Satoshi equivalent for monthly payment
+  async function updateSatsEquivalent() {
+    const monthlyPayment = parseFloat(document.getElementById('monthly-payment').textContent.replace(/[^0-9.]/g, ''));
+    const btcPrice = await fetchBTCPrice();
+    
+    // Calculate Satoshi value (1 BTC = 100,000,000 Satoshis)
+    const satoshiValue = (monthlyPayment / btcPrice) * 100000000;
+    
+    // Format the display
+    const satsDisplay = satoshiValue >= 1000000 ?
+      `${(satoshiValue / 1000000).toFixed(2)}M` : // Display in millions if large
+      satoshiValue >= 1000 ?
+      `${(satoshiValue / 1000).toFixed(1)}K` : // Display in thousands if medium
+      Math.round(satoshiValue); // Display as whole number if small
+    
+    const satsAmount = document.getElementById('sats-amount');
+    if (satsAmount) {
+      satsAmount.textContent = `₿${satsDisplay} sats`;
+    }
+  }
+  
+  // Function to show/hide Satoshi tooltip
+  function showSatsTooltip(show) {
+    const tooltip = document.getElementById('sats-tooltip');
+    if (tooltip) {
+      tooltip.style.opacity = show ? '1' : '0';
     }
   }
   
