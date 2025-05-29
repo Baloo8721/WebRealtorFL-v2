@@ -1008,10 +1008,139 @@
     .back-button i {
       margin-right: 5px;
     }
+    /* About Button and Overlay Styles */
+    .about-button {
+      position: fixed;
+      top: 10px;
+      left: 20px;
+      z-index: 1000;
+      color: #a0aec0;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .about-button:hover {
+      color: #26c6da;
+      transform: translateY(-1px);
+    }
+    
+    .about-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 15, 25, 0.85);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    
+    .about-popup {
+      width: 90%;
+      max-width: 500px;
+      background: linear-gradient(135deg, rgba(30, 40, 60, 0.95), rgba(20, 25, 40, 0.95));
+      border-radius: 12px;
+      border: 1px solid rgba(38, 198, 218, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .about-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(38, 198, 218, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .about-header h3 {
+      margin: 0;
+      color: #26c6da;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    
+    .close-about {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+    
+    .close-about:hover {
+      opacity: 1;
+    }
+    
+    .about-content {
+      padding: 20px;
+      color: #ffffff;
+    }
+    
+    .about-content p {
+      margin: 0 0 12px 0;
+      line-height: 1.5;
+      font-size: 14px;
+      color: #e0e6ed;
+    }
+    
+    .about-content p:last-child {
+      margin-bottom: 0;
+    }
+    
+    @media (max-width: 768px) {
+      .about-button {
+        top: 15px;
+        left: 15px;
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+      
+      .about-popup {
+        width: 95%;
+      }
+      
+      .about-header h3 {
+        font-size: 16px;
+      }
+      
+      .about-content p {
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  
+  <!-- About Popup Overlay -->
+  <div id="about-overlay" class="about-overlay">
+    <div class="about-popup">
+      <div class="about-header">
+        <h3>About Web3RealtorFL</h3>
+        <button id="close-about" class="close-about">&times;</button>
+      </div>
+      <div class="about-content">
+        <p>Welcome to Web3RealtorFL - your Florida property match powered by licensed experts, A.I, and Web3 technology.</p>
+        <p>This platform connects you with specialized real estate agents across Florida who match your unique needs.</p>
+        <p>Our free matching service is enhanced with blockchain technology for secure, transparent transactions.</p>
+        <p>Use our tools to calculate property costs, explore financing options, and find your perfect Florida property.</p>
+      </div>
+    </div>
+  </div>
+  
   <div class="language-selector">
     <span onclick="changeLanguage('en')">English</span> |
     <span onclick="changeLanguage('es')">Español</span> |
@@ -1041,6 +1170,9 @@
           <span onclick="document.getElementById('chatbotButton').click(); closeAllLanguageDropdowns();">
             <i class="fas fa-robot" style="margin-right: 8px;"></i>Chat A.I.
           </span>
+          <span onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
+            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>About
+          </span>
         </div>
       </div>
     </span>
@@ -1049,7 +1181,11 @@
   <div class="container">
     <h1 data-lang="title" style="font-size: 1.76rem; font-weight: 500; line-height: 1.2;">Unlock Your Florida Property</h1>
     <p class="subtitle" data-lang="subtitle">Free, Fast Agent Matches Powered by Licensed <span class="web3-bold">Experts</span>, <span class="web3-bold">A.I</span> & <span class="web3-bold">Web3</span></p>
-    <div class="form-box">
+    <div class="form-box" style="position: relative;">
+      <!-- About Button -->
+      <a id="about-button" style="position: absolute; top: 5px; right: 15px; color: #a0aec0; font-size: 12px; cursor: pointer; z-index: 100; text-align: right;" onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10);">
+        <i class="fas fa-info-circle"></i> About
+      </a>
       <form id="referralForm" onsubmit="submitToSupabase(event)">
 
         <!-- Basic Information Fields -->
@@ -1618,7 +1754,7 @@
             <!-- Row 1: Crypto - Luxury - First-time Buyer -->
             <div>
               <input type="checkbox" id="specialty-crypto" name="specialty" value="Crypto" class="checkbox-toggle">
-              <label for="specialty-crypto" class="checkbox-label" title="Buy or sell with Bitcoin, Ethereum, or other cryptocurrencies">🪙 Crypto</label>
+              <label for="specialty-crypto" class="checkbox-label" title="Buy or sell with Bitcoin, Ethereum, or other cryptocurrencies">₿ Crypto</label>
             </div>
             
             <div>
@@ -1660,7 +1796,7 @@
             
             <div class="full-width-mobile">
               <input type="checkbox" id="specialty-management-dev" name="specialty" value="Management & Development" class="checkbox-toggle">
-              <label for="specialty-management-dev" class="checkbox-label" title="Manage rentals or develop planned communities and rural properties">🏠👜 Property Management / PUD</label>
+              <label for="specialty-management-dev" class="checkbox-label" title="Manage rentals or develop planned communities and rural properties">👜 Property Management / PUD</label>
             </div>
             
             <!-- Items with sub-labels (full width on mobile) -->
@@ -1680,7 +1816,7 @@
             
             <div class="full-width-mobile">
               <input type="checkbox" id="specialty-lifestyle" name="specialty" value="Lifestyle & Specialty Homes" class="checkbox-toggle">
-              <label for="specialty-lifestyle" class="checkbox-label" title="Discover vacation homes, historic properties, or eco-conscious living">🌳🏝️🗼️ Vacation/Second Home
+              <label for="specialty-lifestyle" class="checkbox-label" title="Discover vacation homes, historic properties, or eco-conscious living">🏝️ Vacation/Second Home
                 <span class="sub-label">Historic, Eco-Friendly</span>
               </label>
             </div>
@@ -1751,19 +1887,16 @@
     <div style="margin: 20px auto; max-width: 600px; padding: 0 15px;">
       <div class="tool-buttons-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); justify-content: center; gap: 20px;">
         <!-- Calculator Button -->
-        <div class="tool-button-wrapper">
           <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" class="tool-link">
             <div class="tool-button">
               <div class="button-glow"></div>
-              <i class="fas fa-calculator tool-icon" style="font-size: 24px; color: #26c6da;"></i>
+              <i class="fas fa-calculator tool-icon" style="font-size: 34px; color: #26c6da;"></i>
             </div>
-            <div class="tool-title">Real Estate & Crypto Calculator</div>
-            <div class="tool-description">Free for Clients, Agents & Investors</div>
+            <div class="tool-title">Real Estate | Crypto</div>
+            <div class="tool-description">Free Calculator for Clients, Agents & Investors</div>
           </a>
-        </div>
         
         <!-- Spatial.io Virtual Office Button -->
-        <div class="tool-button-wrapper">
           <a href="https://spatial.io" target="_blank" class="tool-link">
             <div class="tool-button">
               <div class="button-glow"></div>
@@ -1776,7 +1909,6 @@
             <div class="tool-title">3D Virtual Office</div>
             <div class="tool-description">Explore our immersive metaverse workspace</div>
           </a>
-        </div>
       </div>
     </div>
     
@@ -1826,11 +1958,11 @@
       
       /* Tool Button */
       .tool-button {
-        width: 56px;
-        height: 56px;
-        min-width: 56px;
+        width: 78px;
+        height: 78px;
+        min-width: 78px;
         background: linear-gradient(135deg, rgba(30, 40, 60, 0.9), rgba(20, 25, 40, 0.9));
-        border-radius: 10px;
+        border-radius: 12px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1843,8 +1975,8 @@
       }
       
       .tool-button .tool-icon {
-        width: 32px;
-        height: 32px;
+        width: 45px;
+        height: 45px;
         display: block;
         margin: 0 auto;
         transition: all 0.3s ease;
@@ -1889,7 +2021,7 @@
         font-size: 16px;
         color: #26c6da;
         font-weight: 600;
-        margin: 0;
+        margin: 16px 0 0 0;
         letter-spacing: 0.3px;
         line-height: 1.2;
         white-space: normal;
@@ -1902,7 +2034,7 @@
       
       .tool-description {
         font-size: 13px;
-        color: #a0aec0;
+        color: #ffffff;
         line-height: 1.3;
         opacity: 0.9;
         white-space: normal;
@@ -1965,15 +2097,15 @@
           flex: 1 1 100%;
         }
         .tool-button {
-          width: 50px;
-          height: 50px;
-          min-width: 50px;
+          width: 70px;
+          height: 70px;
+          min-width: 70px;
           margin-right: 14px;
         }
         
         .tool-button .tool-icon {
-          width: 28px;
-          height: 28px;
+          width: 39px;
+          height: 39px;
         }
         
         .tool-title {
@@ -2319,6 +2451,40 @@
     
     // Call the function to initialize
     initSelectPlaceholders();
+    
+    // About Button Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const aboutButton = document.getElementById('about-button');
+      const aboutOverlay = document.getElementById('about-overlay');
+      const closeAbout = document.getElementById('close-about');
+      
+      // Open about overlay
+      aboutButton.addEventListener('click', function() {
+        aboutOverlay.style.display = 'flex';
+        // Add fade-in animation
+        setTimeout(function() {
+          aboutOverlay.style.opacity = '1';
+        }, 10);
+      });
+      
+      // Close about overlay
+      closeAbout.addEventListener('click', function() {
+        aboutOverlay.style.opacity = '0';
+        setTimeout(function() {
+          aboutOverlay.style.display = 'none';
+        }, 300);
+      });
+      
+      // Close overlay when clicking outside the popup
+      aboutOverlay.addEventListener('click', function(e) {
+        if (e.target === aboutOverlay) {
+          aboutOverlay.style.opacity = '0';
+          setTimeout(function() {
+            aboutOverlay.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
     
     // Event listeners
     window.addEventListener('scroll', throttle(updateParallax, 16));
