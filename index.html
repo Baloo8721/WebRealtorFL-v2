@@ -1696,12 +1696,9 @@
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <output id="budget-output" for="budget" style="font-size: 18px; font-weight: 600; color: #ffffff; text-shadow: 0 0 10px rgba(38, 198, 218, 0.5); cursor: pointer;" onclick="enableDirectBudgetInput()" data-component-name="<output />">$300,000</output>
                   <input type="text" id="budget-direct-input" style="display: none; font-size: 18px; font-weight: 600; color: #ffffff; background: transparent; border: none; border-bottom: 1px solid #26c6da; width: 120px; text-align: center; outline: none;" onblur="applyDirectBudgetInput()" onkeydown="handleBudgetInputKeydown(event)" />
-                  <a id="btc-equivalent" href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="font-size: 18px; color: #f7931a; font-weight: 600; text-decoration: none; position: relative;" title="Open Crypto Calculator" onmouseover="showBTCTooltip(true)" onmouseout="showBTCTooltip(false)">
-                    <span id="btc-amount"></span>
-                    <span id="btc-tooltip" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; margin-bottom: 5px;">
-                      Open Crypto Calculator
-                    </span>
-                  </a>
+                  <span style="font-size: 18px; color: #f7931a; font-weight: 600; position: relative;">
+                    <span id="btc-amount" style="cursor: pointer;" title="Click to edit BTC amount" onclick="makeBtcEditable()"></span>
+                  </span>
                 </div>
                 <span style="font-size: 12px; color: #ab47bc;">$3M+</span>
               </div>
@@ -1716,12 +1713,9 @@
                   <div style="display: flex; align-items: center; justify-content: center; width: 100%;" data-component-name="<div />">
                     <span id="type-hint" style="font-size: 12px; color: #a0aec0; margin-right: 5px; opacity: 0.7; cursor: pointer; transition: opacity 0.2s;" title="Click to edit">✏️</span>
                     <div id="monthly-payment" style="font-size: 20px; font-weight: 600; color: #26c6da; text-align: center;">$2,532</div>
-                    <a id="sats-equivalent" href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="font-size: 11px; color: #f7931a; font-weight: 600; text-decoration: none; position: relative; margin-left: 8px;" title="Open Crypto Calculator" onmouseover="showSatsTooltip(true)" onmouseout="showSatsTooltip(false)">
-                      <span id="sats-amount"></span>
-                      <span id="sats-tooltip" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1a202c; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; margin-bottom: 5px;">
-                        Open Crypto Calculator
-                      </span>
-                    </a>
+                    <span style="font-size: 11px; color: #f7931a; font-weight: 600; position: relative; margin-left: 8px;">
+                      <span id="sats-amount" style="cursor: pointer;" title="Click to edit Satoshi amount" onclick="makeSatsEditable()"></span>
+                    </span>
                   </div>
                 </div>
                 <div id="payment-breakdown" style="margin-top: 0px; font-size: 11px; color: #a0aec0; line-height: 1.3;">
@@ -2082,22 +2076,37 @@
             input.focus();
             
             // Handle input submission
-            function handleSubmit() {
+            async function handleSubmit() {
               const value = input.value.replace(/\D/g, ''); // Remove non-digits
               if (value) {
                 const monthlyPayment = parseInt(value);
                 if (monthlyPayment > 0) {
                   const homePrice = calculateHomePriceFromMonthlyPayment(monthlyPayment);
+                  
                   // Update the slider and all calculations
                   document.getElementById('budget').value = homePrice;
+                  
                   // Update the display with the exact amount the user entered
                   paymentElement.textContent = '$' + monthlyPayment.toLocaleString();
-                  // Update the visualization with the new home price
-                  updateBudgetVisualization(homePrice, true); // Pass true to prevent recursive update
-                  // Update the BTC equivalent amount
-                  updateBTCEquivalent(homePrice);
+                  
+                  // Update the budget output display
+                  const formattedHomePrice = Math.round(homePrice).toLocaleString();
+                  document.getElementById('budget-output').textContent = '$' + formattedHomePrice;
+                  
+                  // Get current BTC price
+                  const btcPrice = await fetchBTCPrice();
+                  
+                  // Update the BTC amount display
+                  const btcValue = homePrice / btcPrice;
+                  const btcDisplay = btcValue >= 0.01 ? btcValue.toFixed(2) : btcValue.toFixed(6);
+                  document.getElementById('btc-amount').textContent = `₿${btcDisplay}`;
+                  
                   // Update the Satoshi equivalent for the monthly payment
                   updateSatsEquivalent();
+                  
+                  // Update the visualization with the new home price (skip payment update to avoid recursion)
+                  updateBudgetVisualization(homePrice, true);
+                  
                   return; // Exit early to prevent restoring original payment
                 }
               }
@@ -2219,7 +2228,13 @@
             // Only update the payment display if not explicitly told to skip it
             if (!skipPaymentUpdate) {
               document.getElementById('monthly-payment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
-              // Update the Satoshi equivalent for the monthly payment
+            }
+            
+            // Always update the BTC equivalent for the home price
+            updateBTCEquivalent(homeValue);
+            
+            // Update the Satoshi equivalent for the monthly payment if not skipping payment update
+            if (!skipPaymentUpdate) {
               updateSatsEquivalent();
             }
             
@@ -5727,6 +5742,107 @@
     updateSatsEquivalent();
   }
   
+  // Function to make BTC amount editable
+  function makeBtcEditable() {
+    const btcElement = document.getElementById('btc-amount');
+    const originalBtc = btcElement.textContent;
+    
+    // Create an input element
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = originalBtc.replace('₿', ''); // Remove BTC symbol
+    input.style.width = (originalBtc.length * 10) + 'px';
+    input.style.border = '1px solid #f7931a';
+    input.style.borderRadius = '4px';
+    input.style.padding = '2px 5px';
+    input.style.color = '#f7931a';
+    input.style.background = 'rgba(247, 147, 26, 0.1)';
+    input.style.textAlign = 'center';
+    input.style.fontSize = '18px';
+    input.style.fontWeight = '600';
+    input.style.maxWidth = '150px';
+    
+    // Replace the BTC text with the input
+    btcElement.textContent = '';
+    btcElement.appendChild(input);
+    input.focus();
+    input.select();
+    
+    // Handle input submission
+    async function handleSubmit() {
+      const value = input.value.replace(/[^0-9.]/g, ''); // Remove non-digits except decimal point
+      if (value) {
+        const btcAmount = parseFloat(value);
+        if (btcAmount > 0) {
+          // Get current BTC price
+          const btcPrice = await fetchBTCPrice();
+          
+          // Calculate USD equivalent
+          const usdAmount = btcAmount * btcPrice;
+          
+          // Update the slider and all calculations
+          document.getElementById('budget').value = usdAmount;
+          
+          // Update the display with the exact BTC amount the user entered
+          btcElement.textContent = `₿${btcAmount}`;
+          
+          // Update the budget visualization with the new home price
+          updateBudgetVisualization(usdAmount, true); // Pass true to prevent recursive update
+          
+          // Calculate and update monthly payment
+          const homeValue = usdAmount;
+          const downPaymentPercent = 0.05; // 5% down payment
+          const loanAmount = homeValue * (1 - downPaymentPercent); // 95% of home value
+          const interestRate = 0.07; // 7.0% annual
+          const loanTermYears = 30;
+          const monthlyRate = interestRate / 12;
+          const numberOfPayments = loanTermYears * 12;
+          
+          // Calculate principal and interest payment
+          const principalAndInterest = loanAmount * 
+            (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+            (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+          
+          // Calculate property tax (0.82% of home value annually)
+          const monthlyTax = homeValue * (0.0082 / 12);
+          
+          // Calculate PMI (1% of loan amount annually)
+          const monthlyPMI = loanAmount * (0.01 / 12);
+          
+          // Calculate insurance ($2,325/year for a $300k home, scaled proportionally)
+          const monthlyInsurance = (2325 / 12) * (homeValue / 300000);
+          
+          // Calculate total monthly payment
+          const monthlyPayment = principalAndInterest + monthlyTax + monthlyPMI + monthlyInsurance;
+          
+          // Update the monthly payment display
+          document.getElementById('monthly-payment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
+          
+          // Update the Satoshi equivalent for the monthly payment
+          updateSatsEquivalent();
+          return; // Exit early to prevent restoring original BTC
+        }
+      }
+      
+      // If we get here, there was an error or no valid input
+      // Restore original display
+      btcElement.textContent = originalBtc;
+      btcElement.style.cursor = 'pointer';
+    }
+    
+    // Handle Enter key or focus out
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      } else if (e.key === 'Escape') {
+        btcElement.textContent = originalBtc;
+        btcElement.style.cursor = 'pointer';
+      }
+    });
+    
+    input.addEventListener('blur', handleSubmit);
+  }
+  
   // Function to update Satoshi equivalent for monthly payment
   async function updateSatsEquivalent() {
     const monthlyPayment = parseFloat(document.getElementById('monthly-payment').textContent.replace(/[^0-9.]/g, ''));
@@ -5748,21 +5864,107 @@
     }
   }
   
-  // Function to show/hide Satoshi tooltip
-  function showSatsTooltip(show) {
-    const tooltip = document.getElementById('sats-tooltip');
-    if (tooltip) {
-      tooltip.style.opacity = show ? '1' : '0';
+  // Function to make Satoshi amount editable
+  function makeSatsEditable() {
+    const satsElement = document.getElementById('sats-amount');
+    const originalSats = satsElement.textContent;
+    
+    // Create an input element
+    const input = document.createElement('input');
+    input.type = 'text';
+    // Extract the numeric part, removing the BTC symbol and 'sats'
+    let numericPart = originalSats.replace('₿', '').replace(' sats', '');
+    // Handle K and M suffixes
+    if (numericPart.includes('M')) {
+      numericPart = parseFloat(numericPart.replace('M', '')) * 1000000;
+    } else if (numericPart.includes('K')) {
+      numericPart = parseFloat(numericPart.replace('K', '')) * 1000;
     }
+    input.value = numericPart;
+    
+    input.style.width = '80px';
+    input.style.border = '1px solid #f7931a';
+    input.style.borderRadius = '4px';
+    input.style.padding = '2px 5px';
+    input.style.color = '#f7931a';
+    input.style.background = 'rgba(247, 147, 26, 0.1)';
+    input.style.textAlign = 'center';
+    input.style.fontSize = '11px';
+    input.style.fontWeight = '600';
+    
+    // Replace the Sats text with the input
+    satsElement.textContent = '';
+    satsElement.appendChild(input);
+    input.focus();
+    input.select();
+    
+    // Handle input submission
+    async function handleSubmit() {
+      const value = input.value.replace(/[^0-9.]/g, ''); // Remove non-digits except decimal point
+      if (value) {
+        const satsAmount = parseFloat(value);
+        if (satsAmount > 0) {
+          // Get current BTC price
+          const btcPrice = await fetchBTCPrice();
+          
+          // Calculate USD equivalent for monthly payment
+          const monthlyPayment = (satsAmount * btcPrice) / 100000000;
+          
+          // Update the monthly payment display
+          document.getElementById('monthly-payment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
+          
+          // Calculate home price based on the monthly payment
+          const homePrice = calculateHomePriceFromMonthlyPayment(monthlyPayment);
+          
+          // Update the slider and all calculations
+          document.getElementById('budget').value = homePrice;
+          
+          // Format the display for satoshis
+          let satsDisplay;
+          if (satsAmount >= 1000000) {
+            satsDisplay = `${(satsAmount / 1000000).toFixed(2)}M`;
+          } else if (satsAmount >= 1000) {
+            satsDisplay = `${(satsAmount / 1000).toFixed(1)}K`;
+          } else {
+            satsDisplay = Math.round(satsAmount);
+          }
+          
+          // Update the display with the formatted satoshi amount
+          satsElement.textContent = `₿${satsDisplay} sats`;
+          
+          // Update the budget output display
+          const formattedHomePrice = Math.round(homePrice).toLocaleString();
+          document.getElementById('budget-output').textContent = '$' + formattedHomePrice;
+          
+          // Update the BTC amount display
+          const btcValue = homePrice / btcPrice;
+          const btcDisplay = btcValue >= 0.01 ? btcValue.toFixed(2) : btcValue.toFixed(6);
+          document.getElementById('btc-amount').textContent = `₿${btcDisplay}`;
+          
+          return; // Exit early to prevent restoring original sats
+        }
+      }
+      
+      // If we get here, there was an error or no valid input
+      // Restore original display
+      satsElement.textContent = originalSats;
+      satsElement.style.cursor = 'pointer';
+    }
+    
+    // Handle Enter key or focus out
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      } else if (e.key === 'Escape') {
+        satsElement.textContent = originalSats;
+        satsElement.style.cursor = 'pointer';
+      }
+    });
+    
+    input.addEventListener('blur', handleSubmit);
   }
   
-  // Function to show/hide BTC tooltip
-  function showBTCTooltip(show) {
-    const tooltip = document.getElementById('btc-tooltip');
-    if (tooltip) {
-      tooltip.style.opacity = show ? '1' : '0';
-    }
-  }
+  // Tooltip functions removed as they're no longer needed
 
   // Update BTC equivalent when budget changes
   document.getElementById('budget').addEventListener('input', (e) => {
