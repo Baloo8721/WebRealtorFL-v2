@@ -1608,6 +1608,9 @@
         </div>
         <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 8px 0;"></div>
         <div class="dropdown-section">
+          <span onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
+            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>About
+          </span>
           <span onclick="window.open('https://baloo8721.github.io/Web3-Real-Estate-Calculator/', '_blank')">
             <i class="fas fa-calculator" style="margin-right: 8px;"></i>Calculator
           </span>
@@ -1617,12 +1620,12 @@
           <span onclick="document.getElementById('chatbotButton').click(); closeAllLanguageDropdowns();">
             <i class="fas fa-robot" style="margin-right: 8px;"></i>Chat A.I.
           </span>
-          <span onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
-            <i class="fas fa-info-circle" style="margin-right: 8px;"></i>About
-          </span>
           <span onclick="document.getElementById('crypto-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('crypto-overlay').style.opacity = '1'; }, 10); closeAllLanguageDropdowns();">
             <i class="fas fa-bitcoin-sign" style="margin-right: 8px;"></i>Learn Crypto
           </span>
+          <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="display: block; padding: 8px 12px; color: #e2e8f0; text-decoration: none; transition: all 0.2s ease; border-radius: 4px;" onmouseover="this.style.background='rgba(38, 198, 218, 0.1)'" onmouseout="this.style.background='transparent'" onclick="closeAllLanguageDropdowns()">
+            <i class="fas fa-link" style="margin-right: 8px; color: #26c6da;"></i>Blockchain 101
+          </a>
         </div>
       </div>
     </span>
