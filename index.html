@@ -1462,7 +1462,7 @@
           <div style="background: linear-gradient(135deg, rgba(247, 147, 26, 0.15), rgba(255, 179, 71, 0.15)); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; border: 2px solid rgba(247, 147, 26, 0.3);">
             <i class="fab fa-bitcoin" style="font-size: 30px; color: #f7931a;"></i>
           </div>
-          <h2 style="margin: 0; font-size: 1.6em; font-weight: 700; background: linear-gradient(135deg, #f7931a, #ffb347); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <h2 style="margin: 0; font-size: 1.6em; font-weight: 700; background: linear-gradient(135deg, #f7931a, #ffb347); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-align: center; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             Understanding Cryptocurrency <span style="display: block; font-size: 0.95em; opacity: 1; color: #e2e8f0; margin-top: 4px;">& Blockchain Technology</span>
           </h2>
         </div>
@@ -1561,14 +1561,7 @@
         <h3><span class="section-icon">📚</span> Want to Learn More?</h3>
         <p>If you would like to learn more about real estate, cryptocurrency, DeFi, NFTs, and other blockchain technologies, explore our learning resources below.</p>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px;">
-          <!-- Learn Crypto Button (Gold) -->
-          <a href="#" onclick="document.getElementById('crypto-overlay').style.display = 'none'; return false;" style="display: inline-block; background: linear-gradient(135deg, #f7931a, #ffb347); color: #0f172a; text-decoration: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; width: 200px; text-align: center;">
-            <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <i class="fab fa-bitcoin"></i>
-              Learn Crypto
-            </span>
-          </a>
-          
+
           <!-- Blockchain 101 Button (Blue) -->
           <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #26c6da, #64b5f6); color: #0f172a; text-decoration: none; padding: 8px 20px; border-radius: 20px; font-weight: 500; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; width: 200px; text-align: center;">
             <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -2471,9 +2464,9 @@
     
     <!-- Tool Buttons Section -->
     <div style="margin: 20px auto; max-width: 600px; padding: 0 15px;">
-      <div class="tool-buttons-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-content: center; gap: 20px; align-items: start; min-width: 0;">
+      <div class="tool-buttons-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-content: center; gap: 15px; align-items: start; min-width: 0;">
         <!-- Calculator Button -->
-          <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" class="tool-link">
+          <a href="https://baloo8721.github.io/Web3-Real-Estate-Calculator/" target="_blank" class="tool-link tool-button-wrapper">
             <div class="tool-button">
               <div class="button-glow"></div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="1.5" class="tool-icon" style="width: 34px; height: 34px; margin-top: 0; margin-bottom: 0;">
@@ -2490,8 +2483,8 @@
           </a>
         
         <!-- Spatial.io Virtual Office Button -->
-          <a href="https://spatial.io" target="_blank" class="tool-link" style="padding-top: 0;">
-            <div class="tool-button" style="margin-top: 0;">
+          <a href="https://spatial.io" target="_blank" class="tool-link tool-button-wrapper">
+            <div class="tool-button">
               <div class="button-glow"></div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#26c6da" stroke-width="1.5" class="tool-icon" style="width: 34px; height: 34px; margin-top: 0; margin-bottom: 0;">
                 <path d="M12 3L4 7v10l8 4 8-4V7l-8-4z" stroke="#26c6da" fill="rgba(38, 198, 218, 0.1)"/>
@@ -2508,7 +2501,7 @@
           </a>
           
         <!-- Bitcoin Education Button -->
-          <a href="javascript:void(0)" onclick="document.getElementById('crypto-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('crypto-overlay').style.opacity = '1'; }, 10);" class="tool-link">
+          <a href="javascript:void(0)" onclick="document.getElementById('crypto-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('crypto-overlay').style.opacity = '1'; }, 10);" class="tool-link tool-button-wrapper">
             <div class="tool-button">
               <div class="button-glow"></div>
               <i class="fab fa-bitcoin tool-icon" style="font-size: 34px; color: #f7931a; margin-top: 0; margin-bottom: 0;"></i>
@@ -2529,15 +2522,14 @@
         position: relative;
         border-radius: 12px;
         background: rgba(30, 40, 60, 0.2);
-        padding: 16px 20px;
+        padding: 16px 15px; /* Reduced horizontal padding by 5px each side */
+        height: 200px; /* Increased height from 180px to 200px */
         border: 1px solid rgba(38, 198, 218, 0.2);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         overflow: hidden;
-        display: flex;
-        align-items: center;
       }
       
       .tool-button-wrapper::before {
@@ -2691,7 +2683,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start; /* Align content (icon, title, desc) to the top */
         width: 100%;
         height: 100%;
       }
@@ -2701,7 +2693,7 @@
         .tool-buttons-grid {
           display: grid !important;
           grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-          gap: 20px !important;
+          gap: 15px !important;
           align-items: start;
           width: 100%;
           max-width: 100%;
@@ -2720,6 +2712,11 @@
           padding: 0 4px;
           box-sizing: border-box;
         }
+
+        .tool-button-wrapper {
+          min-height: 140px; /* Allow container to grow for text */
+          padding: 12px 10px; /* Reduced horizontal padding */
+        }
         
         .tool-button {
           width: 60px;
@@ -2736,12 +2733,10 @@
         
         .tool-title {
           font-size: 12px;
-          white-space: nowrap;
+          white-space: normal; /* Allow title to wrap */
           text-align: center;
           margin: 6px 0 2px;
           width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
         
         .tool-description {
@@ -2750,7 +2745,8 @@
           text-align: center;
           width: 100%;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
+          -webkit-line-clamp: 3; /* Limit to 3 lines */
+          line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
           line-height: 1.2;
