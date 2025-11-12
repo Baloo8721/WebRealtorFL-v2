@@ -2880,7 +2880,7 @@
       };
     }
     
-    // Function to submit form data to Supabase
+    // Function to submit form data to n8n webhook
     async function submitToSupabase(event) {
       event.preventDefault();
       
@@ -2893,60 +2893,48 @@
         return;
       }
       
-      // Specialty mapping for combined options
-      const specialtyMap = {
-        'Investment Properties': ['Investor', 'Landlord'],
-        'Distressed Properties': ['Foreclosure', 'Short Sale', 'REO'],
-        'Lifestyle & Specialty Homes': ['Vacation/Second Home', 'Historic', 'Eco-Friendly'],
-        'Management & Development': ['Property Management', 'PUD', 'Farm/Ranch'],
-        'Probate & Divorce': ['Probate', 'Divorce']
-      };
-      
       const form = document.getElementById('referralForm');
       const formData = new FormData(form);
       const specialties = Array.from(form.querySelectorAll('input[name="specialty"]:checked')).map(input => input.value);
-      
-      // Map combined specialties to individual components
       
       // Create data object for submission
       const data = {
         name: formData.get('name'),
         email: formData.get('email'),
-        phone: formData.get('phone'),
-        current_location: formData.get('currentLocation'),
-        desired_location: formData.get('desiredLocation'),
-        client_type: formData.get('clientType'),
-        property_type: formData.get('propertyType'),
-        budget: formData.get('budget'),
-        timeline: formData.get('timeline'),
+        phone: formData.get('phone') || '',
+        current_location: formData.get('currentLocation') || '',
+        desired_location: formData.get('desiredLocation') || '',
+        client_type: formData.get('clientType') || '',
+        property_type: formData.get('propertyType') || '',
+        budget: formData.get('budget') || '',
+        timeline: formData.get('timeline') || '',
         need_to_sell: document.getElementById('needToSell')?.checked || false,
         need_to_buy: document.getElementById('needToBuy')?.checked || false,
         need_to_sell_rent: document.getElementById('needToSellRent')?.checked || false,
         mortgage_preapproval: document.querySelector('input[name="preapproval"]:checked')?.value || 'No',
-        preapproval_amount: document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : null,
+        preapproval_amount: document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : '',
         specialties: specialties.join(', '),
-        notes: formData.get('notes'),
-        referral_source: formData.get('referralSource'),
+        notes: formData.get('notes') || '',
+        referral_source: formData.get('referralSource') || '',
         status: 'New',
-        created_at: new Date().toISOString()
+        timestamp: new Date().toISOString()
       };
       
       console.log('Form data:', data);
       
       try {
-        // Uncomment and update this section when ready to send to Supabase
-        // const response = await fetch('YOUR_SUPABASE_URL/rest/v1/referrals', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'apikey': 'YOUR_SUPABASE_API_KEY'
-        //   },
-        //   body: JSON.stringify(data)
-        // });
-        // 
-        // if (!response.ok) {
-        //   throw new Error('Failed to submit form');
-        // }
+        // Send data to n8n webhook
+        const response = await fetch('https://baloo8721.app.n8n.cloud/webhook-test/527411b9-101c-41fb-b63f-a5daf6386c0a', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to submit form to n8n webhook');
+        }
         
         // Show success message with animation
         const popup = document.getElementById('thankYouPopup');
