@@ -2897,31 +2897,24 @@
       
       const form = document.getElementById('referralForm');
       const formData = new FormData(form);
-      const specialties = Array.from(form.querySelectorAll('input[name="specialty"]:checked')).map(input => input.value);
+      const data = {};
       
-      // Create data object for submission
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone') || '',
-        current_location: formData.get('currentLocation') || '',
-        desired_location: formData.get('desiredLocation') || '',
-        client_type: formData.get('clientType') || '',
-        property_type: formData.get('propertyType') || '',
-        budget: formData.get('budget') || '',
-        timeline: formData.get('timeline') || '',
-        need_to_sell: document.getElementById('needToSell')?.checked || false,
-        need_to_buy: document.getElementById('needToBuy')?.checked || false,
-        need_to_sell_rent: document.getElementById('needToSellRent')?.checked || false,
-        mortgage_preapproval: document.querySelector('input[name="preapproval"]:checked')?.value || 'No',
-        preapproval_amount: document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : '',
-        specialties: specialties.join(', '),
-        notes: formData.get('notes') || '',
-        referral_source: formData.get('referralSource') || '',
-        site_source: 'florida-global',  // Hardcoded site source
-        status: 'New',
-        timestamp: new Date().toISOString()
-      };
+      // Convert FormData to plain object
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      
+      // Add additional fields that might not be in formData
+      const specialties = Array.from(form.querySelectorAll('input[name="specialty"]:checked')).map(input => input.value);
+      data.specialties = specialties.join(', ');
+      data.need_to_sell = document.getElementById('needToSell')?.checked || false;
+      data.need_to_buy = document.getElementById('needToBuy')?.checked || false;
+      data.need_to_sell_rent = document.getElementById('needToSellRent')?.checked || false;
+      data.mortgage_preapproval = document.querySelector('input[name="preapproval"]:checked')?.value || 'No';
+      data.preapproval_amount = document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : '';
+      data.site_source = 'florida-global';  // Ensure site_source is always set
+      data.status = 'New';
+      data.timestamp = new Date().toISOString();
       
       console.log('Form data:', data);
       
