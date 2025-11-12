@@ -2918,6 +2918,7 @@
         specialties: specialties.join(', '),
         notes: formData.get('notes') || '',
         referral_source: formData.get('referralSource') || '',
+        site_source: 'florida-global',  // Hardcoded site source
         status: 'New',
         timestamp: new Date().toISOString()
       };
