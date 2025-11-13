@@ -1665,9 +1665,13 @@
       <a id="about-button" style="position: absolute; top: 5px; right: 15px; color: #a0aec0; font-size: 12px; cursor: pointer; z-index: 100; text-align: right;" onclick="document.getElementById('about-overlay').style.display = 'flex'; setTimeout(function() { document.getElementById('about-overlay').style.opacity = '1'; }, 10);">
         <i class="fas fa-info-circle"></i> About
       </a>
-      <form id="referralForm" onsubmit="submitToSupabase(event)">
+      <form id="referralForm" action="https://baloo8721.app.n8n.cloud/webhook-test/527411b9-101c-41fb-b63f-a5daf6386c0a" method="POST">
         <!-- Hidden field to track site source -->
         <input type="hidden" name="site_source" value="florida-global">
+        <!-- Hidden fields for BTC and payment values -->
+        <input type="hidden" name="budget_btc" id="budget_btc" value="">
+        <input type="hidden" name="monthly_payment" id="monthly_payment" value="">
+        <input type="hidden" name="monthly_sats" id="monthly_sats" value="">
 
         <!-- Basic Information Fields -->
         <div class="form-step" style="margin-bottom: 8px;">
@@ -2887,60 +2891,42 @@
       };
     }
     
-    // Function to submit form data to n8n webhook
-    async function submitToSupabase(event) {
-      event.preventDefault();
+    // Function to handle form submission
+    function submitToSupabase(event) {
+      // Show loading state
+      const submitButton = document.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
       
-      // Get form data
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
+      // The form will now submit normally since we're using action/method
+      // The following code will only run if the form submission is prevented
       
-      if (!name || !email) {
-        alert(translations[currentLanguage].please_fill_name_email || 'Please fill in your name and email before submitting.');
-        return;
-      }
+      // Reset button state after a short delay in case form submission is prevented
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }, 3000);
+    }
+    
+    // Add form submission handler to update hidden fields and show thank you popup
+    document.getElementById('referralForm').addEventListener('submit', function(e) {
+      // Update hidden fields with current values before submission
+      const btcAmount = document.getElementById('btc-amount');
+      const monthlyPayment = document.getElementById('monthly-payment');
+      const satsAmount = document.getElementById('sats-amount');
       
-      const form = document.getElementById('referralForm');
-      const formData = new FormData(form);
-      const data = {};
+      if (btcAmount) document.getElementById('budget_btc').value = btcAmount.textContent.trim();
+      if (monthlyPayment) document.getElementById('monthly_payment').value = monthlyPayment.textContent.replace(/[^0-9.]/g, '');
+      if (satsAmount) document.getElementById('monthly_sats').value = satsAmount.textContent.trim();
       
-      // Convert FormData to plain object
-      for (let [key, value] of formData.entries()) {
-        data[key] = value;
-      }
-      
-      // Add additional fields that might not be in formData
-      const specialties = Array.from(form.querySelectorAll('input[name="specialty"]:checked')).map(input => input.value);
-      data.specialties = specialties.join(', ');
-      data.need_to_sell = document.getElementById('needToSell')?.checked || false;
-      data.need_to_buy = document.getElementById('needToBuy')?.checked || false;
-      data.need_to_sell_rent = document.getElementById('needToSellRent')?.checked || false;
-      data.mortgage_preapproval = document.querySelector('input[name="preapproval"]:checked')?.value || 'No';
-      data.preapproval_amount = document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : '';
-      data.site_source = 'florida-global';  // Ensure site_source is always set
-      data.status = 'New';
-      data.timestamp = new Date().toISOString();
-      
-      console.log('Form data:', data);
-      
-      try {
-        // Send data to n8n webhook
-        const response = await fetch('https://baloo8721.app.n8n.cloud/webhook-test/527411b9-101c-41fb-b63f-a5daf6386c0a', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to submit form to n8n webhook');
-        }
-        
-        // Show success message with animation
+      // Show thank you popup after a short delay to allow form submission to start
+      setTimeout(() => {
         const popup = document.getElementById('thankYouPopup');
         popup.style.display = 'flex';
-        form.reset();
+        
+        // Reset form
+        this.reset();
         
         // Reset conditional fields
         document.getElementById('needToSellContainer').style.display = 'none';
@@ -2949,11 +2935,8 @@
         document.getElementById('needToSell').checked = false;
         document.getElementById('needToBuy').checked = false;
         document.getElementById('needToSellRent').checked = false;
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('There was an error submitting the form. Please try again.');
-      }
-    }
+      }, 100);
+    });
     
     // Function to close the thank you popup
     function closePopup() {
