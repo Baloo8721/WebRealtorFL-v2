@@ -2279,6 +2279,9 @@
             
             const monthlyPayment = principalAndInterest + monthlyTax + monthlyPMI + monthlyInsurance;
             
+            // Update hidden form fields
+            document.getElementById('monthlyPayment').value = Math.round(monthlyPayment);
+            
             // Only update the payment display if not explicitly told to skip it
             if (!skipPaymentUpdate) {
               document.getElementById('monthly-payment').textContent = '$' + Math.round(monthlyPayment).toLocaleString();
@@ -2290,6 +2293,9 @@
             // Update the Satoshi equivalent for the monthly payment if not skipping payment update
             if (!skipPaymentUpdate) {
               updateSatsEquivalent();
+            } else {
+              // If we're skipping the payment update, we still need to update the monthly payment in the hidden field
+              document.getElementById('monthlyPayment').value = Math.round(monthlyPayment);
             }
             
             document.getElementById('pi-amount').textContent = '$' + Math.round(principalAndInterest).toLocaleString();
@@ -2449,6 +2455,11 @@
         <div class="form-step">
           <textarea id="notes" name="notes" class="w-full p-2 border rounded bg-gray-700 text-white" placeholder="Additional notes or must-haves..." maxlength="200"></textarea>
         </div>
+        
+        <!-- Hidden fields for budget and payment calculations -->
+        <input type="hidden" name="budget_btc" id="budgetBtc">
+        <input type="hidden" name="monthly_payment" id="monthlyPayment">
+        <input type="hidden" name="monthly_sats" id="monthlySats">
 
         <div class="form-step">
           <select id="referralSource" name="referralSource" class="w-full p-2 border rounded bg-gray-700 text-white" required data-placeholder="How Did You Find Us?">
