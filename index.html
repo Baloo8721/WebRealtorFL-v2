@@ -2460,6 +2460,11 @@
           </select>
         </div>
 
+        <!-- Hidden fields for conditional options -->
+        <input type="hidden" name="need_to_sell_before_buying" id="needSellBuy" value="false">
+        <input type="hidden" name="need_to_buy_after_selling" id="needBuySell" value="false">
+        <input type="hidden" name="need_to_sell_before_renting" id="needSellRent" value="false">
+        
         <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
     </div>
@@ -2976,6 +2981,28 @@
     
     // Initialize form functionality when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
+      // Handle conditional option checkboxes
+      const needToSellCheckbox = document.getElementById('needToSell');
+      const needToBuyCheckbox = document.getElementById('needToBuy');
+      const needToSellRentCheckbox = document.getElementById('needToSellRent');
+      
+      if (needToSellCheckbox) {
+        needToSellCheckbox.addEventListener('change', function() {
+          document.getElementById('needSellBuy').value = this.checked;
+        });
+      }
+      
+      if (needToBuyCheckbox) {
+        needToBuyCheckbox.addEventListener('change', function() {
+          document.getElementById('needBuySell').value = this.checked;
+        });
+      }
+      
+      if (needToSellRentCheckbox) {
+        needToSellRentCheckbox.addEventListener('change', function() {
+          document.getElementById('needSellRent').value = this.checked;
+        });
+      }
       const clientType = document.getElementById('clientType');
       const needToSellContainer = document.getElementById('needToSellContainer');
       const needToBuyContainer = document.getElementById('needToBuyContainer');
