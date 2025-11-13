@@ -2255,21 +2255,6 @@
           }
           
           function updateBudgetVisualization(value, skipPaymentUpdate = false) {
-            // Update hidden fields for form submission
-            const btcPrice = 35000; // Current BTC price in USD - consider making this dynamic
-            const budget = parseFloat(value) || 0;
-            const btcValue = (budget / btcPrice).toFixed(8);
-            document.getElementById('budgetBtc').value = btcValue;
-            
-            // If we have a monthly payment element, update those hidden fields too
-            const monthlyPaymentElement = document.getElementById('monthly-payment-amount');
-            if (monthlyPaymentElement) {
-              const monthlyPayment = parseFloat(monthlyPaymentElement.textContent.replace(/[^0-9.-]+/g,"")) || 0;
-              const monthlySats = Math.round((monthlyPayment / btcPrice) * 100000000); // Convert to sats
-              document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
-              document.getElementById('monthlySats').value = monthlySats.toFixed(0);
-            }
-            
             // Format the output with commas
             const formattedValue = parseInt(value).toLocaleString();
             document.getElementById('budget-output').textContent = '$' + formattedValue;
@@ -2479,11 +2464,6 @@
         <input type="hidden" name="need_to_sell_before_buying" id="needSellBuy" value="false">
         <input type="hidden" name="need_to_buy_after_selling" id="needBuySell" value="false">
         <input type="hidden" name="need_to_sell_before_renting" id="needSellRent" value="false">
-        
-        <!-- Hidden fields for BTC and payment calculations -->
-        <input type="hidden" name="budget_btc" id="budgetBtc">
-        <input type="hidden" name="monthly_payment" id="monthlyPayment">
-        <input type="hidden" name="monthly_sats" id="monthlySats">
         
         <button type="submit" class="submit-btn" data-lang="submit">Find My Expert Agent Now!</button>
       </form>
@@ -2937,11 +2917,6 @@
       data.need_to_sell_rent = document.getElementById('needToSellRent')?.checked || false;
       data.mortgage_preapproval = document.querySelector('input[name="preapproval"]:checked')?.value || 'No';
       data.preapproval_amount = document.getElementById('preapproval-yes')?.checked ? document.getElementById('preapproval-amount').value : '';
-      
-      // Add BTC and payment calculation values
-      data.budget_btc = document.getElementById('budgetBtc').value || '';
-      data.monthly_payment = document.getElementById('monthlyPayment').value || '';
-      data.monthly_sats = document.getElementById('monthlySats').value || '';
       data.site_source = 'florida-global';  // Ensure site_source is always set
       data.status = 'New';
       data.timestamp = new Date().toISOString();
