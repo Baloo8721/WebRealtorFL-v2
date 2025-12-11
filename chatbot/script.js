@@ -33,8 +33,8 @@ async function loadModels(attempt = 1, maxAttempts = 3) {
       convoPipeline = await transformers.pipeline('text-generation', 'Xenova/phi-2');
       localStorage.setItem('modelsLoaded', 'true');
     }
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('welcomeMsg').style.display = 'block';
+    if (loader) loader.style.display = 'none';
+    if (welcomeMsg) welcomeMsg.style.display = 'block';
     await cacheKeywordEmbeddings();
   } catch (err) {
     console.error(`Model load attempt ${attempt} failed:`, err);
@@ -43,8 +43,8 @@ async function loadModels(attempt = 1, maxAttempts = 3) {
       setTimeout(() => loadModels(attempt + 1, maxAttempts), 3000);
     } else {
       console.log('Models failed, using keyword fallback.');
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('welcomeMsg').style.display = 'block';
+      if (loader) loader.style.display = 'none';
+      if (welcomeMsg) welcomeMsg.style.display = 'block';
     }
   }
 }
@@ -65,17 +65,24 @@ async function cacheKeywordEmbeddings() {
 
 loadModels();
 
-// Service Worker Registration
+// Service Worker Registration - Defer to avoid blocking initial load
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/chatbot/sw.js').catch(err => console.error('Service Worker registration failed:', err));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/chatbot/sw.js').catch(() => {
+      // Silently fail - service worker is not critical for functionality
+    });
+  });
 }
 
+// Cache DOM elements for better performance
 const chatInput = document.getElementById('chatInput');
 const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clear-btn');
 const chatBody = document.getElementById('chatBody');
 const chatContainer = document.querySelector('.chat-container');
 const mortgageCalculator = document.getElementById('mortgageCalculator');
+const loader = document.getElementById('loader');
+const welcomeMsg = document.getElementById('welcomeMsg');
 
 function handleSend(e) {
   e.preventDefault();
@@ -93,19 +100,29 @@ chatInput.addEventListener('keypress', function (e) {
   }
 });
 
+// Throttle scroll operations for better performance
+let scrollTimeout;
+const throttleScroll = (callback, delay = 100) => {
+  if (scrollTimeout) return;
+  scrollTimeout = setTimeout(() => {
+    callback();
+    scrollTimeout = null;
+  }, delay);
+};
+
 chatInput.addEventListener('focus', function () {
   document.body.style.overflow = 'hidden';
-  setTimeout(() => {
+  throttleScroll(() => {
     chatBody.scrollTop = chatBody.scrollHeight;
     chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 300);
+  }, 100);
 });
 
 chatInput.addEventListener('blur', function () {
   document.body.style.overflow = '';
-  setTimeout(() => {
+  throttleScroll(() => {
     chatBody.scrollTop = chatBody.scrollHeight;
-  }, 200);
+  }, 100);
 });
 
 clearBtn.addEventListener('click', function () {
@@ -170,18 +187,22 @@ function sendMessage() {
   }, 100);
 }
 
+// Optimized cosine similarity calculation
 function cosineSimilarity(vecA, vecB) {
+  if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
   let dotProduct = 0;
   let normA = 0;
   let normB = 0;
-  for (let i = 0; i < vecA.length; i++) {
-    dotProduct += vecA[i] * vecB[i];
-    normA += vecA[i] * vecA[i];
-    normB += vecB[i] * vecB[i];
+  const len = vecA.length;
+  for (let i = 0; i < len; i++) {
+    const a = vecA[i];
+    const b = vecB[i];
+    dotProduct += a * b;
+    normA += a * a;
+    normB += b * b;
   }
-  normA = Math.sqrt(normA);
-  normB = Math.sqrt(normB);
-  return normA && normB ? dotProduct / (normA * normB) : 0;
+  const denominator = Math.sqrt(normA) * Math.sqrt(normB);
+  return denominator > 0 ? dotProduct / denominator : 0;
 }
 
 function fuzzyMatch(input, target, isSensitive = false) {

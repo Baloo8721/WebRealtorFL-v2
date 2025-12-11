@@ -7,3 +7,28 @@ chatbot/model/checkpoint-*/**/*.safetensors
 chatbot/model/checkpoint-*/**/*.pt
 chatbot/model/checkpoint-*/**/*.bin
 chatbot/model/checkpoint-*/**/*.pth
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Supabase credentials
+supabase-direct.js
+query-supabase.js
+supabase-helper.js
+supabase-mcp-server.js
+
+# MCP server (contains secrets)
+supabase-mcp/
+.cursor/mcp.json
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -3,10 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Web3 Realty Bot - Your expert for Florida real estate and Web3 transactions">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Web3 Realty Bot</title>
+  
+  <!-- DNS Prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  
+  <!-- Preload critical CSS -->
+  <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js"></script>
-  <!-- Google Analytics -->
+  
+  <!-- Defer non-critical scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js" defer></script>
+  
+  <!-- Google Analytics - Load asynchronously -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
