@@ -996,7 +996,7 @@
     /* Autocomplete styles */
     .autocomplete-results {
       position: absolute;
-      z-index: 10;
+      z-index: 1000;
       background: rgba(30, 40, 60, 0.95);
       width: 100%;
       max-height: 200px;
@@ -1052,7 +1052,9 @@
     /* Quick selection styles */
     .location-quick-select {
       position: absolute;
-      z-index: 10;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
       background: rgba(30, 40, 60, 0.95);
       width: 100%;
       max-height: 250px;
@@ -1903,18 +1905,18 @@
         </div>
 
         <div id="budget-form-step" class="form-step"
-          style="margin-top: 20px; padding: 15px; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5); position: relative;">
+          style="margin-top: 20px; padding: 15px; border-radius: 8px; background-color: rgba(26, 32, 44, 0.5); position: relative; overflow: visible;">
           <div class="text-sm text-white mb-2" data-lang="location_header">Location (From → To)</div>
           <div class="flex flex-row"
-            style="display: flex !important; flex-direction: row !important; justify-content: space-between;">
-            <div style="width: 47%; position: relative;">
+            style="display: flex !important; flex-direction: row !important; justify-content: space-between; overflow: visible;">
+            <div style="width: 47%; position: relative; overflow: visible;">
               <input type="text" id="currentLocation" name="currentLocation"
                 class="w-full p-2 border rounded bg-gray-700 text-white" placeholder="Current Home"
                 data-lang="current_location" required autocomplete="off">
               <div id="currentLocationResults" class="autocomplete-results"></div>
               <div id="currentLocationQuickSelect" class="location-quick-select"></div>
             </div>
-            <div style="width: 47%; position: relative;">
+            <div style="width: 47%; position: relative; overflow: visible;">
               <input type="text" id="desiredLocation" name="desiredLocation"
                 class="w-full p-2 border rounded bg-gray-700 text-white" placeholder="Desired Move"
                 data-lang="desired_location" required autocomplete="off">
@@ -3235,27 +3237,6 @@
       if (userGeoField && !userGeoField.value) {
         console.log('user_geo is empty, attempting to detect now...');
         try {
-          const geo = await detectUserGeo();
-          if (geo) {
-            userGeoField.value = geo;
-            console.log('✓ user_geo set during form submission:', geo);
-          } else if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
-            userGeoField.value = SITE_CONFIG.geo.defaultCity;
-            console.log('✓ Using default geo:', SITE_CONFIG.geo.defaultCity);
-          }
-        } catch (error) {
-          console.error('Failed to detect geo during submission:', error);
-          if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
-            userGeoField.value = SITE_CONFIG.geo.defaultCity;
-          }
-        }
-      }
-
-      // Ensure user_geo is set before submission (in case geo detection is still running)
-      const userGeoField = document.getElementById('user_geo');
-      if (userGeoField && !userGeoField.value) {
-        console.log('user_geo is empty, attempting to detect now...');
-        try {
           const detectGeo = window.detectUserGeo || (typeof detectUserGeo !== 'undefined' ? detectUserGeo : null);
           if (detectGeo) {
             const geo = await detectGeo();
@@ -3754,11 +3735,12 @@
     const requestDelay = 1000; // 1 second delay between requests (Nominatim policy)
 
     function initLocationAutocomplete() {
+      // Initialize location data FIRST before setting up autocomplete
+      initLocationData();
+
+      // Then set up autocomplete handlers
       setupAutocomplete('currentLocation', 'currentLocationResults', 'currentLocationQuickSelect');
       setupAutocomplete('desiredLocation', 'desiredLocationResults', 'desiredLocationQuickSelect');
-
-      // Initialize location data
-      initLocationData();
     }
 
     // Location data for quick selection
@@ -4222,14 +4204,35 @@
       const input = document.getElementById(inputId);
       const resultsContainer = document.getElementById(resultsId);
       const quickSelectContainer = document.getElementById(quickSelectId);
+
+      // Validate all elements exist
+      if (!input) {
+        console.error('Input not found:', inputId);
+        return;
+      }
+      if (!resultsContainer) {
+        console.error('Results container not found:', resultsId);
+        return;
+      }
+      if (!quickSelectContainer) {
+        console.error('Quick select container not found:', quickSelectId);
+        return;
+      }
+
       let selectedIndex = -1;
       let activeContainer = null;
 
-      // Show quick select on focus
-      input.addEventListener('focus', function () {
+      // Function to show the dropdown
+      const showDropdown = function () {
+        console.log('showDropdown called for:', inputId);
+        console.log('Container:', quickSelectContainer);
+        console.log('Location data:', locationData);
+
         // Hide any other open quick selects
         document.querySelectorAll('.location-quick-select').forEach(el => {
-          el.style.display = 'none';
+          if (el !== quickSelectContainer) {
+            el.style.display = 'none';
+          }
         });
         document.querySelectorAll('.autocomplete-results').forEach(el => {
           el.style.display = 'none';
@@ -4239,8 +4242,40 @@
         navigationHistory = [];
         currentLevel = 'countries';
         currentInputId = inputId;
+
+        // Ensure container exists and location data is loaded
+        if (!quickSelectContainer) {
+          console.error('Quick select container not found for:', inputId);
+          return;
+        }
+
+        if (!locationData) {
+          console.error('Location data not initialized');
+          return;
+        }
+
+        if (!locationData.countries) {
+          console.error('Location data countries not found. Available keys:', Object.keys(locationData));
+          return;
+        }
+
+        console.log('Calling showQuickSelectLevel with countries');
         showQuickSelectLevel(quickSelectContainer, 'countries');
+      };
+
+      // Show quick select on focus
+      input.addEventListener('focus', function (e) {
+        showDropdown();
       });
+
+      // Also show on click for mobile devices and as fallback
+      input.addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('Input clicked:', inputId);
+        // Show immediately, don't wait for animation frame
+        showDropdown();
+      }, true); // Use capture phase to fire before document click
 
       input.addEventListener('input', throttle(async function () {
         const query = input.value.trim();
@@ -4307,25 +4342,56 @@
       });
 
       // Hide results when clicking outside
+      // Use a small delay to allow input click to process first
+      let closeTimeout = null;
       document.addEventListener('click', function (e) {
-        // Check if the click is outside both containers and the input
-        if (e.target !== input &&
-          !resultsContainer.contains(e.target) &&
-          !quickSelectContainer.contains(e.target)) {
-          resultsContainer.style.display = 'none';
-          quickSelectContainer.style.display = 'none';
-          activeContainer = null;
+        // Clear any pending close
+        if (closeTimeout) {
+          clearTimeout(closeTimeout);
+          closeTimeout = null;
+        }
 
-          // Clean up the keyboard navigation event listener if it exists
-          if (quickSelectContainer.keyNavHandler) {
-            document.removeEventListener('keydown', quickSelectContainer.keyNavHandler);
-            quickSelectContainer.keyNavHandler = null;
-          }
+        // Check if the click is on the input itself - don't close
+        if (e.target === input) {
+          return;
+        }
+
+        // Check if the click is outside both containers
+        const isClickOnResults = resultsContainer.contains(e.target);
+        const isClickOnQuickSelect = quickSelectContainer.contains(e.target);
+
+        if (!isClickOnResults && !isClickOnQuickSelect) {
+          // Delay to allow input click handler to show dropdown first
+          // Check if dropdown is actually visible before closing
+          closeTimeout = setTimeout(function () {
+            // Only close if dropdown is not being shown (check computed style)
+            const computedDisplay = window.getComputedStyle(quickSelectContainer).display;
+            if (computedDisplay === 'none' || quickSelectContainer.style.display === 'none') {
+              // Already hidden, no need to hide again
+              return;
+            }
+
+            resultsContainer.style.display = 'none';
+            quickSelectContainer.style.display = 'none';
+            activeContainer = null;
+
+            // Clean up the keyboard navigation event listener if it exists
+            if (quickSelectContainer.keyNavHandler) {
+              document.removeEventListener('keydown', quickSelectContainer.keyNavHandler);
+              quickSelectContainer.keyNavHandler = null;
+            }
+          }, 300);
         }
       });
     }
 
     function showQuickSelectLevel(container, level) {
+      if (!container) {
+        console.error('showQuickSelectLevel: container is null');
+        return;
+      }
+
+      console.log('showQuickSelectLevel called for level:', level, 'container:', container);
       container.innerHTML = '';
       selectedIndex = -1;
       let typeBuffer = '';
@@ -4423,6 +4489,12 @@
       container.keyNavHandler = handleKeyNavigation;
 
       // Add items
+      if (!locationData[level]) {
+        console.error('Location data not found for level:', level, 'Available levels:', Object.keys(locationData));
+        container.style.setProperty('display', 'block', 'important');
+        return;
+      }
+
       if (locationData[level]) {
         locationData[level].forEach(item => {
           const element = document.createElement('div');
@@ -4475,7 +4547,27 @@
         });
       }
 
-      container.style.display = 'block';
+      // Force display with !important to ensure it's visible
+      container.style.setProperty('display', 'block', 'important');
+      container.style.setProperty('visibility', 'visible', 'important');
+      container.style.setProperty('opacity', '1', 'important');
+      container.style.setProperty('z-index', '10000', 'important');
+
+      // Double-check visibility
+      if (container.style.display !== 'block') {
+        container.style.display = 'block';
+      }
+
+      // Force a reflow to ensure the browser processes the display change
+      void container.offsetHeight;
+
+      console.log('Dropdown display set. Container:', container);
+      console.log('Display style:', container.style.display);
+      console.log('Computed display:', window.getComputedStyle(container).display);
+      console.log('Computed visibility:', window.getComputedStyle(container).visibility);
+      console.log('Computed opacity:', window.getComputedStyle(container).opacity);
+      console.log('Computed z-index:', window.getComputedStyle(container).zIndex);
+      console.log('Container position:', container.getBoundingClientRect());
     }
 
     function updateSelection(items, selectedIndex) {
