@@ -3230,6 +3230,59 @@
       const submitButton = document.querySelector('button[type="submit"]');
       const originalButtonText = submitButton.innerHTML;
 
+      // Ensure user_geo is set before submission (in case geo detection is still running)
+      const userGeoField = document.getElementById('user_geo');
+      if (userGeoField && !userGeoField.value) {
+        console.log('user_geo is empty, attempting to detect now...');
+        try {
+          const geo = await detectUserGeo();
+          if (geo) {
+            userGeoField.value = geo;
+            console.log('✓ user_geo set during form submission:', geo);
+          } else if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+            userGeoField.value = SITE_CONFIG.geo.defaultCity;
+            console.log('✓ Using default geo:', SITE_CONFIG.geo.defaultCity);
+          }
+        } catch (error) {
+          console.error('Failed to detect geo during submission:', error);
+          if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+            userGeoField.value = SITE_CONFIG.geo.defaultCity;
+          }
+        }
+      }
+
+      // Ensure user_geo is set before submission (in case geo detection is still running)
+      const userGeoField = document.getElementById('user_geo');
+      if (userGeoField && !userGeoField.value) {
+        console.log('user_geo is empty, attempting to detect now...');
+        try {
+          const detectGeo = window.detectUserGeo || (typeof detectUserGeo !== 'undefined' ? detectUserGeo : null);
+          if (detectGeo) {
+            const geo = await detectGeo();
+            if (geo) {
+              userGeoField.value = geo;
+              console.log('✓ user_geo set during form submission:', geo);
+            } else if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+              userGeoField.value = SITE_CONFIG.geo.defaultCity;
+              console.log('✓ Using default geo:', SITE_CONFIG.geo.defaultCity);
+            }
+          } else if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+            userGeoField.value = SITE_CONFIG.geo.defaultCity;
+            console.log('✓ Using default geo (detect function not available):', SITE_CONFIG.geo.defaultCity);
+          }
+        } catch (error) {
+          console.error('Failed to detect geo during submission:', error);
+          if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+            userGeoField.value = SITE_CONFIG.geo.defaultCity;
+            console.log('✓ Using default geo after error:', SITE_CONFIG.geo.defaultCity);
+          }
+        }
+      } else if (userGeoField && userGeoField.value) {
+        console.log('✓ user_geo already set:', userGeoField.value);
+      } else if (!userGeoField) {
+        console.error('✗ user_geo field not found in DOM!');
+      }
+
       // Update hidden fields with current values before submission
       const btcAmount = document.getElementById('btc-amount');
       const monthlyPayment = document.getElementById('monthly-payment');
@@ -3264,6 +3317,23 @@
           formDataObj[key] = value;
         }
         console.log('Form data:', formDataObj);
+
+        // Verify user_geo is included
+        if (formDataObj.user_geo) {
+          console.log('✓ user_geo is included in form data:', formDataObj.user_geo);
+        } else {
+          console.warn('⚠ WARNING: user_geo is missing from form data!');
+          // Try to get it from the field directly
+          const userGeoField = document.getElementById('user_geo');
+          if (userGeoField && userGeoField.value) {
+            console.log('  Found user_geo in field:', userGeoField.value);
+            formData.append('user_geo', userGeoField.value);
+            formDataObj.user_geo = userGeoField.value;
+            console.log('  Added user_geo to form data');
+          } else {
+            console.error('  user_geo field is empty or not found');
+          }
+        }
 
         // Submit to n8n webhook (which forwards to Supabase)
         const response = await fetch(webhookUrl, {
@@ -8088,18 +8158,27 @@
 
         // Geo-detection for user_geo field
         if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.enableGeoDetection) {
-          detectUserGeo().then(geo => {
+          window.detectUserGeo().then(geo => {
             const userGeoField = document.getElementById('user_geo');
             if (userGeoField && geo) {
               userGeoField.value = geo;
+              console.log('✓ User geo detected and set:', geo);
+            } else {
+              console.warn('⚠ Geo detected but field not found or value is empty:', geo);
             }
-          }).catch(() => {
+          }).catch((error) => {
             // Fallback to default geo from config
             const userGeoField = document.getElementById('user_geo');
             if (userGeoField && typeof SITE_CONFIG !== 'undefined') {
               userGeoField.value = SITE_CONFIG.geo.defaultCity;
+              console.log('✓ Using default geo from config:', SITE_CONFIG.geo.defaultCity);
+            } else {
+              console.error('✗ Failed to set user_geo - field not found or config missing');
             }
+            console.error('Geo detection error:', error);
           });
+        } else {
+          console.log('Geo detection is disabled in config');
         }
 
         // Update SEO meta tags from config
@@ -8118,67 +8197,139 @@
         }
       }
 
-      // Geo-detection function
-      async function detectUserGeo() {
-        return new Promise((resolve, reject) => {
-          // Try browser geolocation API first
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              async (position) => {
-                try {
-                  // Reverse geocode to get city/state
-                  const response = await fetch(
-                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}&zoom=10&addressdetails=1`
-                  );
-                  const data = await response.json();
+      // Geo-detection function (make it globally accessible)
+      window.detectUserGeo = async function detectUserGeo() {
+        return new Promise(async (resolve, reject) => {
+          // Method 1: Try timezone-based detection first (no permission needed)
+          try {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            // Map timezones to city, state
+            const timezoneMap = {
+              'America/New_York': { city: 'New York', state: 'NY' },
+              'America/Chicago': { city: 'Chicago', state: 'IL' },
+              'America/Denver': { city: 'Denver', state: 'CO' },
+              'America/Phoenix': { city: 'Phoenix', state: 'AZ' },
+              'America/Los_Angeles': { city: 'Los Angeles', state: 'CA' },
+              'America/Detroit': { city: 'Detroit', state: 'MI' },
+              'America/Indiana/Indianapolis': { city: 'Indianapolis', state: 'IN' },
+              'America/Indiana/Vevay': { city: 'Indianapolis', state: 'IN' },
+              'America/Indiana/Vincennes': { city: 'Indianapolis', state: 'IN' },
+              'America/Indiana/Winamac': { city: 'Indianapolis', state: 'IN' },
+              'America/Kentucky/Louisville': { city: 'Louisville', state: 'KY' },
+              'America/Kentucky/Monticello': { city: 'Louisville', state: 'KY' },
+              'America/Nashville': { city: 'Nashville', state: 'TN' },
+              'America/Boise': { city: 'Boise', state: 'ID' },
+              'America/Anchorage': { city: 'Anchorage', state: 'AK' },
+              'America/Honolulu': { city: 'Honolulu', state: 'HI' },
+              'America/Menominee': { city: 'Menominee', state: 'WI' },
+              'America/Adak': { city: 'Adak', state: 'AK' },
+              'America/Metlakatla': { city: 'Metlakatla', state: 'AK' },
+              'America/Sitka': { city: 'Sitka', state: 'AK' },
+              'America/Juneau': { city: 'Juneau', state: 'AK' },
+              'America/Yakutat': { city: 'Yakutat', state: 'AK' },
+              'America/Nome': { city: 'Nome', state: 'AK' },
+              'America/Atka': { city: 'Atka', state: 'AK' }
+            };
 
-                  if (data && data.address) {
-                    const city = data.address.city || data.address.town || data.address.village || '';
-                    const state = data.address.state || '';
-                    const geoString = city && state ? `${city}, ${state}` : (state || city || '');
-                    resolve(geoString || null);
-                  } else {
-                    reject();
-                  }
-                } catch (error) {
-                  reject();
-                }
-              },
-              () => {
-                // Geolocation failed, try timezone-based detection
-                try {
-                  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  // Extract city from timezone (e.g., "America/New_York" -> "New York")
-                  const cityMatch = timezone.match(/\/([^/]+)$/);
-                  if (cityMatch) {
-                    const city = cityMatch[1].replace(/_/g, ' ');
-                    resolve(city);
-                  } else {
-                    reject();
-                  }
-                } catch (error) {
-                  reject();
-                }
-              },
-              { timeout: 5000 }
-            );
-          } else {
-            // Fallback to timezone detection
-            try {
-              const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-              const cityMatch = timezone.match(/\/([^/]+)$/);
-              if (cityMatch) {
-                const city = cityMatch[1].replace(/_/g, ' ');
-                resolve(city);
-              } else {
-                reject();
+            // Check direct timezone mapping first
+            if (timezoneMap[timezone]) {
+              const location = timezoneMap[timezone];
+              resolve(`${location.city}, ${location.state}`);
+              return;
+            }
+
+            // Extract city from timezone string as fallback
+            const cityMatch = timezone.match(/\/([^/]+)$/);
+            if (cityMatch) {
+              const city = cityMatch[1].replace(/_/g, ' ');
+              // Common timezone to state mappings
+              const cityToState = {
+                'New York': 'NY',
+                'Los Angeles': 'CA',
+                'Chicago': 'IL',
+                'Denver': 'CO',
+                'Phoenix': 'AZ',
+                'Miami': 'FL',
+                'Dallas': 'TX',
+                'Houston': 'TX',
+                'Seattle': 'WA',
+                'Portland': 'OR',
+                'Boston': 'MA',
+                'Detroit': 'MI',
+                'Atlanta': 'GA',
+                'Minneapolis': 'MN',
+                'Kansas City': 'MO',
+                'Indianapolis': 'IN',
+                'Nashville': 'TN',
+                'Charlotte': 'NC',
+                'Tampa': 'FL',
+                'Orlando': 'FL',
+                'Jacksonville': 'FL'
+              };
+              const state = cityToState[city] || '';
+              const geoString = state ? `${city}, ${state}` : city;
+              resolve(geoString);
+              return;
+            }
+          } catch (error) {
+            // Continue to next method
+          }
+
+          // Method 2: Try IP-based geolocation (no permission needed)
+          try {
+            // Try ipapi.co first (free, no API key needed)
+            const response = await fetch('https://ipapi.co/json/', {
+              headers: {
+                'Accept': 'application/json'
               }
-            } catch (error) {
-              reject();
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.city && data.region_code) {
+                const geoString = `${data.city}, ${data.region_code}`;
+                resolve(geoString);
+                return;
+              } else if (data.city) {
+                resolve(data.city);
+                return;
+              }
+            }
+          } catch (error) {
+            // Try alternative IP geolocation service as backup
+            try {
+              const backupResponse = await fetch('https://ip-api.com/json/?fields=city,regionCode', {
+                headers: {
+                  'Accept': 'application/json'
+                }
+              });
+
+              if (backupResponse.ok) {
+                const backupData = await backupResponse.json();
+                if (backupData.city && backupData.regionCode) {
+                  const geoString = `${backupData.city}, ${backupData.regionCode}`;
+                  resolve(geoString);
+                  return;
+                } else if (backupData.city) {
+                  resolve(backupData.city);
+                  return;
+                }
+              }
+            } catch (backupError) {
+              // Continue to fallback
             }
           }
+
+          // Method 3: Fallback to default from config
+          if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.geo.defaultCity) {
+            resolve(SITE_CONFIG.geo.defaultCity);
+            return;
+          }
+
+          // Final fallback
+          reject();
         });
-      }
+      };
 
       // Initialize when DOM is ready
       if (document.readyState === 'loading') {
