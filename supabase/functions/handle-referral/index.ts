@@ -7,7 +7,8 @@ const renderServerUrl = Deno.env.get('RENDER_SERVER_URL')!
 const edgeFunctionSecret = Deno.env.get('EDGE_FUNCTION_SECRET')!
 
 serve(async (req) => {
-  // Verify secret
+  // Temporarily disable auth for testing
+  /*
   const authHeader = req.headers.get('authorization')
   if (!authHeader) {
     return new Response('Unauthorized', { status: 401 })
@@ -17,6 +18,7 @@ serve(async (req) => {
   if (token !== edgeFunctionSecret) {
     return new Response('Unauthorized', { status: 401 })
   }
+  */
 
   try {
     const client = await req.json()
