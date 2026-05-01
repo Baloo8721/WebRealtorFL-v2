@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebRealtor Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { background: #0f172a; color: #e2e8f0; }
+    .card { background: #1e293b; border: 1px solid #334155; }
+    .stat-card { background: linear-gradient(135deg, #26c6da 0%, #0288d1 100%); }
+  </style>
+</head>
+<body class="min-h-screen p-6">
+  <!-- Login Screen -->
+  <div id="loginScreen" class="max-w-md mx-auto mt-20">
+    <div class="card p-8 rounded-lg">
+      <h1 class="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+      <input type="email" id="loginEmail" placeholder="Email" class="w-full p-3 mb-4 rounded bg-slate-800 border border-slate-600">
+      <input type="password" id="loginPassword" placeholder="Password" class="w-full p-3 mb-4 rounded bg-slate-800 border border-slate-600">
+      <button onclick="login()" class="w-full p-3 bg-cyan-500 rounded font-bold hover:bg-cyan-600">Login</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold">Admin Dashboard</h1>
+      <button onclick="logout()" class="p-2 bg-red-500 rounded hover:bg-red-600">Logout</button>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="stat-card p-6 rounded-lg">
+        <h3 class="text-lg font-semibold">Total Clients</h3>
+        <p id="totalClients" class="text-3xl font-bold">0</p>
+      </div>
+      <div class="stat-card p-6 rounded-lg">
+        <h3 class="text-lg font-semibold">Active Referrals</h3>
+        <p id="activeReferrals" class="text-3xl font-bold">0</p>
+      </div>
+      <div class="stat-card p-6 rounded-lg">
+        <h3 class="text-lg font-semibold">Total Agents</h3>
+        <p id="totalAgents" class="text-3xl font-bold">0</p>
+      </div>
+      <div class="stat-card p-6 rounded-lg">
+        <h3 class="text-lg font-semibold">Emails Sent</h3>
+        <p id="emailsSent" class="text-3xl font-bold">0</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 mb-6">
+      <button onclick="showTab('clients')" class="tab-btn px-4 py-2 bg-cyan-500 rounded" data-tab="clients">Clients</button>
+      <button onclick="showTab('referrals')" class="tab-btn px-4 py-2 bg-slate-700 rounded" data-tab="referrals">Referrals</button>
+      <button onclick="showTab('agents')" class="tab-btn px-4 py-2 bg-slate-700 rounded" data-tab="agents">Agents</button>
+      <button onclick="showTab('scraper')" class="tab-btn px-4 py-2 bg-slate-700 rounded" data-tab="scraper">Scraper</button>
+      <button onclick="showTab('analytics')" class="tab-btn px-4 py-2 bg-slate-700 rounded" data-tab="analytics">Analytics</button>
+    </div>
+
+    <!-- Clients Tab -->
+    <div id="clientsTab" class="tab-content">
+      <div class="card p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">Recent Client Submissions</h2>
+        <div id="clientsList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- Referrals Tab -->
+    <div id="referralsTab" class="tab-content hidden">
+      <div class="card p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">Referral Status</h2>
+        <div id="referralsList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- Agents Tab -->
+    <div id="agentsTab" class="tab-content hidden">
+      <div class="card p-6 rounded-lg mb-4">
+        <h2 class="text-xl font-bold mb-4">Add New Agent</h2>
+        <form id="addAgentForm" class="grid grid-cols-2 gap-4">
+          <input type="text" id="agentName" placeholder="Name" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="email" id="agentEmail" placeholder="Email" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="text" id="agentPhone" placeholder="Phone" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="text" id="agentBrokerage" placeholder="Brokerage" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="text" id="agentCities" placeholder="Cities (comma separated)" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="text" id="agentSpecialties" placeholder="Specialties (comma separated)" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <button type="submit" class="col-span-2 p-2 bg-cyan-500 rounded font-bold">Add Agent</button>
+        </form>
+      </div>
+      <div class="card p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">All Agents</h2>
+        <div id="agentsList" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- Scraper Tab -->
+    <div id="scraperTab" class="tab-content hidden">
+      <div class="card p-6 rounded-lg mb-4">
+        <h2 class="text-xl font-bold mb-4">Manual Scraper Trigger</h2>
+        <div class="flex gap-4">
+          <input type="text" id="scrapeCity" placeholder="City" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <input type="text" id="scrapeState" placeholder="State (FL)" value="FL" class="p-2 rounded bg-slate-800 border border-slate-600">
+          <button onclick="triggerScraper()" class="p-2 bg-cyan-500 rounded font-bold">Scrape</button>
+        </div>
+        <div id="scraperStatus" class="mt-4"></div>
+      </div>
+      <div class="card p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">Scraper History</h2>
+        <div id="scraperHistory" class="space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analyticsTab" class="tab-content hidden">
+      <div class="card p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">Site Performance</h2>
+        <div id="siteAnalytics" class="space-y-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://dponfdhixuxriqqxbbri.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.3l4yVUzenXVMrqWxFpXPq6IGpnBSlFK7rcXhkD-LRtw';
+    const RENDER_SERVER_URL = 'https://webrealtor-backend.onrender.com';
+    let supabaseClient;
+    let currentUser = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      checkAuth();
+    });
+
+    // Authentication
+    window.login = async function() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) alert(error.message);
+      else {
+        currentUser = data.user;
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        loadDashboard();
+      }
+    };
+
+    window.logout = async function() {
+      await supabaseClient.auth.signOut();
+      currentUser = null;
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
+    };
+
+    async function checkAuth() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        currentUser = session.user;
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        loadDashboard();
+      }
+    }
+
+    // Dashboard Data
+    async function loadDashboard() {
+      loadStats();
+      loadClients();
+      loadReferrals();
+      loadAgents();
+      loadScraperHistory();
+      loadAnalytics();
+    }
+
+    async function loadStats() {
+      const { count: clientsCount } = await supabaseClient.from('clients').select('*', { count: 'exact', head: true });
+      const { count: referralsCount } = await supabaseClient.from('referrals').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+      const { count: agentsCount } = await supabaseClient.from('agents').select('*', { count: 'exact', head: true }).eq('is_active', true);
+      const { count: emailsCount } = await supabaseClient.from('email_logs').select('*', { count: 'exact', head: true });
+
+      document.getElementById('totalClients').textContent = clientsCount || 0;
+      document.getElementById('activeReferrals').textContent = referralsCount || 0;
+      document.getElementById('totalAgents').textContent = agentsCount || 0;
+      document.getElementById('emailsSent').textContent = emailsCount || 0;
+    }
+
+    async function loadClients() {
+      const { data: clients } = await supabaseClient.from('clients').select('*').order('created_at', { ascending: false }).limit(20);
+      const html = clients.map(c => `
+        <div class="p-4 bg-slate-800 rounded">
+          <p><strong>${c.name}</strong> - ${c.email}</p>
+          <p class="text-sm text-slate-400">Location: ${c.desired_city} | Source: ${c.source_website}</p>
+          <p class="text-sm text-slate-400">Submitted: ${new Date(c.created_at).toLocaleString()}</p>
+        </div>
+      `).join('');
+      document.getElementById('clientsList').innerHTML = html;
+    }
+
+    async function loadReferrals() {
+      const { data: referrals } = await supabaseClient.from('referrals').select('*, clients(name, email), agents(name, email)').order('created_at', { ascending: false }).limit(20);
+      const html = referrals.map(r => `
+        <div class="p-4 bg-slate-800 rounded">
+          <p><strong>${r.clients?.name}</strong> → ${r.agents?.name}</p>
+          <p class="text-sm text-slate-400">Status: ${r.status} | Score: ${r.match_score?.toFixed(2)}</p>
+          <button onclick="updateReferralStatus('${r.id}', 'matched')" class="mt-2 px-2 py-1 bg-green-500 rounded text-sm">Mark Matched</button>
+        </div>
+      `).join('');
+      document.getElementById('referralsList').innerHTML = html;
+    }
+
+    async function loadAgents() {
+      const { data: agents } = await supabaseClient.from('agents').select('*').order('created_at', { ascending: false }).limit(20);
+      const html = agents.map(a => `
+        <div class="p-4 bg-slate-800 rounded">
+          <p><strong>${a.name}</strong> - ${a.email}</p>
+          <p class="text-sm text-slate-400">${a.brokerage} | ${a.service_cities?.join(', ')}</p>
+          <button onclick="toggleAgentActive('${a.id}', ${!a.is_active})" class="mt-2 px-2 py-1 ${a.is_active ? 'bg-red-500' : 'bg-green-500'} rounded text-sm">
+            ${a.is_active ? 'Deactivate' : 'Activate'}
+          </button>
+        </div>
+      `).join('');
+      document.getElementById('agentsList').innerHTML = html;
+    }
+
+    async function loadScraperHistory() {
+      // This would need a scraper_logs table - add to schema
+      document.getElementById('scraperHistory').innerHTML = '<p class="text-slate-400">Scraper history coming soon</p>';
+    }
+
+    async function loadAnalytics() {
+      const { data: clients } = await supabaseClient.from('clients').select('source_website');
+      const siteCounts = {};
+      clients.forEach(c => {
+        siteCounts[c.source_website] = (siteCounts[c.source_website] || 0) + 1;
+      });
+      const html = Object.entries(siteCounts).map(([site, count]) => `
+        <div class="p-4 bg-slate-800 rounded flex justify-between">
+          <span>${site}</span>
+          <span class="font-bold">${count} leads</span>
+        </div>
+      `).join('');
+      document.getElementById('siteAnalytics').innerHTML = html;
+    }
+
+    // Actions
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('bg-cyan-500');
+        el.classList.add('bg-slate-700');
+      });
+      document.getElementById(tabName + 'Tab').classList.remove('hidden');
+      document.querySelector(`[data-tab="${tabName}"]`).classList.remove('bg-slate-700');
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('bg-cyan-500');
+    }
+
+    document.getElementById('addAgentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const agent = {
+        name: document.getElementById('agentName').value,
+        email: document.getElementById('agentEmail').value,
+        phone: document.getElementById('agentPhone').value,
+        brokerage: document.getElementById('agentBrokerage').value,
+        service_cities: document.getElementById('agentCities').value.split(',').map(s => s.trim()),
+        specialties: document.getElementById('agentSpecialties').value.split(',').map(s => s.trim()),
+        service_states: ['FL'],
+        languages: ['English'],
+        is_active: true
+      };
+      await supabaseClient.from('agents').insert(agent);
+      alert('Agent added!');
+      loadAgents();
+      e.target.reset();
+    });
+
+    async function triggerScraper() {
+      const city = document.getElementById('scrapeCity').value;
+      const state = document.getElementById('scrapeState').value;
+      document.getElementById('scraperStatus').innerHTML = '<p class="text-yellow-500">Scraping...</p>';
+      
+      const response = await fetch(`${RENDER_SERVER_URL}/api/scrape`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ city, state })
+      });
+      const result = await response.json();
+      
+      document.getElementById('scraperStatus').innerHTML = `<p class="text-green-500">Found ${result.count} agents</p>`;
+      loadAgents();
+    }
+
+    async function updateReferralStatus(referralId, status) {
+      await supabaseClient.from('referrals').update({ status }).eq('id', referralId);
+      loadReferrals();
+    }
+
+    async function toggleAgentActive(agentId, isActive) {
+      await supabaseClient.from('agents').update({ is_active: isActive }).eq('id', agentId);
+      loadAgents();
+    }
+
+    // Real-time subscriptions
+    function setupRealtime() {
+      supabaseClient.channel('dashboard')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'clients' }, () => loadDashboard())
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'referrals' }, () => loadDashboard())
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'agents' }, () => loadDashboard())
+        .subscribe();
+    }
+
+    if (currentUser) setupRealtime();
+  </script>
+</body>
+</html>
