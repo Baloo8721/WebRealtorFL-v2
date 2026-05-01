@@ -46,6 +46,25 @@ app.post('/api/send-emails', async (req, res) => {
   }
 });
 
+// Form submission endpoint
+app.post('/api/submit', async (req, res) => {
+  try {
+    const formData = req.body;
+    console.log('Form submission received:', formData);
+    
+    // For now, just log the data and return success
+    // TODO: Add actual processing logic (save to database, send emails, etc.)
+    res.json({ 
+      success: true, 
+      message: 'Form submitted successfully',
+      received: formData 
+    });
+  } catch (error) {
+    console.error('Form submission error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Schedule nightly scraping at 2am
 cron.schedule('0 2 * * *', async () => {
   console.log('Starting nightly agent scrape...');
