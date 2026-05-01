@@ -100,8 +100,11 @@ const SITE_CONFIG = {
   // FORM CONFIGURATION
   // ==========================================================================
   form: {
-    // Webhook URL for form submissions (n8n webhook that forwards to Supabase)
-    webhookUrl: 'https://baloo8721.app.n8n.cloud/webhook-test/527411b9-101c-41fb-b63f-a5daf6386c0a',
+    // Edge Function URL (replace after deployment)
+    // Get this from: https://your-project.supabase.co/functions/v1/handle-referral
+    edgeFunctionUrl: 'https://dponfdhixuxriqqxbbri.supabase.co/functions/v1/handle-referral',
+    // Secret for Edge Function authentication
+    edgeFunctionSecret: 'webrealtor3_secret_2026_zxy',
     // Enable geo-detection for user_geo field
     enableGeoDetection: true,
     // Default language code
