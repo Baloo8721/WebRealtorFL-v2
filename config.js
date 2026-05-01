@@ -100,11 +100,8 @@ const SITE_CONFIG = {
   // FORM CONFIGURATION
   // ==========================================================================
   form: {
-    // Edge Function URL (replace after deployment)
-    // Get this from: https://your-project.supabase.co/functions/v1/handle-referral
-    edgeFunctionUrl: 'https://dponfdhixuxriqqxbbri.supabase.co/functions/v1/handle-referral',
-    // Secret for Edge Function authentication
-    edgeFunctionSecret: 'webrealtor3_secret_2026_zxy',
+    // Node.js backend URL (Render deployment)
+    backendUrl: 'https://webrealtor-backend.onrender.com/api/submit',
     // Enable geo-detection for user_geo field
     enableGeoDetection: true,
     // Default language code

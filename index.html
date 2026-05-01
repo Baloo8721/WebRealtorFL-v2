@@ -3279,13 +3279,13 @@
       submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
       try {
-        // Get Edge Function URL from config
-        const edgeFunctionUrl = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.edgeFunctionUrl
-          ? SITE_CONFIG.form.edgeFunctionUrl
+        // Get Node.js backend URL from config
+        const backendUrl = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.backendUrl
+          ? SITE_CONFIG.form.backendUrl
           : null;
 
-        if (!edgeFunctionUrl) {
-          throw new Error('Edge Function URL not configured');
+        if (!backendUrl) {
+          throw new Error('Backend URL not configured');
         }
 
         // Collect all form data
@@ -3313,15 +3313,14 @@
         }
 
         // Debug: Log form data
-        console.log('Submitting form to:', edgeFunctionUrl);
+        console.log('Submitting form to:', backendUrl);
         console.log('Form data:', formDataObj);
 
-        // Submit to Supabase Edge Function
-        const response = await fetch(edgeFunctionUrl, {
+        // Submit to Node.js backend
+        const response = await fetch(backendUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.form.edgeFunctionSecret : ''}`
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(formDataObj)
         });
