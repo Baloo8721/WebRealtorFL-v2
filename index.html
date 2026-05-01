@@ -3280,14 +3280,8 @@
       submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
       try {
-        // Get Node.js backend URL from config
-        const backendUrl = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.backendUrl
-          ? SITE_CONFIG.form.backendUrl
-          : null;
-
-        if (!backendUrl) {
-          throw new Error('Backend URL not configured');
-        }
+        // Hardcoded backend URL to bypass config.js caching issues
+        const backendUrl = 'https://webrealtor-backend.onrender.com/api/submit';
 
         // Collect all form data
         const formData = new FormData(form);
