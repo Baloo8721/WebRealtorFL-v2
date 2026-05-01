@@ -8277,11 +8277,8 @@
 
       // Wait for config to be loaded
       function initSite() {
-        // Set form action from config
-        const form = document.getElementById('referralForm');
-        if (form && typeof SITE_CONFIG !== 'undefined') {
-          form.action = SITE_CONFIG.form.webhookUrl;
-        }
+        // Form action is now handled by JavaScript with hardcoded backend URL
+        // Removed old webhook URL configuration
 
         // Set site_source from config
         const siteSourceField = document.getElementById('site_source');
