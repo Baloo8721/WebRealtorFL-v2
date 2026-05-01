@@ -3278,48 +3278,51 @@
       submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
       try {
-        // Get webhook URL from config
-        const webhookUrl = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.webhookUrl
-          ? SITE_CONFIG.form.webhookUrl
-          : form.action;
+        // Get Edge Function URL from config
+        const edgeFunctionUrl = typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.form.edgeFunctionUrl
+          ? SITE_CONFIG.form.edgeFunctionUrl
+          : null;
 
-        if (!webhookUrl) {
-          throw new Error('Webhook URL not configured');
+        if (!edgeFunctionUrl) {
+          throw new Error('Edge Function URL not configured');
         }
 
-        // Collect all form data (includes all fields: site_source, preferred_language, user_geo, etc.)
-        // FormData automatically handles application/x-www-form-urlencoded format for n8n
+        // Collect all form data
         const formData = new FormData(form);
-
-        // Debug: Log form data (remove in production if needed)
-        console.log('Submitting form to:', webhookUrl);
         const formDataObj = {};
         for (let [key, value] of formData.entries()) {
           formDataObj[key] = value;
         }
-        console.log('Form data:', formDataObj);
+
+        // Add source_website from config
+        if (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.sourceWebsite) {
+          formDataObj.source_website = SITE_CONFIG.sourceWebsite;
+        }
 
         // Verify user_geo is included
         if (formDataObj.user_geo) {
           console.log('✓ user_geo is included in form data:', formDataObj.user_geo);
         } else {
           console.warn('⚠ WARNING: user_geo is missing from form data!');
-          // Try to get it from the field directly
           const userGeoField = document.getElementById('user_geo');
           if (userGeoField && userGeoField.value) {
-            console.log('  Found user_geo in field:', userGeoField.value);
-            formData.append('user_geo', userGeoField.value);
             formDataObj.user_geo = userGeoField.value;
             console.log('  Added user_geo to form data');
-          } else {
-            console.error('  user_geo field is empty or not found');
           }
         }
 
-        // Submit to n8n webhook (which forwards to Supabase)
-        const response = await fetch(webhookUrl, {
+        // Debug: Log form data
+        console.log('Submitting form to:', edgeFunctionUrl);
+        console.log('Form data:', formDataObj);
+
+        // Submit to Supabase Edge Function
+        const response = await fetch(edgeFunctionUrl, {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json',
+            'x-edge-function-secret': typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.form.edgeFunctionSecret : ''
+          },
+          body: JSON.stringify(formDataObj)
         });
 
         if (!response.ok) {
