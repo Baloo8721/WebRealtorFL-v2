@@ -8,8 +8,13 @@ const edgeFunctionSecret = Deno.env.get('EDGE_FUNCTION_SECRET')!
 
 serve(async (req) => {
   // Verify secret
-  const authHeader = req.headers.get('x-edge-function-secret')
-  if (authHeader !== edgeFunctionSecret) {
+  const authHeader = req.headers.get('authorization')
+  if (!authHeader) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+  
+  const token = authHeader.replace('Bearer ', '')
+  if (token !== edgeFunctionSecret) {
     return new Response('Unauthorized', { status: 401 })
   }
 
