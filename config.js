@@ -3,6 +3,7 @@
 // ============================================================================
 // To customize this site, edit the values below. All changes will be applied
 // site-wide automatically.
+// Updated: April 30, 2026 - Form submission fix
 // ============================================================================
 
 const SITE_CONFIG = {
