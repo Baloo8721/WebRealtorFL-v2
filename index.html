@@ -2581,7 +2581,8 @@
         </script>
 
         <div class="form-step">
-          <select id="timeline" name="timeline" class="w-full p-2 border rounded bg-gray-700 text-white" required>
+          <input type="hidden" id="timeline" name="timeline" value="" required>
+          <select id="timeline-select" name="timeline-select" class="w-full p-2 border rounded bg-gray-700 text-white" required>
             <option value="" disabled selected data-lang="timeline">Timeline</option>
             <option value="Immediate" data-lang="immediate">⚡ Immediate</option>
             <option value="1-3 Months" data-lang="1_3_months">📅 1-3 Months</option>
@@ -3320,7 +3321,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-edge-function-secret': typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.form.edgeFunctionSecret : ''
+            'Authorization': `Bearer ${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.form.edgeFunctionSecret : ''}`
           },
           body: JSON.stringify(formDataObj)
         });
@@ -7643,8 +7644,17 @@
       propertyTypeSelect.multiple = true;
 
       // Initialize all custom selects
-      const selects = document.querySelectorAll('select#clientType, select#propertyType, select#timeline, select#referralSource');
+      const selects = document.querySelectorAll('select#clientType, select#propertyType, select#timeline-select, select#referralSource');
       selects.forEach(select => new CustomSelect(select));
+      
+      // Sync timeline input with timeline-select
+      const timelineSelect = document.getElementById('timeline-select');
+      const timelineInput = document.getElementById('timeline');
+      if (timelineSelect && timelineInput) {
+        timelineSelect.addEventListener('change', (e) => {
+          timelineInput.value = e.target.value;
+        });
+      }
 
       // Close select when clicking outside or Done button
       const overlay = document.getElementById('selectOverlay');
@@ -8002,20 +8012,31 @@
     }
 
     // Function to update BTC equivalent display
-    async function updateBTCEquivalent(usdAmount) {
+    async function updateBTCEquivalent(homeValue) {
+      const btcEquivalent = homeValue / 0.000025; // Simplified conversion
+      document.getElementById('budget_btc').value = btcEquivalent.toFixed(8);
+      document.getElementById('monthly_sats').value = Math.round(homeValue * 100000000 / 0.000025);
+    }
+
+    // Function to update Satoshi equivalent for monthly payment
+    async function updateSatsEquivalent() {
+      const monthlyPayment = parseFloat(document.getElementById('monthly-payment').textContent.replace(/[^0-9.]/g, ''));
       const btcPrice = await fetchBTCPrice();
-      const btcValue = usdAmount / btcPrice;
-      const btcDisplay = btcValue >= 0.01 ?
-        btcValue.toFixed(2) :
-        btcValue.toFixed(6);
 
-      const btcAmount = document.getElementById('btc-amount');
-      if (btcAmount) {
-        btcAmount.textContent = `₿${btcDisplay}`;
+      // Calculate Satoshi value (1 BTC = 100,000,000 Satoshis)
+      const satoshiValue = (monthlyPayment / btcPrice) * 100000000;
+
+      // Format the display
+      const satsDisplay = satoshiValue >= 1000000 ?
+        `${(satoshiValue / 1000000).toFixed(2)}M` : // Display in millions if large
+        satoshiValue >= 1000 ?
+          `${(satoshiValue / 1000).toFixed(1)}K` : // Display in thousands if medium
+          Math.round(satoshiValue); // Display as whole number if small
+
+      const satsAmount = document.getElementById('sats-amount');
+      if (satsAmount) {
+        satsAmount.textContent = `₿${satsDisplay} sats`;
       }
-
-      // Also update the monthly payment in Satoshis
-      updateSatsEquivalent();
     }
 
     // Function to make BTC amount editable
