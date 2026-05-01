@@ -30,6 +30,26 @@ app.post('/api/submit', async (req, res) => {
   }
 });
 
+// Setup endpoint for form submissions
+app.post('/setup', async (req, res) => {
+  try {
+    const formData = req.body;
+    console.log('Setup endpoint - Form submission received:', formData);
+    
+    // Process form data
+    // TODO: Add actual processing logic (save to Supabase, send emails via Resend, etc.)
+    
+    res.json({ 
+      success: true, 
+      message: 'Form submitted successfully via /setup endpoint',
+      received: formData 
+    });
+  } catch (error) {
+    console.error('Setup endpoint - Form submission error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Other endpoints (only load if environment variables are set)
 if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
   try {
