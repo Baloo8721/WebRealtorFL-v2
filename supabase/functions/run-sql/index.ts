@@ -1,18 +1,22 @@
+import json
+from fastapi import FastAPI, Request
+app = FastAPI()
 
-import { serve } from 'https://esm.sh/@supabase/functions-js/edge-runtime'
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
-serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
-  const { sql } = await req.json()
-  if (!sql) return new Response(JSON.stringify({error: 'SQL required'}), {status: 400, headers: {'Content-Type': 'application/json', ...corsHeaders}})
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')
-  const supabaseKey = Deno.env.get('SUPABASE_SERVICE_KEY')
-  const res = await fetch(supabaseUrl + '/rest/v1/?sql=' + encodeURIComponent(sql), {
-    headers: {'apikey': supabaseKey, 'Authorization': 'Bearer ' + supabaseKey, 'Content-Type': 'application/json'},
-    method: 'POST'
-  })
-  return new Response(JSON.stringify({success: res.ok, data: res.ok ? await res.json() : null, error: !res.ok ? await res.text() : null}), {status: res.status, headers: {'Content-Type': 'application/json', ...corsHeaders}})
-})
+SUPABASE_URL = "https://dponfdhixuxriqqxbbri.supabase.co"
+SUPABASE_KEY = service_key
+
+@app.get("/")
+async def root():
+    return {"status": "ok"}
+
+@app.post("/")
+async def execute(req: Request):
+    data = await req.json()
+    sql = data.get("sql", "")
+    if not sql.strip():
+        return {"error": "No SQL"}
+    import httpx
+    async with httpx.AsyncClient() as client:
+        headers = {"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"}
+        resp = await client.post(f"{SUPABASE_URL}/sql", headers=headers, params={"sql": sql})
+        return {"status": "success" if resp.status_code == 200 else "error", "data": resp.text[:500]}
