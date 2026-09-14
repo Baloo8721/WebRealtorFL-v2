@@ -3281,7 +3281,7 @@
 
       try {
         // Hardcoded backend URL to bypass config.js caching issues
-        const backendUrl = 'https://webrealtor-backend.onrender.com/setup';
+        const backendUrl = 'https://dponfdhixuxriqqxbbri.supabase.co/functions/v1/handle-referral';
 
         // Collect all form data
         const formData = new FormData(form);
@@ -3315,7 +3315,9 @@
         const response = await fetch(backendUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A'
           },
           body: JSON.stringify(formDataObj)
         });
