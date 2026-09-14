@@ -3,14 +3,13 @@
 // ============================================================================
 // To customize this site, edit the values below. All changes will be applied
 // site-wide automatically.
-// Updated: April 30, 2026 - Form submission fix
+// Updated: September 13, 2026 - Supabase direct migration
 // ============================================================================
 
 const SITE_CONFIG = {
   // ==========================================================================
   // THEME CONFIGURATION
   // ==========================================================================
-  // To change theme colors: Update these values and search/replace in CSS
   theme: {
     primary: '#26c6da',        // Main accent color (cyan)
     secondary: '#0288d1',      // Secondary accent color (blue)
@@ -54,15 +53,11 @@ const SITE_CONFIG = {
   // ==========================================================================
   // SITE SOURCE TRACKING
   // ==========================================================================
-  // This value is sent to Supabase/n8n webhook to track where submissions come from
-  // Change this when cloning the site for different regions/partners
   sourceWebsite: 'florida-realtor',
 
   // ==========================================================================
   // AFFILIATES & FOOTER LINKS
   // ==========================================================================
-  // Add or modify affiliate links here. The ref parameter will be automatically
-  // appended for tracking (e.g., ?ref=florida-realtor)
   affiliates: [
     {
       name: 'Propy',
@@ -101,8 +96,13 @@ const SITE_CONFIG = {
   // FORM CONFIGURATION
   // ==========================================================================
   form: {
-    // Node.js backend URL (Render deployment)
-    backendUrl: 'https://webrealtor-backend.onrender.com/api/submit',
+    // Supabase REST endpoint (direct - no more Render backend)
+    backendUrl: 'https://dponfdhixuxriqqxbbri.supabase.co/rest/v1/clients',
+    // Supabase project details
+    supabase: {
+      url: 'https://dponfdhixuxriqqxbbri.supabase.co',
+      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A'
+    },
     // Enable geo-detection for user_geo field
     enableGeoDetection: true,
     // Default language code
@@ -138,3 +138,35 @@ if (typeof document !== 'undefined') {
   });
 }
 
+// ============================================================================
+// FORM SUBMISSION TO SUPABASE (direct REST)
+// ============================================================================
+
+async function submitToSupabase(formData) {
+  const url = SITE_CONFIG.form.backendUrl;
+  const anonKey = SITE_CONFIG.form.supabase.anonKey;
+  
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': anonKey,
+        'Authorization': `Bearer ${anonKey}`,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(formData)
+    });
+    
+    if (response.ok) {
+      return { success: true, data: await response.json() };
+    } else {
+      const errorText = await response.text();
+      console.error('Supabase error:', errorText);
+      return { success: false, error: errorText };
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { success: false, error: error.message };
+  }
+}
