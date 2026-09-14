@@ -1,172 +1,129 @@
-// ============================================================================
-// SITE CONFIGURATION FILE
-// ============================================================================
-// To customize this site, edit the values below. All changes will be applied
-// site-wide automatically.
-// Updated: September 13, 2026 - Supabase direct migration
-// ============================================================================
+// ============================================
+// WebRealtorFL-v2 - Main Configuration
+// ============================================
 
 const SITE_CONFIG = {
-  // ==========================================================================
-  // THEME CONFIGURATION
-  // ==========================================================================
-  theme: {
-    primary: '#26c6da',        // Main accent color (cyan)
-    secondary: '#0288d1',      // Secondary accent color (blue)
-    background: '#1a1a1a',     // Main background color
-    text: '#ffffff',           // Primary text color
-    textSecondary: '#e0e6ed', // Secondary text color
-    fonts: {
-      primary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-      heading: "'Inter', sans-serif"
-    },
-    heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop'
+  siteName: "Web3RealEstateFL",
+  siteTitle: "Florida Real Estate Agent Search",
+  siteSubtitle: "Find the Perfect Real Estate Agent for Your Needs",
+  brandColor: "#e74c3c",
+  brandColorLight: "#ff6b6b",
+  brandColorDark: "#c0392b",
+  logo: "/logo.png",
+  favicon: "/favicon.ico",
+  logoText: "🏠 Web3RealtorFL",
+  
+  // Contact
+  contactEmail: "tylerbelislefl@gmail.com",
+  adminEmail: "tylerbelislefl@gmail.com",
+  adminPhone: "+1 (813) 555-0101",
+  companyName: "Web3RealEstate Florida LLC",
+  
+  // Supabase Backend
+  supabase: {
+    url: "https://dponfdhixuxriqqxbbri.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A",
+    serviceRoleKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTg0OTQ1NiwiZXhwIjoyMDc3NDI1NDU2fQ.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A"
   },
-
-  // ==========================================================================
-  // SEO & META CONFIGURATION
-  // ==========================================================================
+  
+  // Backend Edge Function (handles matching + emails)
+  endpoint: "/api/handle-referral",  // Supabase Edge Function path
+  
+  // Geo Targeting
+  targetRegions: {
+    primary: "florida",  // FL, NY, TX, CA
+    states: ["FL"],
+    cities: ["Miami", "Tampa", "Orlando", "Jacksonville", "Fort Lauderdale", "Tallahassee", "Sarasota", "Naples"],
+    international: ["CA", "NY", "NV", "CT", "GA"] // Top outbound markets
+  },
+  
+  // Multi-Language
+  languages: {
+    supported: ["en", "es", "pt"],
+    default: "en",
+    translations: {}, // Loaded dynamically
+    detectBrowser: true  // Auto-detect from browser
+  },
+  
+  // Affiliate Tracking
+  affiliate: {
+    enabled: true,
+    partners: [
+      { name: "TitleMax", link: "", type: "title company" },
+      { name: "Guaranteed Rate", link: "", type: "mortgage" },
+      { name: "Lemonade", link: "", type: "insurance" }
+    ]
+  },
+  
+  // Crypto/Web3 Features
+  crypto: {
+    enabled: true,
+    acceptBTC: true,
+    acceptETH: true,
+    cryptoPayment: "https://web3realtorfl.com/pay",
+    btcAddress: "bc1q...[placeholder]",
+    ethAddress: "0x...[placeholder]"
+  },
+  
+  // Chatbot & AI
+  chatbot: {
+    enabled: true,
+    model: "default",
+    autoReply: true,
+    showInAllPages: false
+  },
+  
+  // SEO & Analytics
   seo: {
-    title: 'Web3RealtorFL - Your Florida Property Match',
-    description: 'Free, fast agent matching from licensed FL experts and Web3 technology for Florida real estate',
-    keywords: 'Florida real estate, realtor, property match, Web3, blockchain real estate, Miami, Orlando, Tampa',
-    canonical: 'https://baloo8721.github.io/WebRealtorFL-v2/',
-    og: {
-      title: 'Web3RealtorFL - Your Florida Property Match',
-      description: 'Free, fast agent matching from licensed FL experts and Web3 technology',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
-      type: 'website',
-      siteName: 'Web3RealtorFL'
-    }
+    title: "Florida Real Estate Agent Search | Web3RealtorFL",
+    description: "Find top-rated real estate agents in Florida specializing in first-time buyers, luxury homes, crypto, and investor properties.",
+    keywords: "Florida realtor, crypto real estate, first-time buyer agent, luxury real estate FL",
+    googleAnalytics: "UA-00000000-1",  // Update when ready
+    metaTags: {}
+  },
+  
+  // Referral Pipeline
+  referral: {
+    enableEsign: false,     // Skip for day 1
+    agentAcceptWindow: 72,  // hours
+    maxMatches: 3,
+    autoReject: true,
+    statusFlow: [
+      "pending",
+      "matched",
+      "agent-notified",
+      "agent-accepted",
+      "client-signed",
+      "broker-reviewed",
+      "closed/completed"
+    ]
   },
 
-  // ==========================================================================
-  // GEO TARGETING CONFIGURATION
-  // ==========================================================================
-  geo: {
-    defaultCity: 'Miami, FL',
-    defaultState: 'Florida',
-    defaultCountry: 'United States',
-    targetRegions: ['Florida', 'Miami', 'Orlando', 'Tampa', 'Jacksonville']
+  // Features
+  features: {
+    enableScraping: true,     // Daily agent list scraping
+    enableAnalytics: true,    // Track site visits
+    enableNewsletter: true,   // Email newsletter signup  
+    enableChatbot: true       // AI chatbot assistant
   },
 
-  // ==========================================================================
-  // SITE SOURCE TRACKING
-  // ==========================================================================
-  sourceWebsite: 'florida-realtor',
-
-  // ==========================================================================
-  // AFFILIATES & FOOTER LINKS
-  // ==========================================================================
-  affiliates: [
-    {
-      name: 'Propy',
-      url: 'https://propy.com',
-      description: 'Streamlined title and real estate transactions with blockchain tech.',
-      logo: 'Logos/propy-logo-1.png'
-    },
-    {
-      name: 'Cyrin',
-      url: 'https://cyrin.com',
-      description: 'Web3 education platform'
-    },
-    {
-      name: 'Updraft',
-      url: 'https://updraft.com',
-      description: 'Web3 education platform'
-    },
-    {
-      name: 'Web3 Real Estate Calculator',
-      url: 'https://baloo8721.github.io/Web3-Real-Estate-Calculator/',
-      description: 'Calculate real estate costs with crypto'
-    },
-    {
-      name: 'Spatial.io',
-      url: 'https://spatial.io',
-      description: '3D Virtual Office'
-    },
-    {
-      name: 'NAR Foreclosure Resources',
-      url: 'https://www.nar.realtor/foreclosure-resources',
-      description: 'Free Foreclosure/Short Sale Resources'
-    }
-  ],
-
-  // ==========================================================================
-  // FORM CONFIGURATION
-  // ==========================================================================
-  form: {
-    // Supabase REST endpoint (direct - no more Render backend)
-    backendUrl: 'https://dponfdhixuxriqqxbbri.supabase.co/rest/v1/clients',
-    // Supabase project details
-    supabase: {
-      url: 'https://dponfdhixuxriqqxbbri.supabase.co',
-      anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwb25mZGhpeHV4cmlxcXhiYnJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NDk0NTYsImV4cCI6MjA3NzQyNTQ1Nn0.fFZ9yVUkuS2L9gbnO3oQrqVauEjyHqwLGRrWVW7lU7A'
-    },
-    // Enable geo-detection for user_geo field
-    enableGeoDetection: true,
-    // Default language code
-    defaultLanguage: 'en'
+  // Theme
+  theme: {
+    colorScheme: "light",
+    customCSS: false,
+    fontSize: "normal"
+  },
+  
+  // Legal
+  legal: {
+    enableCookieBanner: true,
+    privacyPolicyUrl: "/privacy",
+    termsUrl: "/terms",
+    enableCookieConsent: true
   }
 };
 
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
-
-// Get affiliate URL with tracking parameter
-function getAffiliateUrl(url) {
-  if (!url) return '#';
-  const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}ref=${SITE_CONFIG.sourceWebsite}`;
-}
-
-// Apply theme colors to CSS variables (called on page load)
-function applyTheme() {
-  const root = document.documentElement;
-  root.style.setProperty('--color-primary', SITE_CONFIG.theme.primary);
-  root.style.setProperty('--color-secondary', SITE_CONFIG.theme.secondary);
-  root.style.setProperty('--color-background', SITE_CONFIG.theme.background);
-  root.style.setProperty('--color-text', SITE_CONFIG.theme.text);
-  root.style.setProperty('--color-text-secondary', SITE_CONFIG.theme.textSecondary);
-}
-
-// Initialize config on page load
-if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', function() {
-    applyTheme();
-  });
-}
-
-// ============================================================================
-// FORM SUBMISSION TO SUPABASE (direct REST)
-// ============================================================================
-
-async function submitToSupabase(formData) {
-  const url = SITE_CONFIG.form.backendUrl;
-  const anonKey = SITE_CONFIG.form.supabase.anonKey;
-  
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': anonKey,
-        'Authorization': `Bearer ${anonKey}`,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify(formData)
-    });
-    
-    if (response.ok) {
-      return { success: true, data: await response.json() };
-    } else {
-      const errorText = await response.text();
-      console.error('Supabase error:', errorText);
-      return { success: false, error: errorText };
-    }
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return { success: false, error: error.message };
-  }
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = SITE_CONFIG;
 }
