@@ -177,16 +177,18 @@ serve(async (req) => {
         emailId: emailBody?.id
       })
       
-      // Log each email
+      // Log each email sent (agent, client, admin)
       for (const refId of referralIds) {
-        await supabase.from('email_logs').insert({
-          referral_id: refId,
-          email_type: 'match_notification',
-          recipient_email: agentEmail,
-          subject,
-          status: emailRes.ok ? 'sent' : 'failed',
-          sent_at: new Date().toISOString()
-        })
+        for (const recipient of recipients) {
+          await supabase.from('email_logs').insert({
+            referral_id: refId,
+            email_type: 'match_notification',
+            recipient_email: recipient,
+            subject,
+            status: emailRes.ok ? 'sent' : 'failed',
+            sent_at: new Date().toISOString()
+          })
+        }
       }
     }
 
