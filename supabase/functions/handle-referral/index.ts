@@ -1,13 +1,12 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const supabaseUrl = Deno.env.get('DB_URL')!
-const supabaseServiceKey = Deno.env.get('DB_SERVICE_KEY')!
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_KEY')!
 const resendApiKey = Deno.env.get('RESEND_API_KEY')!
 
 // Simple embedding function - generates a basic vector from text
 function generateEmbedding(text: string): number[] {
-  // Hash-based embedding: create 1024-dim vector from text tokens
   const words = text.toLowerCase().split(/\s+/)
   const embedding = new Array(1024).fill(0)
   
@@ -35,18 +34,17 @@ serve(async (req) => {
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
     
-    // 1. Generate embedding internally (no Render dep)
+    // 1. Generate embedding from client data
     const text = [
-      client.client_types?.join(' '),
-      client.desired_city,
-      client.preferred_language,
-      client.agent_specialties?.join(' '),
-      client.property_types?.join(' ')
+      client.preferred_language || '',
+      client.desired_city || '',
+      ...(client.agent_specialties || []),
+      ...(client.client_types || [])
     ].filter(Boolean).join(' ')
     
     const embedding = generateEmbedding(text)
     
-    // 2. Save client with embedding directly to Supabase
+    // 2. Save client to Supabase
     const { data: savedClient, error: clientError } = await supabase
       .from('clients')
       .insert({
@@ -56,10 +54,13 @@ serve(async (req) => {
         desired_city: client.desired_city,
         preferred_language: client.preferred_language,
         agent_specialties: client.agent_specialties,
+        client_types: client.client_types,
         property_types: client.property_types,
-        budget: client.budget,
-        source_website: client.source_website,
-        user_geo: client.user_geo,
+        budget_amount: client.budget,
+        timeline: client.timeline,
+        additional_notes: client.additional_notes || '',
+        source_website: client.source_website || 'unknown',
+        user_geo: client.user_geo || '',
         embedding: `[${embedding.join(',')}]`
       })
       .select()
@@ -70,38 +71,52 @@ serve(async (req) => {
     console.log('Client saved:', savedClient.id)
     
     // 3. Find matching agents via RPC
-    const { data: agents, error: agentsError } = await supabase.rpc('match_agents', {
+    const { data: matchedAgents, error: agentsError } = await supabase.rpc('match_agents', {
       query_embedding: `[${embedding.join(',')}]`,
       desired_city: client.desired_city,
       required_specialties: client.agent_specialties,
       preferred_language: client.preferred_language,
-      match_count: 10
+      match_count: 3
     })
     
     if (agentsError) throw agentsError
     
-    console.log('Matched agents:', agents?.length || 0)
+    console.log('Matched agents:', matchedAgents?.length || 0)
     
     // 4. Create referral records
-    const referralRecords = []
-    for (const agent of agents) {
-      const referral = await supabase.from('referrals').insert({
+    const referralIds: string[] = []
+    for (const agent of (matchedAgents || [])) {
+      const { data: referral } = await supabase.from('referrals').insert({
         client_id: savedClient.id,
         agent_id: agent.id,
         status: 'pending',
-        match_score: agent.similarity,
-        vector_similarity: agent.similarity,
-        specialty_match: true,
-        language_match: client.preferred_language === agent.languages?.[0],
-        location_match: agent.service_cities?.includes(client.desired_city)
-      }).select()
+        match_score: agent.similarity
+      }).select().single()
       
-      referralRecords.push(referral)
+      if (referral) {
+        referralIds.push(referral.id)
+      }
     }
     
-    // 5. Send emails directly via Resend (no Render dep)
+    // 5. Send emails via Resend
     const emailsSent = []
-    for (const agent of agents) {
+    for (const agent of (matchedAgents || [])) {
+      const agentName = agent.name || 'Agent'
+      const emails = [agent.email, client.email, 'tylerbelislefl@gmail.com']
+      const subject = `New Match: ${client.name} needs a ${client.agent_specialties?.[0] || 'realtor'}`
+      const html = `
+        <h2>New Client Match</h2>
+        <p><strong>Name:</strong> ${client.name}</p>
+        <p><strong>Email:</strong> ${client.email}</p>
+        <p><strong>Phone:</strong> ${client.phone}</p>
+        <p><strong>Looking for:</strong> ${client.agent_specialties?.join(', ') || a realtor'}</p>
+        <p><strong>City:</strong> ${client.desired_city}</p>
+        <p><strong>Budget:</strong> $${client.budget || 'N/A'}</p>
+        <p><strong>Match Score:</strong> ${(agent.similarity * 100).toFixed(0)}%</p>
+        <hr>
+        <p>Rank #${(matchedAgents || []).indexOf(agent) + 1} of ${(matchedAgents || []).length} matches.</p>
+      `
+      
       const emailRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -110,19 +125,9 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           from: 'Web3RealtorFL <onboarding@resend.dev>',
-          to: [agent.email],
-          subject: `New Match! ${client.name} needs a ${client.agent_specialties?.[0] || 'realtor'} in ${client.desired_city}`,
-          html: `
-            <h2>New Client Match</h2>
-            <p><strong>Name:</strong> ${client.name}</p>
-            <p><strong>Email:</strong> ${client.email}</p>
-            <p><strong>Phone:</strong> ${client.phone}</p>
-            <p><strong>Looking for:</strong> ${client.agent_specialties?.[0] || 'a realtor'}</p>
-            <p><strong>City:</strong> ${client.desired_city}</p>
-            <p><strong>Match Score:</strong> ${(agent.similarity * 100).toFixed(0)}%</p>
-            <hr>
-            <p>You received this match because you are the #${agents.indexOf(agent) + 1} best match for this client.</p>
-          `
+          to: emails,
+          subject,
+          html
         })
       })
       
@@ -130,21 +135,24 @@ serve(async (req) => {
       emailsSent.push({ agent: agent.email, success: emailRes.ok })
       
       // Log email
-      await supabase.from('email_logs').insert({
-        referral_id: referralRecords[agents.indexOf(agent)]?.data?.[0]?.id,
-        email_type: 'match_notification',
-        recipient_email: agent.email,
-        subject: `New Match: ${client.name}`,
-        status: emailRes.ok ? 'sent' : 'failed',
-        sent_at: new Date().toISOString()
-      })
+      for (const refId of referralIds) {
+        await supabase.from('email_logs').insert({
+          referral_id: refId,
+          email_type: 'match_notification',
+          recipient_email: agent.email,
+          subject,
+          status: emailRes.ok ? 'sent' : 'failed',
+          sent_at: new Date().toISOString()
+        })
+      }
     }
     
     return new Response(JSON.stringify({
       success: true,
-      matchedCount: agents?.length || 0,
+      clientId: savedClient.id,
+      matchedCount: (matchedAgents || []).length,
       emailsSent,
-      clientId: savedClient.id
+      referralIds
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
